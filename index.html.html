@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Divine Linguist Public Speaking Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   ROOT VARIABLES
+═══════════════════════════════════════════ */
+:root{
+  --gold:#C9A84C;--gold-l:#E8C96A;--gold-d:#8a6d2f;--gold-bg:rgba(201,168,76,.08);--gold-bg2:rgba(201,168,76,.14);
+  --navy:#0D1B2A;--navy-m:#162333;--navy-s:#1e2f42;--navy-c:#192b3c;
+  --cream:#F5F0E8;--text:#f0ebe0;--sub:#a89878;--muted:rgba(168,152,120,.5);
+  --ok:#4CAF82;--err:#e07070;--warn:#e0a040;
+  --border:rgba(201,168,76,.18);--bsoft:rgba(255,255,255,.07);
+  --r:12px;--rs:8px;--sh:0 4px 24px rgba(0,0,0,.3);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;font-family:'DM Sans',sans-serif;font-weight:300;background:var(--navy);color:var(--text);overflow-x:hidden}
+a{color:var(--gold);text-decoration:none}
+button{cursor:pointer;font-family:'DM Sans',sans-serif}
+input,textarea,select{font-family:'DM Sans',sans-serif}
+.hidden{display:none!important}
+
+/* ═══════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════ */
+.serif{font-family:'Playfair Display',serif}
+.gold{color:var(--gold)}
+.sub-c{color:var(--sub)}
+.muted-c{color:var(--muted)}
+.ok-c{color:var(--ok)}
+.err-c{color:var(--err)}
+.warn-c{color:var(--warn)}
+.center{text-align:center}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.gap8{gap:8px}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+#toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-90px);
+  background:var(--navy-s);border:1px solid var(--border);
+  color:var(--text);padding:11px 20px;border-radius:30px;
+  font-size:.84rem;z-index:9999;transition:transform .3s;
+  white-space:nowrap;max-width:90vw;box-shadow:var(--sh);
+}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.ok{border-color:var(--ok);color:var(--ok)}
+#toast.err{border-color:var(--err);color:var(--err)}
+
+/* ═══════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════ */
+#loader{position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9998;transition:opacity .4s}
+#loader.fade{opacity:0;pointer-events:none}
+.ring{width:44px;height:44px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--gold);animation:spin .8s linear infinite;margin-bottom:14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-txt{font-size:.75rem;color:var(--sub);letter-spacing:.12em;text-transform:uppercase}
+
+/* ═══════════════════════════════════════════
+   MODALS
+═══════════════════════════════════════════ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:800;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--navy-m);border:1px solid var(--border);border-radius:20px 20px 0 0;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;padding:20px 20px 44px;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.handle{width:38px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 18px}
+
+/* ═══════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════ */
+/* Cards */
+.card{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.card-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold-l);margin-bottom:6px}
+
+/* Badges */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.b-gold{background:var(--gold-bg2);color:var(--gold)}
+.b-ok{background:rgba(76,175,130,.15);color:var(--ok)}
+.b-err{background:rgba(224,112,112,.15);color:var(--err)}
+.b-warn{background:rgba(224,160,64,.15);color:var(--warn)}
+.b-muted{background:var(--bsoft);color:var(--sub)}
+.b-lesson{background:rgba(100,150,255,.12);color:#7aabff}
+.b-mindset{background:rgba(255,180,100,.12);color:#ffb464}
+.b-breath{background:rgba(100,220,180,.12);color:#5fd4b0}
+.b-speak{background:rgba(220,100,200,.12);color:#e07ad4}
+
+/* Buttons */
+.btn{display:block;width:100%;padding:13px;text-align:center;border-radius:var(--rs);font-size:.9rem;font-weight:500;border:none;transition:opacity .2s,transform .1s;letter-spacing:.02em}
+.btn:active{transform:scale(.98)}
+.btn-p{background:linear-gradient(135deg,var(--gold),#a8802a);color:var(--navy);font-weight:600}
+.btn-o{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.btn-g{background:transparent;color:var(--sub);border:1px solid var(--bsoft)}
+.btn-ok{background:rgba(76,175,130,.15);color:var(--ok);border:1px solid rgba(76,175,130,.3)}
+.btn-d{background:rgba(224,112,112,.12);color:var(--err);border:1px solid rgba(224,112,112,.25)}
+.btn-sm{padding:8px 16px;font-size:.82rem;width:auto;display:inline-block}
+.btn-row{display:flex;gap:10px;margin-top:12px}
+.btn-row .btn{flex:1}
+
+/* Form */
+.f{margin-bottom:14px}
+.flbl{font-size:.73rem;color:var(--sub);margin-bottom:5px;letter-spacing:.03em;text-transform:uppercase}
+.f input,.f textarea,.f select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.9rem;font-weight:300;padding:10px 13px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--gold)}
+.f input::placeholder,.f textarea::placeholder{color:var(--muted)}
+.f textarea{resize:vertical;min-height:76px}
+.f select option{background:var(--navy-m)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Progress */
+.pgwrap{background:var(--bsoft);border-radius:20px;height:6px;overflow:hidden}
+.pgfill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:20px;transition:width .5s}
+
+/* Section heading */
+.sh{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:4px}
+.ssub{font-size:.82rem;color:var(--sub);margin-bottom:14px}
+
+/* Divider */
+.hr{border:none;border-top:1px solid var(--border);margin:14px 0}
+
+/* Stats */
+.stats{display:grid;gap:10px;margin-bottom:16px}
+.stats-3{grid-template-columns:repeat(3,1fr)}
+.stats-4{grid-template-columns:repeat(4,1fr)}
+.scard{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center}
+.snum{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold)}
+.slbl{font-size:.68rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+/* Empty state */
+.empty{text-align:center;padding:36px 20px;color:var(--muted)}
+.empty .ei{font-size:2.2rem;margin-bottom:10px;opacity:.5}
+.empty p{font-size:.84rem;line-height:1.6}
+
+/* Streak badge */
+.streak-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(224,160,64,.12);border:1px solid rgba(224,160,64,.3);border-radius:20px;padding:5px 12px;font-size:.8rem;color:var(--warn)}
+
+/* Radio / Check opts */
+.ropts{display:flex;flex-direction:column;gap:7px}
+.ropt{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--bsoft);border-radius:var(--rs);padding:9px 12px;cursor:pointer;transition:all .15s}
+.ropt.sel{border-color:var(--gold);background:var(--gold-bg)}
+.rdot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(201,168,76,.35);flex-shrink:0;margin-top:2px;transition:all .15s}
+.ropt.sel .rdot{background:var(--gold);border-color:var(--gold)}
+.cbox{width:16px;height:16px;border-radius:4px;border:2px solid rgba(201,168,76,.35);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .15s}
+.ropt.sel .cbox{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.rtxt{font-size:.86rem;color:var(--text);line-height:1.4}
+.scale-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.sdot{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--sub);font-size:.78rem;cursor:pointer;transition:all .15s}
+.sdot.sel{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
+
+/* ═══════════════════════════════════════════
+   VIEW: WELCOME
+═══════════════════════════════════════════ */
+#vwelcome{min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(170deg,#0a1520,#162333 55%,#1a2b3d)}
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 28px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:340px;height:340px;background:radial-gradient(circle,rgba(201,168,76,.13) 0,transparent 70%);pointer-events:none}
+.hero-mic{font-size:3.2rem;margin-bottom:14px;filter:drop-shadow(0 0 18px rgba(201,168,76,.55));animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-acad{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;line-height:1.35}
+.hero-div{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto}
+.hero-tag{font-size:.78rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.hero-h{font-family:'Playfair Display',serif;font-size:1.55rem;font-style:italic;color:var(--cream);line-height:1.4;margin-bottom:10px}
+.hero-p{font-size:.87rem;color:var(--sub);line-height:1.65;max-width:300px;margin:0 auto}
+.wactions{padding:22px 24px 44px}
+.wactions .btn{margin-bottom:11px}
+.wnote{text-align:center;font-size:.74rem;color:var(--muted);margin-top:4px}
+
+/* ═══════════════════════════════════════════
+   VIEW: AUTH
+═══════════════════════════════════════════ */
+.aview{min-height:100vh;display:flex;flex-direction:column;background:var(--navy-m)}
+.ahdr{background:var(--navy);border-bottom:1px solid var(--border);padding:15px 20px;display:flex;align-items:center;gap:12px}
+.ahdr-back{background:none;border:none;color:var(--sub);font-size:1.1rem;padding:4px;line-height:1}
+.ahdr-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold-l)}
+.abody{flex:1;padding:24px 20px 40px}
+.aswitch{text-align:center;font-size:.83rem;color:var(--sub);margin-top:16px}
+
+/* ═══════════════════════════════════════════
+   VIEW: DIAGNOSTIC (multi-step)
+═══════════════════════════════════════════ */
+#vdiag{min-height:100vh;background:var(--navy);display:flex;flex-direction:column}
+.diag-hdr{background:var(--navy-m);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.diag-hdr-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold-l)}
+.diag-step-pill{font-size:.72rem;color:var(--sub);background:var(--bsoft);padding:4px 12px;border-radius:20px}
+.diag-body{flex:1;padding:20px 20px 60px;max-width:600px;width:100%;margin:0 auto}
+.diag-section-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold-l);margin-bottom:4px;margin-top:6px}
+.diag-section-sub{font-size:.82rem;color:var(--sub);margin-bottom:18px;line-height:1.5}
+.diag-q{margin-bottom:20px}
+.diag-qn{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.diag-qt{font-size:.9rem;color:var(--text);line-height:1.55;margin-bottom:8px}
+.diag-nav{position:fixed;bottom:0;left:0;right:0;background:var(--navy-m);border-top:1px solid var(--border);padding:14px 20px 28px;display:flex;gap:10px;max-width:600px;margin:0 auto}
+.diag-prog{height:3px;background:var(--bsoft)}
+.diag-prog-fill{height:100%;background:var(--gold);transition:width .4s}
+
+/* ═══════════════════════════════════════════
+   VIEW: ARCHETYPE REVEAL
+═══════════════════════════════════════════ */
+#varchetype{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;position:relative;overflow:hidden}
+#varchetype::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(201,168,76,.15) 0,transparent 65%);pointer-events:none}
+.arch-reveal{animation:revealIn .6s ease both}
+@keyframes revealIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.arch-icon{font-size:4rem;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(201,168,76,.6))}
+.arch-label{font-size:.72rem;color:var(--sub);text-transform:uppercase;letter-spacing:.15em;margin-bottom:8px}
+.arch-name{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--gold);line-height:1.15;margin-bottom:6px}
+.arch-temper{font-size:.8rem;color:var(--sub);margin-bottom:18px}
+.arch-card{background:var(--navy-m);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:420px;width:100%;text-align:left;margin:0 auto 20px}
+.arch-card-row{margin-bottom:12px}
+.arch-card-lbl{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.arch-card-val{font-size:.87rem;color:var(--text);line-height:1.55}
+.arch-affirmation{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--gold-l);line-height:1.6;padding:14px 18px;background:var(--gold-bg);border-left:2px solid var(--gold);border-radius:0 var(--rs) var(--rs) 0;margin-bottom:20px;max-width:420px;width:100%}
+
+/* ═══════════════════════════════════════════
+   STUDENT APP SHELL
+═══════════════════════════════════════════ */
+#vstudent{min-height:100vh;background:var(--navy);display:flex;flex-direction:column}
+.apphdr{background:var(--navy-m);border-bottom:1px solid var(--border);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.applogo{display:flex;align-items:center;gap:10px}
+.applogo-icon{font-size:1.3rem}
+.applogo-txt{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);line-height:1.2}
+.applogo-txt small{display:block;font-size:.63rem;color:var(--sub);font-family:'DM Sans',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.05em}
+.icon-btn{background:none;border:none;color:var(--sub);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s}
+.icon-btn:hover{background:var(--bsoft)}
+.scontent{flex:1;overflow-y:auto;padding:18px 16px 80px}
+.stab{display:none}
+.stab.act{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--navy-m);border-top:1px solid var(--border);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);max-width:600px;margin:0 auto}
+.bnav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 0 7px;font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;gap:3px;transition:color .2s}
+.bnav button .ni{font-size:1.15rem;line-height:1}
+.bnav button.act{color:var(--gold)}
+.bnav button.act .ni{filter:drop-shadow(0 0 5px rgba(201,168,76,.55))}
+
+/* ═══════════════════════════════════════════
+   STUDENT: HOME TAB
+═══════════════════════════════════════════ */
+.wcard{background:linear-gradient(135deg,var(--navy-s),#1a2d42);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
+.wcard::after{content:'🎤';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:2.8rem;opacity:.07}
+.wcard h2{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold-l);margin-bottom:4px}
+.wcard p{font-size:.83rem;color:var(--sub);line-height:1.5}
+.goal-banner{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.goal-banner-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.goal-banner-lbl{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.goal-banner-txt{font-size:.85rem;color:var(--text);line-height:1.45;font-style:italic}
+.continue-card{background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.04));border:1px solid var(--gold-d);border-radius:14px;padding:18px;margin-bottom:14px;cursor:pointer;transition:border-color .2s}
+.continue-card:active{border-color:var(--gold)}
+.cc-label{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.cc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:10px}
+.ann-item{border-left:2px solid var(--gold);padding:10px 14px;margin-bottom:9px;background:var(--gold-bg);border-radius:0 var(--rs) var(--rs) 0}
+.ann-title{font-size:.87rem;color:var(--text);font-weight:500;margin-bottom:2px}
+.ann-date{font-size:.7rem;color:var(--muted)}
+.ann-body{font-size:.82rem;color:var(--sub);margin-top:5px;line-height:1.5}
+
+/* ═══════════════════════════════════════════
+   STUDENT: PROGRAM TAB
+═══════════════════════════════════════════ */
+.week-hdr{display:flex;align-items:center;gap:10px;padding:10px 0 6px}
+.wnum{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;color:var(--navy);flex-shrink:0}
+.wtitle{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold-l)}
+.day-card{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:13px;margin-bottom:7px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:border-color .2s,background .2s}
+.day-card:hover{border-color:var(--border);background:#1e3244}
+.day-card.done{border-color:rgba(76,175,130,.3)}
+.day-card.current{border-color:var(--gold-d);background:var(--gold-bg)}
+.day-card.locked{opacity:.5;cursor:default}
+.day-badge{width:36px;height:36px;border-radius:50%;background:var(--navy-s);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--sub);flex-shrink:0}
+.day-card.done .day-badge{background:rgba(76,175,130,.15);border-color:rgba(76,175,130,.4);color:var(--ok)}
+.day-card.current .day-badge{background:var(--gold-bg2);border-color:var(--gold);color:var(--gold)}
+.day-info{flex:1}
+.day-title-sm{font-size:.87rem;color:var(--text);font-weight:400;margin-bottom:2px}
+.day-meta{font-size:.7rem;color:var(--muted)}
+.day-arrow{color:var(--muted);font-size:.8rem}
+
+/* ═══════════════════════════════════════════
+   DAY MODAL (full experience)
+═══════════════════════════════════════════ */
+.day-modal-hdr{margin-bottom:16px}
+.day-modal-week{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.day-modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:8px}
+.arch-tip{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;font-size:.8rem;color:var(--sub);line-height:1.5;margin-bottom:14px}
+.arch-tip strong{color:var(--gold)}
+
+/* Activity cards */
+.act-card{background:var(--navy-s);border:1px solid var(--bsoft);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.act-card.done-act{border-color:rgba(76,175,130,.35)}
+.act-card-hdr{display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer}
+.act-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;transition:all .2s}
+.act-card.done-act .act-check{background:var(--ok);border-color:var(--ok);color:white}
+.act-card-info{flex:1}
+.act-card-title{font-size:.9rem;color:var(--text);font-weight:400}
+.act-card-type{font-size:.7rem;color:var(--muted);margin-top:2px}
+.act-card-body{padding:0 13px 14px;display:none}
+.act-card-body.open{display:block;animation:fadeUp .2s ease}
+.act-content{font-size:.85rem;color:var(--sub);line-height:1.7;margin-bottom:12px}
+.act-content h4{font-family:'Playfair Display',serif;color:var(--gold-l);margin:10px 0 5px;font-size:.92rem}
+.act-content p{margin-bottom:8px}
+.act-content ul{padding-left:16px;margin-bottom:8px}
+.act-content ul li{margin-bottom:5px}
+.act-prompt{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:11px;font-size:.84rem;color:var(--text);line-height:1.55;margin-bottom:12px}
+.act-prompt strong{color:var(--gold);display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+
+/* Timer */
+.timer-wrap{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;text-align:center}
+.timer-lbl{font-size:.7rem;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.timer-display{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);letter-spacing:.05em;margin-bottom:10px}
+.timer-sub{font-size:.75rem;color:var(--muted);margin-bottom:10px}
+.timer-btns{display:flex;gap:8px;justify-content:center}
+.timer-btns .btn{width:auto;flex:1;max-width:100px;padding:9px 12px;font-size:.82rem}
+
+/* Reflection */
+.reflection-locked{background:var(--navy-s);border:1px dashed var(--border);border-radius:var(--r);padding:18px;text-align:center;margin-top:4px}
+.reflection-locked .rl-icon{font-size:1.5rem;margin-bottom:8px;opacity:.4}
+.reflection-locked p{font-size:.83rem;color:var(--muted)}
+.reflection-open{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:4px}
+.ref-hdr{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold-l);margin-bottom:4px}
+.ref-sub{font-size:.78rem;color:var(--sub);margin-bottom:14px}
+.ref-q{margin-bottom:14px}
+.ref-qn{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.ref-ta{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.88rem;padding:10px;outline:none;resize:vertical;min-height:72px;font-weight:300;transition:border-color .2s}
+.ref-ta:focus{border-color:var(--gold)}
+
+/* Day complete state */
+.day-done-banner{background:linear-gradient(135deg,rgba(76,175,130,.14),rgba(76,175,130,.05));border:1px solid rgba(76,175,130,.35);border-radius:var(--r);padding:20px;text-align:center;margin-top:8px}
+.day-done-banner .dd-icon{font-size:2rem;margin-bottom:8px}
+.day-done-banner .dd-title{font-family:'Playfair Display',serif;color:var(--ok);font-size:1.1rem;margin-bottom:6px}
+.day-done-banner .dd-sub{font-size:.83rem;color:var(--sub);line-height:1.5}
+
+/* ═══════════════════════════════════════════
+   STUDENT: MILESTONES TAB
+═══════════════════════════════════════════ */
+.ms-card{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.ms-card.ms-active{border-color:var(--gold-d)}
+.ms-card.ms-done{border-color:rgba(76,175,130,.35)}
+.ms-week{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.ms-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:4px}
+.ms-days{font-size:.75rem;color:var(--muted);margin-bottom:10px}
+.ms-goal-display{font-size:.85rem;color:var(--sub);font-style:italic;line-height:1.5;background:var(--gold-bg);border-radius:var(--rs);padding:10px;margin-bottom:10px}
+
+/* ═══════════════════════════════════════════
+   ADMIN APP
+═══════════════════════════════════════════ */
+#vadmin{min-height:100vh;background:var(--navy);display:flex;flex-direction:column}
+.admhdr{background:linear-gradient(135deg,var(--navy-m),#1a2b3c);border-bottom:1px solid var(--border);padding:15px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.adm-logo-t{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold)}
+.adm-logo-s{font-size:.68rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em}
+.adm-pill{background:var(--gold-bg2);border:1px solid var(--gold-d);color:var(--gold);font-size:.68rem;padding:3px 10px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase}
+.atabs{display:flex;overflow-x:auto;background:var(--navy-m);border-bottom:1px solid var(--border);padding:0 6px;scrollbar-width:none}
+.atabs::-webkit-scrollbar{display:none}
+.atab-btn{background:none;border:none;color:var(--muted);padding:12px 14px;font-size:.78rem;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:5px}
+.atab-btn.act{color:var(--gold);border-bottom-color:var(--gold)}
+.atab-count{background:var(--gold);color:var(--navy);font-size:.63rem;padding:1px 6px;border-radius:10px;font-weight:700}
+.atab-count.warn-bg{background:var(--warn);color:var(--navy)}
+.acontent{flex:1;padding:18px 16px;overflow-y:auto;max-width:700px;margin:0 auto;width:100%}
+.atab-pane{display:none}
+.atab-pane.act{display:block;animation:fadeUp .25s ease}
+
+/* Student row */
+.srow{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:13px;margin-bottom:8px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:border-color .2s}
+.srow:hover{border-color:var(--border)}
+.savatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);font-weight:700}
+.srow-info{flex:1}
+.srow-name{font-size:.88rem;color:var(--text);font-weight:400;margin-bottom:2px}
+.srow-meta{font-size:.73rem;color:var(--muted)}
+
+/* Diagnostic list row */
+.drow{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:13px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+.drow:hover{border-color:var(--border)}
+.drow-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+.drow-name{font-size:.88rem;color:var(--text)}
+.drow-date{font-size:.7rem;color:var(--muted)}
+.drow-arch{font-size:.78rem;color:var(--gold);margin-top:2px}
+
+/* Reflection row */
+.refrow{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:13px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+.refrow:hover{border-color:var(--border)}
+.refrow-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.refrow-name{font-size:.88rem;color:var(--text)}
+.refrow-day{font-size:.72rem;color:var(--gold);margin-top:2px}
+.refrow-preview{font-size:.8rem;color:var(--sub);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Announce */
+.ann-compose{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:18px}
+.ann-admin-item{background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:13px;margin-bottom:8px}
+.ann-admin-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.ann-del-btn{background:none;border:none;color:var(--err);font-size:.82rem;padding:2px 5px}
+
+/* Search */
+.search-wrap{margin-bottom:14px}
+.search-wrap input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.88rem;padding:10px 14px;outline:none}
+.search-wrap input:focus{border-color:var(--gold)}
+
+/* Filter tabs */
+.ftabs{display:flex;gap:7px;margin-bottom:13px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.ftabs::-webkit-scrollbar{display:none}
+.ftab{background:none;border:1px solid var(--border);color:var(--sub);padding:5px 13px;border-radius:20px;font-size:.76rem;white-space:nowrap;transition:all .2s}
+.ftab.act{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+
+/* ═══════════════════════════════════════════
+   GRADUATION CERTIFICATE
+═══════════════════════════════════════════ */
+#vcertificate{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;align-items:center;padding:24px 20px 60px}
+.cert-wrap{background:linear-gradient(145deg,#0e1e2e,#1a2d40);border:1px solid var(--gold-d);border-radius:16px;padding:36px 28px;max-width:480px;width:100%;text-align:center;position:relative;overflow:hidden}
+.cert-wrap::before{content:'';position:absolute;inset:8px;border:1px solid rgba(201,168,76,.2);border-radius:10px;pointer-events:none}
+.cert-corner{position:absolute;width:40px;height:40px;opacity:.35}
+.cert-corner.tl{top:12px;left:12px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.cert-corner.tr{top:12px;right:12px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+.cert-corner.bl{bottom:12px;left:12px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
+.cert-corner.br{bottom:12px;right:12px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+.cert-mic{font-size:2.5rem;margin-bottom:10px;filter:drop-shadow(0 0 12px rgba(201,168,76,.5))}
+.cert-acad{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.cert-presents{font-size:.7rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.cert-div{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 16px}
+.cert-this{font-size:.7rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.cert-name{font-family:'Playfair Display',serif;font-size:1.8rem;font-style:italic;color:var(--gold-l);margin-bottom:8px}
+.cert-desc{font-size:.82rem;color:var(--sub);line-height:1.6;margin-bottom:14px}
+.cert-arch-badge{display:inline-block;background:var(--gold-bg2);border:1px solid var(--border);color:var(--gold);font-size:.74rem;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.cert-signature-area{display:flex;justify-content:center;margin-bottom:16px}
+.cert-sig{text-align:center}
+.cert-sig-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:2px}
+.cert-sig-title{font-size:.7rem;color:var(--sub);text-transform:uppercase;letter-spacing:.08em}
+.cert-date{font-size:.72rem;color:var(--muted)}
+
+/* ═══════════════════════════════════════════
+   PRINT STYLES (PDF Certificate)
+═══════════════════════════════════════════ */
+@media print{
+  body>*{display:none}
+  #print-area,#print-area *{display:block!important;visibility:visible}
+  #print-area{position:fixed;inset:0;background:white;padding:40px;font-family:'Times New Roman',serif}
+}
+
+/* ═══════════════════════════════════════════
+   GOOGLE SIGN-IN BUTTON
+═══════════════════════════════════════════ */
+.btn-google{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:12px;border-radius:var(--rs);
+  background:#fff;color:#3c4043;font-size:.9rem;font-weight:500;
+  border:1px solid #dadce0;cursor:pointer;transition:box-shadow .2s,background .2s;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-google:hover{background:#f8f9fa;box-shadow:0 1px 6px rgba(0,0,0,.2)}
+.btn-google:active{transform:scale(.98)}
+.google-icon{width:20px;height:20px;flex-shrink:0}
+.auth-or{display:flex;align-items:center;gap:10px;margin:14px 0}
+.auth-or span{font-size:.76rem;color:var(--muted);white-space:nowrap}
+.auth-or::before,.auth-or::after{content:'';flex:1;height:1px;background:var(--border)}
+.forgot-link{text-align:right;margin-top:-6px;margin-bottom:10px}
+.forgot-link a{font-size:.8rem;color:var(--sub)}
+.forgot-link a:hover{color:var(--gold)}
+
+/* Forgot password overlay */
+#modal-forgot{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px}
+.forgot-box{background:var(--navy-m);border:1px solid var(--border);border-radius:14px;padding:24px;width:100%;max-width:360px}
+.forgot-box h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:6px}
+.forgot-box p{font-size:.84rem;color:var(--sub);margin-bottom:16px;line-height:1.55}
+
+/* Responsive */
+@media(min-width:600px){
+  .abody,.scontent,.diag-body,.acontent{max-width:600px;margin:0 auto}
+  .bnav{max-width:600px;left:50%;transform:translateX(-50%)}
+  .diag-nav{max-width:600px;left:50%;transform:translateX(-50%)}
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+<div id="loader"><div class="ring"></div><div class="loader-txt">Loading Academy…</div></div>
+
+<!-- ══════════════════════ VIEW: WELCOME ══ -->
+<div id="vwelcome" class="hidden">
+  <div class="hero">
+    <div class="hero-mic">🎤</div>
+    <div class="hero-acad">Divine Linguist<br>Public Speaking Academy</div>
+    <div class="hero-div"></div>
+    <div class="hero-tag">Transforming Voices · Empowering Lives</div>
+    <div class="hero-h">Speak with Confidence.<br>Lead with Clarity.</div>
+    <div class="hero-p">Your 30-day self-paced journey to becoming a powerful, confident speaker starts here.</div>
+  </div>
+  <div class="wactions">
+    <button class="btn btn-p" onclick="showV('vreg')">🚀 Begin My Journey — Enrol Now</button>
+    <button class="btn btn-o" onclick="showV('vlogin')">I Already Have an Account</button>
+    <div class="wnote">Coach? <a href="#" onclick="showV('vadmin-login')">Admin Login →</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: REGISTER ══ -->
+<div id="vreg" class="aview hidden">
+  <div class="ahdr"><button class="ahdr-back" onclick="showV('vwelcome')">←</button><div class="ahdr-title">Create Your Account</div></div>
+  <div class="abody">
+    <div class="sh">Student Registration</div>
+    <div class="ssub">Join speakers who are finding their voice.</div>
+
+    <!-- GOOGLE SIGN-IN (PRIMARY) -->
+    <button class="btn-google" onclick="doGoogleSignIn()">
+      <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="auth-or"><span>or register with email</span></div>
+
+    <div class="f2">
+      <div class="f"><div class="flbl">First Name</div><input type="text" id="r-fn" placeholder="First name"></div>
+      <div class="f"><div class="flbl">Last Name</div><input type="text" id="r-ln" placeholder="Last name"></div>
+    </div>
+    <div class="f"><div class="flbl">Email Address</div><input type="email" id="r-em" placeholder="your@email.com"></div>
+    <div class="f"><div class="flbl">Password</div><input type="password" id="r-pw" placeholder="Min 6 characters"></div>
+    <div class="f2">
+      <div class="f"><div class="flbl">Phone / WhatsApp</div><input type="tel" id="r-ph" placeholder="+233..."></div>
+      <div class="f"><div class="flbl">Age</div><input type="number" id="r-ag" placeholder="e.g. 34"></div>
+    </div>
+    <div class="f"><div class="flbl">Occupation / Role</div><input type="text" id="r-oc" placeholder="Your role or profession"></div>
+    <button class="btn btn-p" onclick="doRegister()">Create Account & Continue →</button>
+    <div class="aswitch">Already enrolled? <a href="#" onclick="showV('vlogin')">Log in here</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: LOGIN ══ -->
+<div id="vlogin" class="aview hidden">
+  <div class="ahdr"><button class="ahdr-back" onclick="showV('vwelcome')">←</button><div class="ahdr-title">Student Login</div></div>
+  <div class="abody">
+    <div class="sh">Welcome Back</div>
+    <div class="ssub">Continue your speaking transformation.</div>
+
+    <!-- GOOGLE SIGN-IN (PRIMARY) -->
+    <button class="btn-google" onclick="doGoogleSignIn()">
+      <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="auth-or"><span>or log in with email</span></div>
+
+    <div class="f"><div class="flbl">Email Address</div><input type="email" id="l-em" placeholder="your@email.com"></div>
+    <div class="f"><div class="flbl">Password</div><input type="password" id="l-pw" placeholder="Your password"></div>
+    <div class="forgot-link"><a href="#" onclick="openForgotPassword()">Forgot your password?</a></div>
+    <button class="btn btn-p" onclick="doLogin()">Log In</button>
+    <div class="aswitch">New student? <a href="#" onclick="showV('vreg')">Enrol here</a></div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div id="modal-forgot" class="hidden" onclick="if(event.target===this)closeM('modal-forgot')">
+  <div class="forgot-box">
+    <h3>🔑 Reset Your Password</h3>
+    <p>Enter your email address and we will send you a link to reset your password. Check your inbox (and spam folder) within a few minutes.</p>
+    <div class="f"><div class="flbl">Your Email Address</div><input type="email" id="forgot-em" placeholder="your@email.com"></div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="closeM('modal-forgot')">Cancel</button>
+      <button class="btn btn-p" onclick="doForgotPassword()">Send Reset Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: ADMIN LOGIN ══ -->
+<div id="vadmin-login" class="aview hidden">
+  <div class="ahdr"><button class="ahdr-back" onclick="showV('vwelcome')">←</button><div class="ahdr-title">Coach / Admin Login</div></div>
+  <div class="abody" style="text-align:center">
+    <div style="font-size:2rem;margin:10px 0">🎓</div>
+    <div class="sh">Admin Access</div>
+    <div class="ssub">For authorised academy staff only.</div>
+    <div class="f" style="text-align:left"><div class="flbl">Admin Email</div><input type="email" id="al-em" placeholder="Admin email"></div>
+    <div class="f" style="text-align:left"><div class="flbl">Password</div><input type="password" id="al-pw" placeholder="Admin password"></div>
+    <button class="btn btn-p" onclick="doAdminLogin()">Access Dashboard</button>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: DIAGNOSTIC ══ -->
+<div id="vdiag" class="hidden">
+  <div class="diag-prog"><div class="diag-prog-fill" id="diag-prog-fill" style="width:0%"></div></div>
+  <div class="diag-hdr">
+    <div class="diag-hdr-title" id="diag-step-title">Your Speaker Profile</div>
+    <div class="diag-step-pill" id="diag-step-pill">Step 1 of 6</div>
+  </div>
+  <div class="diag-body" id="diag-body"></div>
+  <div class="diag-nav">
+    <button class="btn btn-g" id="diag-back-btn" onclick="diagBack()" style="max-width:100px">← Back</button>
+    <button class="btn btn-p" id="diag-next-btn" onclick="diagNext()">Continue →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: ARCHETYPE REVEAL ══ -->
+<div id="varchetype" class="hidden">
+  <div class="arch-reveal" id="arch-reveal-content"></div>
+</div>
+
+<!-- ══════════════════════ VIEW: STUDENT ══ -->
+<div id="vstudent" class="hidden">
+  <div class="apphdr">
+    <div class="applogo">
+      <span class="applogo-icon">🎤</span>
+      <div class="applogo-txt">Divine Linguist<small>Public Speaking Academy</small></div>
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="icon-btn" id="notif-btn" onclick="switchTab('s-home')" title="Home">🔔</button>
+      <button class="icon-btn" onclick="doLogout()" title="Log out">⏻</button>
+    </div>
+  </div>
+  <div class="scontent">
+    <!-- HOME -->
+    <div class="stab act" id="s-home">
+      <div class="wcard"><h2 id="home-greet">Welcome back!</h2><p id="home-sub">Keep going — your voice grows stronger every day.</p></div>
+      <div class="goal-banner hidden" id="goal-banner">
+        <div class="goal-banner-icon">🎯</div>
+        <div><div class="goal-banner-lbl">Your 30-Day Goal</div><div class="goal-banner-txt" id="goal-banner-txt"></div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="streak-pill" id="streak-display">🔥 0 days completed</div>
+        <span id="prog-pct" style="font-size:.78rem;color:var(--gold)">0 / 30</span>
+      </div>
+      <div class="pgwrap" style="margin-bottom:16px"><div class="pgfill" id="home-prog" style="width:0%"></div></div>
+      <div class="continue-card" id="continue-card" onclick="openCurrentDay()">
+        <div class="cc-label">▶ Continue Where You Left Off</div>
+        <div class="cc-title" id="continue-title">Day 1: Who Are You as a Speaker?</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+          <span class="badge b-gold" style="font-size:.65rem">Tap to open</span>
+        </div>
+      </div>
+      <div class="sh" style="margin-top:4px">Announcements</div>
+      <div id="ann-list"><div class="empty"><div class="ei">📢</div><p>No announcements yet.</p></div></div>
+    </div>
+    <!-- PROGRAM -->
+    <div class="stab" id="s-program">
+      <div class="sh">30-Day Program</div>
+      <div class="ssub">Tap any unlocked day to begin. Self-paced — go at your own speed.</div>
+      <div id="program-list"></div>
+    </div>
+    <!-- MILESTONES -->
+    <div class="stab" id="s-milestones">
+      <div class="sh">Weekly Milestones</div>
+      <div class="ssub">Set one milestone goal per week. These build toward your 30-day goal.</div>
+      <div id="milestones-list"></div>
+    </div>
+    <!-- PROFILE -->
+    <div class="stab" id="s-profile">
+      <div class="profile-avatar" id="p-avatar" style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--navy);margin:0 auto 12px;font-weight:700"></div>
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem" id="p-name">—</div>
+        <div style="font-size:.78rem;color:var(--muted)" id="p-email">—</div>
+        <div class="badge b-gold" style="margin-top:8px" id="p-archetype-badge">—</div>
+      </div>
+      <div class="card" id="p-info"></div>
+      <div style="height:14px"></div>
+      <button class="btn btn-g" onclick="doLogout()">⏻ Log Out</button>
+      <div style="height:14px"></div>
+      <div id="cert-btn-wrap" class="hidden">
+        <button class="btn btn-o" onclick="showCertificate()">🎓 View My Graduation Certificate</button>
+        <div style="height:10px"></div>
+      </div>
+      <div style="text-align:center;font-size:.72rem;color:var(--muted);line-height:1.8">
+        📞 +233 248 089 238 · +233 546 998 184<br>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9be8fef5e2f4faffe1f4e9f4dbfcf6faf2f7b5f8f4f6">[email&#160;protected]</a><br>@thehotprof · Instagram · TikTok · Facebook
+      </div>
+    </div>
+  </div>
+  <nav class="bnav">
+    <button class="act" onclick="switchTab('s-home',this)"><span class="ni">🏠</span>Home</button>
+    <button onclick="switchTab('s-program',this)"><span class="ni">📖</span>Program</button>
+    <button onclick="switchTab('s-milestones',this)"><span class="ni">🏁</span>Milestones</button>
+    <button onclick="switchTab('s-profile',this)"><span class="ni">👤</span>Profile</button>
+  </nav>
+</div>
+
+<!-- ══════════════════════ VIEW: ADMIN ══ -->
+<div id="vadmin" class="hidden">
+  <div class="admhdr">
+    <div>
+      <div class="adm-logo-t">Divine Linguist Academy</div>
+      <div class="adm-logo-s">Coach Dashboard</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="adm-pill">Admin</span>
+      <button class="icon-btn" onclick="doLogout()">⏻</button>
+    </div>
+  </div>
+  <div class="atabs">
+    <button class="atab-btn act" onclick="switchATab('a-overview',this)">📊 Overview</button>
+    <button class="atab-btn" onclick="switchATab('a-students',this)">👥 Students <span class="atab-count" id="cnt-s">0</span></button>
+    <button class="atab-btn" onclick="switchATab('a-diags',this)">📋 Diagnostics <span class="atab-count" id="cnt-d">0</span></button>
+    <button class="atab-btn" onclick="switchATab('a-refs',this)">📝 Reflections <span class="atab-count warn-bg" id="cnt-r">0</span></button>
+    <button class="atab-btn" onclick="switchATab('a-ann',this)">📢 Announce</button>
+  </div>
+  <div class="acontent">
+    <!-- OVERVIEW -->
+    <div class="atab-pane act" id="a-overview">
+      <div class="sh">Welcome, Coach Senyo 👋</div>
+      <div class="ssub" id="adm-date"></div>
+      <div class="stats stats-4">
+        <div class="scard"><div class="snum" id="stat-stu">0</div><div class="slbl">Students</div></div>
+        <div class="scard"><div class="snum" id="stat-comp">0</div><div class="slbl">Completed</div></div>
+        <div class="scard"><div class="snum" id="stat-diag">0</div><div class="slbl">Diagnostics</div></div>
+        <div class="scard"><div class="snum" id="stat-ref" style="color:var(--warn)">0</div><div class="slbl">Reflections</div></div>
+      </div>
+      <div class="sh">Recent Reflections</div>
+      <div id="overview-recent"></div>
+    </div>
+    <!-- STUDENTS -->
+    <div class="atab-pane" id="a-students">
+      <div class="sh">All Students</div>
+      <div class="search-wrap"><input type="text" placeholder="🔍 Search name or email…" id="s-search" oninput="filterStudents()"></div>
+      <div id="students-list"></div>
+    </div>
+    <!-- DIAGNOSTICS -->
+    <div class="atab-pane" id="a-diags">
+      <div class="sh">Diagnostic Submissions</div>
+      <div class="ssub">Full speaker profiles. Click to read & download PDF.</div>
+      <div id="diags-list"></div>
+    </div>
+    <!-- REFLECTIONS -->
+    <div class="atab-pane" id="a-refs">
+      <div class="sh">Daily Reflections</div>
+      <div class="ftabs">
+        <button class="ftab act" onclick="filterRefs('all',this)">All</button>
+        <button class="ftab" onclick="filterRefs('unread',this)">Unread</button>
+      </div>
+      <div id="refs-list"></div>
+    </div>
+    <!-- ANNOUNCEMENTS -->
+    <div class="atab-pane" id="a-ann">
+      <div class="sh">Post Announcement</div>
+      <div class="ann-compose">
+        <div class="f"><div class="flbl">Title</div><input type="text" id="ann-t" placeholder="Announcement title"></div>
+        <div class="f"><div class="flbl">Message</div><textarea id="ann-b" placeholder="Message to all students…"></textarea></div>
+        <button class="btn btn-p" onclick="postAnn()">📢 Post to All Students</button>
+      </div>
+      <div class="sh">Previous</div>
+      <div id="adm-ann-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: CERTIFICATE ══ -->
+<div id="vcertificate" class="hidden">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;align-self:flex-start">
+    <button class="btn btn-g btn-sm" onclick="switchTab('s-profile');showV('vstudent')">← Back</button>
+    <button class="btn btn-p btn-sm" onclick="printCert()">🖨 Print / Save PDF</button>
+  </div>
+  <div class="cert-wrap" id="cert-wrap">
+    <div class="cert-corner tl"></div><div class="cert-corner tr"></div>
+    <div class="cert-corner bl"></div><div class="cert-corner br"></div>
+    <div class="cert-mic">🎤</div>
+    <div class="cert-acad">Divine Linguist Public Speaking Academy</div>
+    <div class="cert-presents">this is to certify that</div>
+    <div class="cert-div"></div>
+    <div class="cert-name" id="cert-name">Student Name</div>
+    <div class="cert-desc">has successfully completed the full 30-Day Public Speaking Transformation Programme — demonstrating commitment, growth, and the courage to find their authentic voice.</div>
+    <div class="cert-arch-badge" id="cert-arch">The Igniter · Sanguine</div>
+    <div class="cert-div"></div>
+    <div class="cert-signature-area">
+      <div class="cert-sig">
+        <div class="cert-sig-name">Senyo Kwame Adzoro</div>
+        <div class="cert-sig-title">Lead Coach · Divine Linguist Academy · @thehotprof</div>
+      </div>
+    </div>
+    <div class="cert-date" id="cert-date"></div>
+  </div>
+</div>
+
+<!-- ══ MODALS ══ -->
+<div id="modal-day" class="overlay hidden" onclick="closeMIfOut(event,'modal-day')">
+  <div class="sheet" id="modal-day-body"></div>
+</div>
+<div id="modal-student" class="overlay hidden" onclick="closeMIfOut(event,'modal-student')">
+  <div class="sheet" id="modal-student-body"></div>
+</div>
+<div id="modal-diag" class="overlay hidden" onclick="closeMIfOut(event,'modal-diag')">
+  <div class="sheet" id="modal-diag-body"></div>
+</div>
+<div id="modal-ref" class="overlay hidden" onclick="closeMIfOut(event,'modal-ref')">
+  <div class="sheet" id="modal-ref-body"></div>
+</div>
+<div id="modal-ms" class="overlay hidden" onclick="closeMIfOut(event,'modal-ms')">
+  <div class="sheet" id="modal-ms-body"></div>
+</div>
+
+<!-- Firebase -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   ██████  FIREBASE CONFIG  — PASTE YOUR KEYS HERE
+   ════════════════════════════════════════════════════════ */
+const FB_CONFIG = {
+  apiKey:            "AIzaSyB2ryCt2D9pk6eqSjjczaovqqLEY79U9hU",
+  authDomain:        "divine-linguist-academy.firebaseapp.com",
+  projectId:         "divine-linguist-academy",
+  storageBucket:     "divine-linguist-academy.firebasestorage.app",
+  messagingSenderId: "671263286302",
+  appId:             "1:671263286302:web:aa0cc7cf3f67fc8a4afa0f"
+};
+const ADMIN_EMAIL = 'senyoadzoro@gmail.com';
+
+/* ════════════════════════════════════════════════════════
+   ARCHETYPES
+   ════════════════════════════════════════════════════════ */
+const ARCHETYPES = {
+  S:{
+    name:'The Igniter', temperament:'Sanguine', icon:'🔥',
+    gift:'Energy, enthusiasm & story',
+    strength:'You light up rooms. People love listening to you because your joy is contagious.',
+    growth:'Channel your energy into structure. Every story needs a spine.',
+    affirmation:'"My energy is a gift. I speak life into every room I enter."',
+    tip:'As an Igniter, use your natural storytelling gift today. Make your audience feel something first — then inform them.'
+  },
+  C:{
+    name:'The Commander', temperament:'Choleric', icon:'⚡',
+    gift:'Authority, vision & conviction',
+    strength:'You naturally command attention. People sense your confidence and follow your lead.',
+    growth:'Conviction moves people. Now learn to invite them into your vision, not just drive them there.',
+    affirmation:'"I speak with authority because I know where I am going."',
+    tip:'As a Commander, lean into your natural decisiveness today. Speak clearly, make one strong point, and own it fully.'
+  },
+  M:{
+    name:'The Architect', temperament:'Melancholic', icon:'🏛',
+    gift:'Depth, precision & authenticity',
+    strength:'You prepare thoroughly and speak with credibility. People trust what you say.',
+    growth:'Your depth is not weakness — it is wisdom. Now deliver it with the confidence it deserves.',
+    affirmation:'"My depth is not weakness — it is wisdom waiting to be heard."',
+    tip:'As an Architect, your preparation is your superpower today. Trust your research and let your knowledge speak freely.'
+  },
+  P:{
+    name:'The Connector', temperament:'Phlegmatic', icon:'🌿',
+    gift:'Warmth, empathy & trust-building',
+    strength:'People feel safe with you. Your calm creates space for real communication.',
+    growth:'People already trust you. Now give yourself permission to lead them somewhere with that trust.',
+    affirmation:'"My calmness is strength. When I speak, people feel safe."',
+    tip:'As a Connector, your greatest tool today is making your audience feel seen. Speak to them, not at them.'
+  }
+};
+
+/* ════════════════════════════════════════════════════════
+   30-DAY CURRICULUM
+   ════════════════════════════════════════════════════════ */
+const CURRICULUM = [
+ // WEEK 1 — FOUNDATION & MINDSET
+ {day:1,week:1,wTitle:'Foundation & Mindset',title:'Who Are You as a Speaker?',
+  lesson:{title:'Your Voice Has Always Mattered',
+   body:`<p>Before you can change how others hear you, you must change how you hear yourself. Every great speaker started exactly where you are — uncertain, perhaps afraid, but willing. Today we simply ask: who are you right now, as a communicator?</p><h4>What We Know About You</h4><p>You enrolled because something in you knows your voice has more to offer than it currently gives. That instinct is your greatest qualification. Public speaking is not a talent reserved for a few — it is a skill built by the courageous many.</p><h4>Today's Core Truth</h4><p>You are not becoming a speaker. You are <em>uncovering</em> one who has always been there.</p>`},
+  mindset:{title:'The First Shift: I Am Already a Speaker',
+   body:`<p>Most people believe confidence comes before speaking. The truth is the opposite — confidence is built <em>by</em> speaking. Today's mindset shift is foundational.</p><h4>Your Practice</h4><p>Stand in front of a mirror. Place your hand on your chest. Say these words aloud, slowly, three times each:</p>`,
+   prompt:'Say aloud: "I have a voice worth hearing. I am learning to use it fully. Every day I practise, I grow stronger." Write these words in your journal or notes app afterward.'},
+  breathing:{title:'The Anchor Breath',
+   body:`<p>Your breath is the foundation of your voice. Before every speaking engagement — even a casual conversation — your breath either prepares you or betrays you. Today you learn your anchor.</p><h4>The 4-4-4 Technique</h4><p>Inhale for 4 counts through your nose. Hold for 4 counts. Exhale slowly for 4 counts through your mouth. Feel your shoulders drop on the exhale. That is where your voice lives.</p>`,
+   prompt:'Do the 4-4-4 breath cycle 5 times right now. Notice what happens in your body. Write one word that describes how you feel after.'},
+  speaking:{title:'Your Speaking Baseline',
+   body:`<p>We cannot improve what we do not measure. Today you establish your baseline — not to judge yourself, but to know where you are starting so you can marvel at where you will be on Day 30.</p>`,
+   prompt:'Record yourself (voice or video) speaking for 60 seconds on this topic: "One thing I wish I could say confidently to more people." Do not edit. Do not redo it. Just speak. Save it — you will compare it to your Day 30 recording.'}},
+
+ {day:2,week:1,wTitle:'Foundation & Mindset',title:'The Fear Reframe',
+  lesson:{title:'Your Nerves Are Not Your Enemy',
+   body:`<p>Stage fright is the most misunderstood phenomenon in public speaking. For years, people have been told to "just be confident" — as if fear were a character flaw. It is not. Your nervous system is doing exactly what it was designed to do: prepare you for something important.</p><h4>What Is Actually Happening</h4><p>When you feel your heart race before speaking, adrenaline is sharpening your senses, increasing your focus, and energising your delivery. Elite speakers do not eliminate this feeling — they convert it. They call it excitement instead of fear. The physiology is identical. Only the label changes.</p><h4>The Reframe</h4><p>From today, when you feel the flutter before speaking, say internally: <em>"Good. My body is ready."</em></p>`},
+  mindset:{title:'Name Your Fear to Tame It',
+   body:`<p>Unnamed fears have unlimited power. Named fears can be examined, challenged, and dismantled. Today you name yours.</p>`,
+   prompt:'Complete these sentences in writing: "When I think about speaking in public, I am most afraid of…" and "That fear is trying to protect me from…" and "But the truth is…" Speak your completed sentences aloud once you have written them.'},
+  breathing:{title:'Pre-Speech Reset Breath',
+   body:`<p>This breath is specifically designed for the 30 seconds before you begin speaking. It calms the nervous system and anchors your presence.</p><h4>The Technique</h4><p>Take one slow breath in through the nose for 5 counts. Pause 2 counts. Release through a slightly open mouth for 7 counts. Do this twice. Your voice will be steadier, deeper, and more grounded.</p>`,
+   prompt:'Practise the 5-2-7 breath five times. Then immediately speak one sentence aloud about something you are grateful for. Notice how different your voice sounds after the breath.'},
+  speaking:{title:'Speak About Your Fear — Out Loud',
+   body:`<p>One of the most powerful exercises in public speaking development is speaking directly about what scares you. This creates a remarkable feedback loop: the act of describing fear reduces it.</p>`,
+   prompt:'Speak for 90 seconds, out loud, on this topic: "Here is what I am afraid of when it comes to public speaking, and here is why I am doing this programme anyway." Record it if you can.'}},
+
+ {day:3,week:1,wTitle:'Foundation & Mindset',title:'Set Your 30-Day Goal',
+  lesson:{title:'A Goal Without Specificity Is Just a Wish',
+   body:`<p>You enrolled with a general desire to become a better speaker. Today we sharpen that desire into a specific, measurable, emotionally charged goal. Your goal becomes the compass for every single day of this programme.</p><h4>What Makes a Great Speaking Goal</h4><p>The best goals name a specific context ("at my company's monthly meeting"), describe a specific feeling ("speaking without my voice shaking"), and attach a real consequence ("so I can finally be taken seriously as a leader"). Vague goals produce vague results. Specific goals produce transformation.</p><h4>Examples of Strong Goals</h4><p>"By Day 30, I want to stand at church and share a testimony for 3 minutes without going blank." Or: "By Day 30, I want to chair my team meeting without reading from my notes." These are real, specific, winnable.</p>`},
+  mindset:{title:'Write Your Goal Letter',
+   body:`<p>There is a science-backed reason why writing goals by hand (or typing them with intention) increases achievement rates significantly. The act of articulating your goal activates the reticular activating system — your brain begins unconsciously scanning for opportunities to achieve what you have named.</p>`,
+   prompt:'Write your 30-day goal in full. Not bullet points — write it as a letter to yourself, starting with: "By the end of Day 30, I will be able to…" Read it aloud three times. This is now your north star.'},
+  breathing:{title:'Energising Breath for Confidence',
+   body:`<p>This breathing technique is used by performers and athletes before high-stakes moments. It raises your energy, lifts your posture, and signals your nervous system to shift into performance mode.</p><h4>The Technique</h4><p>Stand up straight. Take 3 short, sharp inhales through the nose (like sniffing a flower quickly). Then one long exhale through the mouth. Repeat 4 times. You should feel slightly energised and alert.</p>`,
+   prompt:'Do this energising breath sequence, then speak your 30-day goal statement aloud as if you have already achieved it — present tense, confident tone. "I am a speaker who…"'},
+  speaking:{title:'Introduce Your Goal to an Audience of One',
+   body:`<p>Your first speaking exercise toward your goal is to explain it — out loud — to another human being. Not a crowd. Not a panel. One person who matters to you.</p>`,
+   prompt:'Find one person — a spouse, friend, colleague, or family member — and tell them your 30-day speaking goal. Why you set it. What it means to you. What you will do differently because of it. Speak for at least 2 minutes. Report back in your reflection.'}},
+
+ {day:4,week:1,wTitle:'Foundation & Mindset',title:'The 3 Pillars of Confident Speaking',
+  lesson:{title:'Confidence Is an Architecture, Not a Mood',
+   body:`<p>Many people wait to feel confident before they speak. That is backwards. Confidence is not a feeling that precedes action — it is a structure you build through preparation, presence, and permission.</p><h4>Pillar 1: Preparation</h4><p>Not memorising every word, but knowing your material well enough to be flexible. Preparation is the antidote to blanking. You cannot forget what you truly know.</p><h4>Pillar 2: Presence</h4><p>Being fully in the room, not in your head. Presence means your eyes are on the audience, your breath is even, and your attention is outward, not inward. Most speaking anxiety is caused by excessive self-focus.</p><h4>Pillar 3: Permission</h4><p>Giving yourself the right to take up space. Many speakers — especially introverts, women, and those from cultures where speaking up is discouraged — unconsciously shrink themselves. Permission is the internal decision that your voice deserves to be heard.</p>`},
+  mindset:{title:'Identify Your Weakest Pillar',
+   body:`<p>Self-awareness is the beginning of all transformation. You cannot strengthen what you will not name.</p>`,
+   prompt:'Write honestly: which of the 3 pillars is your current weakest — Preparation, Presence, or Permission? Write 3 sentences about why, and one specific action you will take this week to begin strengthening it. Read it aloud.'},
+  breathing:{title:'Belly Breathing for Grounded Presence',
+   body:`<p>Most anxious speakers breathe from their chest — shallow, fast, high. Confident speakers breathe from the belly — deep, slow, grounded. Today you practise the switch.</p><h4>The Technique</h4><p>Place one hand on your belly, one on your chest. Breathe in slowly — the belly hand should rise, the chest hand should barely move. That is diaphragmatic breathing. Your voice will be fuller and steadier when you speak from this place.</p>`,
+   prompt:'Practise belly breathing for 2 minutes. Then speak a sentence from memory (any sentence) using belly breath support. Notice the difference in your voice quality.'},
+  speaking:{title:'One-Minute Pillar Speech',
+   body:`<p>Today you give a structured 60-second speech. You know your three pillars. You know which is your weakest. Now speak about it.</p>`,
+   prompt:'Give a 60-second spoken response to: "The one thing that holds me back as a speaker, and the one thing I am doing about it." Structure: state the problem (15 sec), explain why (30 sec), state your solution (15 sec). Record and replay.'}},
+
+ {day:5,week:1,wTitle:'Foundation & Mindset',title:'Your Voice as an Instrument',
+  lesson:{title:'You Were Designed to Communicate',
+   body:`<p>Your voice is not just sound — it is a full instrument with range, texture, tempo, and power. Most untrained speakers use only 20% of their vocal range, defaulting to a monotone that loses audiences within minutes. Today we begin exploring what your voice can actually do.</p><h4>The Four Dimensions of Voice</h4><p><strong>Pitch:</strong> How high or low you speak. Lower pitch signals authority; higher pitch signals excitement or question. <strong>Volume:</strong> Louder commands attention; quieter draws people closer. <strong>Pace:</strong> Faster builds energy; slower signals importance. <strong>Tone:</strong> The emotional colouring — warm, authoritative, playful, grave. Every great speaker consciously varies all four.</p>`},
+  mindset:{title:'Your Voice Is Beautiful',
+   body:`<p>Many people hate the sound of their own voice. This is one of the most common barriers to speaking development — and it must be addressed head-on.</p>`,
+   prompt:'Record yourself reading any paragraph from a book or article. Play it back. Instead of criticising, identify ONE thing that sounds good — warmth, clarity, pace, anything. Write it down and say it aloud: "My voice has [quality] and I am developing its full range."'},
+  breathing:{title:'Vocal Warm-Up Breathing',
+   body:`<p>Professional speakers and singers warm up their voice before performing. This breathing technique sends warm air across your vocal cords and prepares them for extended use.</p><h4>The Technique</h4><p>Exhale through a loose "brrr" lip trill — like a motorbike sound. Start low, slide up to a higher pitch, then back down. Do this 5 times. Then do a gentle hum, feeling the vibration in your lips. Your voice is now warm.</p>`,
+   prompt:'Do the lip trill 5 times, then the hum for 30 seconds. Immediately speak a sentence and notice the difference in resonance.'},
+  speaking:{title:'Vocal Range Exploration',
+   body:`<p>You cannot use what you have not discovered. Today you push the edges of your vocal instrument.</p>`,
+   prompt:'Read the same short paragraph (5–6 sentences) four different times: (1) as if reading to a child — warm and slow; (2) as if giving a company report — crisp and authoritative; (3) as if telling an exciting story — fast and varied; (4) as if whispering a secret — slow and intimate. Record all four. What do you notice?'}},
+
+ {day:6,week:1,wTitle:'Foundation & Mindset',title:'The Power of Silence',
+  lesson:{title:'The Pause Is the Most Powerful Word You Never Say',
+   body:`<p>Amateur speakers are terrified of silence. They fill every gap with "um", "erm", "so", "like", "you know" — not because they are unintelligent, but because silence feels like failure. It is not. It is mastery.</p><h4>What a Pause Does for Your Audience</h4><p>A well-placed pause creates anticipation before an important point. It signals that what follows matters. It gives the audience time to absorb what was just said. It projects confidence — a nervous speaker rushes; a confident speaker pauses and owns the room.</p><h4>Three Types of Pause</h4><p>The <em>landing pause</em> — after a key statement, to let it land. The <em>thinking pause</em> — while you gather your next idea (use this instead of "um"). The <em>dramatic pause</em> — before a major reveal or emotional peak.</p>`},
+  mindset:{title:'Silence Is Not Emptiness',
+   body:`<p>In many cultures, silence in conversation feels like failure. We are conditioned to fill gaps. Today you practise sitting comfortably in silence — first internally, then in your speaking.</p>`,
+   prompt:'Sit in silence for 60 seconds. No phone, no sound. Just breathe. Afterward, write what came up — thoughts, discomfort, calm. Then say aloud: "Silence is not emptiness. It is presence. I am learning to inhabit it."'},
+  breathing:{title:'Breath as Punctuation',
+   body:`<p>Every pause in great speaking is anchored by a breath. The breath is what makes the pause feel intentional rather than lost. Today you practise breathing your punctuation.</p>`,
+   prompt:'Speak any sentence aloud. At every comma, take a visible breath. At every full stop, take two beats of silence then breathe. Exaggerate it. Feel how it transforms the pace and power of what you say.'},
+  speaking:{title:'The Pause Practice',
+   body:`<p>Read the passage below aloud and deliberately pause for a full 2 seconds wherever you see the ⏸ symbol. This will feel uncomfortably long. That discomfort is growth.</p>`,
+   prompt:'Speak this aloud: "The most powerful thing a speaker can do ⏸ is to say nothing. ⏸ Because in that silence ⏸ the audience leans in. ⏸ And that is when you have them." Practice 5 times. Vary the length of your pauses. Notice how the meaning changes.'}},
+
+ {day:7,week:1,wTitle:'Foundation & Mindset',title:'Week 1 Celebration & First Full Speech',
+  lesson:{title:'You Have Already Changed',
+   body:`<p>Seven days ago you were a person who wanted to become a better speaker. Today you are a person who is actively becoming one. That shift — from wishing to doing — is the most important transformation in this entire programme.</p><h4>What You Have Built This Week</h4><p>You have named your fear and reframed it. You have set a specific goal. You understand the 3 Pillars. You have explored your voice. You have practised breathing with intention. You have tasted the power of silence. That is not nothing. That is a foundation.</p><h4>Your First Full Speech</h4><p>Today you give your first complete speech — beginning, middle, and end. It does not need to be polished. It needs to be honest, structured, and delivered with everything you have learned this week.</p>`},
+  mindset:{title:'A Letter of Encouragement to Yourself',
+   body:`<p>Research shows that self-compassion significantly improves performance under pressure. Today you speak to yourself the way a great coach would speak to you.</p>`,
+   prompt:'Write and then read aloud a 3-sentence encouragement to yourself as a speaker. Not generic — specific to what you have noticed about your growth this week. What did you do that surprised you? What are you proud of?'},
+  breathing:{title:'Full Pre-Speech Ritual',
+   body:`<p>Before your Week 1 speech, perform your complete breathing ritual: 3 belly breaths → 1 energising triple inhale → 1 reset breath (5-2-7). This becomes your pre-speech anchor for the entire programme.</p>`,
+   prompt:'Run through the full ritual once, then step into your speaking posture — feet shoulder-width apart, shoulders back, eyes level. You are ready.'},
+  speaking:{title:'Your Week 1 Speech',
+   body:`<p>Topic: "What I have discovered about myself as a speaker in these first 7 days." Structure: Open with a bold statement about where you started. Share your 30-day goal and why it matters. Describe one thing you discovered about yourself this week. Close with what you intend to build on next week.</p>`,
+   prompt:'Deliver this speech for 2–3 minutes. Record it. Compare it with your Day 1 baseline recording. Write three observations about what has already changed, however subtly. Submit those observations in your reflection.'}},
+
+ // WEEK 2 — STRUCTURE & CLARITY
+ {day:8,week:2,wTitle:'Structure & Clarity',title:'How to Organise Any Speech in 5 Minutes',
+  lesson:{title:'Structure Is Freedom',
+   body:`<p>A common misconception is that structure constrains creativity. In fact, the opposite is true: a clear structure frees you to speak naturally, because you always know where you are going. Structure is the GPS of public speaking.</p><h4>The PREP Framework</h4><p><strong>P — Point:</strong> State your main idea in one sentence. <strong>R — Reason:</strong> Explain why it matters. <strong>E — Example:</strong> Illustrate it with a story, data, or analogy. <strong>P — Point:</strong> Return to your main idea, now enriched.</p><h4>Why PREP Works</h4><p>It works for a 30-second answer in a meeting. It works for a 30-minute keynote. It works for a sermon, a toast, a pitch, a job interview. Once you internalise PREP, you are never again speechless.</p>`},
+  mindset:{title:'I Am Structured, Not Scattered',
+   body:`<p>Many people who struggle with clarity in speech are actually highly intelligent people with too many ideas competing at once. Structure does not reduce your ideas — it sequences them so others can receive them.</p>`,
+   prompt:'Say aloud: "My mind is full of valuable thoughts. Structure is how I share them one at a time." Then write the PREP framework from memory — without looking. Speak it aloud once you have written it.'},
+  breathing:{title:'Breath for Clarity',
+   body:`<p>When you lose your thread mid-speech, the first thing to do is breathe. A single slow breath creates a 2-second pause, resets your nervous system, and gives your mind space to find the next point.</p>`,
+   prompt:'Practise this deliberately: speak a sentence, then intentionally "lose your thread." Pause. Breathe slowly. Then continue with your next point naturally. Do this 5 times. This is the recovery skill most speakers never practise.'},
+  speaking:{title:'PREP It Out Loud',
+   body:`<p>Take any opinion you hold about any topic — a simple belief, a preference, a conviction.</p>`,
+   prompt:'Structure it using PREP and speak it aloud for 90 seconds. Then do it again on a completely different topic. The goal is to make PREP automatic — so natural you use it without thinking.'}},
+
+ {day:9,week:2,wTitle:'Structure & Clarity',title:'Opening Strong — The First 30 Seconds',
+  lesson:{title:'Win Them at the Start',
+   body:`<p>Audiences make a decision about a speaker within the first 30 seconds. Not consciously — but their attention, trust, and engagement are already being given or withheld. Your opening is not an introduction. It is an argument for why the next few minutes of their attention are worth it.</p><h4>Five Powerful Opening Techniques</h4><p><strong>1. The Bold Statement:</strong> "Everything you have been taught about public speaking is wrong." <strong>2. The Provocative Question:</strong> "When was the last time your words changed someone's life?" <strong>3. A Vivid Mini-Story:</strong> Drop the audience into a moment before they even know the topic. <strong>4. A Surprising Statistic:</strong> Something that disrupts assumptions. <strong>5. The Silence Opening:</strong> Stand. Breathe. Make eye contact. Then begin.</p>`},
+  mindset:{title:'The First Word Sets the Tone',
+   body:`<p>Speakers who begin with "Um, okay, so I was asked to talk about…" have already lost 40% of their audience. The first word should land with intention.</p>`,
+   prompt:'Write 3 different opening lines for your 30-day goal topic — one using each of these techniques: Bold Statement, Question, Mini-Story. Read all three aloud. Which one feels most natural to you? Why?'},
+  breathing:{title:'Stillness Before Sound',
+   body:`<p>The most powerful pre-speaking moment is stillness. Walk to your position. Pause. Breathe. Look at your audience. Then speak. That moment of stillness communicates more confidence than any opening line.</p>`,
+   prompt:'Practise this ritual: walk to a spot in the room. Stop. Take one slow breath. Make eye contact with an imaginary audience. Then deliver your strongest opening line. Do this 5 times until the stillness feels natural.'},
+  speaking:{title:'30-Second Opening Sprint',
+   body:`<p>You have 30 seconds. That is all. No preamble, no apology, no "thank you for having me." Just an opening that commands attention.</p>`,
+   prompt:'Write and deliver 3 different 30-second openings for your speaking goal topic. Record all three. Choose the strongest. Then deliver just that one, five more times, until it feels completely owned.'}},
+
+ {day:10,week:2,wTitle:'Structure & Clarity',title:'Building the Middle — The 3-Point Body',
+  lesson:{title:'Three Is the Magic Number',
+   body:`<p>Every persuasive, memorable speech has a body built around three points. Why three? Because three is the smallest number that creates a pattern. It feels complete. It is memorable. More than three, and audiences begin to lose the thread. Fewer than three, and the argument feels thin.</p><h4>How to Choose Your 3 Points</h4><p>Ask: what are the three things my audience must know, believe, or feel in order to accept my message? Those are your three points. Each point needs: a statement, one piece of evidence (story, data, or example), and a transition to the next point.</p>`},
+  mindset:{title:'Depth Over Volume',
+   body:`<p>The impulse to share everything you know in one speech is one of the most common mistakes speakers make. Restraint is mastery. One idea explored deeply lands harder than ten ideas mentioned quickly.</p>`,
+   prompt:'Think of your 30-day goal topic. Write down every point you could possibly make. Now cross out all but three. Speak those three aloud in sequence. Notice how much cleaner and more powerful your message becomes.'},
+  breathing:{title:'Transition Breathing',
+   body:`<p>Every time you move from one point to the next, take a breath and a pause. This signals the audience that a new idea is arriving. It prevents your speech from feeling like a rushed list.</p>`,
+   prompt:'Practise a speech with three clear points. At every transition, pause, breathe, then say: "My second point is…" Feel how the breath creates natural structure.'},
+  speaking:{title:'3-Point Speech',
+   body:`<p>Today you build and deliver a complete 3-point body section on a topic of your choice.</p>`,
+   prompt:'Deliver a 3-minute speech with exactly three points, each with a supporting example. Record it. After, identify: (1) which point landed strongest and why, (2) which needed more evidence, (3) how your transitions felt.'}},
+
+ {day:11,week:2,wTitle:'Structure & Clarity',title:'Closing with Impact',
+  lesson:{title:'The Last Thing They Remember Is the Most Important Thing',
+   body:`<p>People remember beginnings and endings. A weak close is a missed opportunity — after everything you built, you trail off. A strong close is the gift the audience takes home. It is the line they repeat to their spouse that evening. It is what makes them act.</p><h4>Four Closing Techniques</h4><p><strong>The Circle Close:</strong> Return to your opening story or question — now with new meaning. <strong>The Call to Action:</strong> Tell them exactly what to do next, one specific step. <strong>The Vision Close:</strong> Paint a picture of what becomes possible when they apply your message. <strong>The Challenge:</strong> Leave them with a question that keeps working after you sit down.</p>`},
+  mindset:{title:'End Strong, Always',
+   body:`<p>Many speakers fade at the end because they feel the speech is over and they relax too early. The final 30 seconds deserve the same intensity as the first 30 seconds.</p>`,
+   prompt:'Write three possible closing lines for your speaking goal topic — one using Circle Close, one using Call to Action, one using Vision Close. Deliver each aloud with full commitment. Which one moves you most? That is the one your audience will remember.'},
+  breathing:{title:'Final Breath — The Closing Anchor',
+   body:`<p>Before your final line, take a deliberate breath. Then speak your close slowly, with intention. After the last word, pause. Hold the moment. Then step back. The pause after the last word is as important as the last word itself.</p>`,
+   prompt:'Practise delivering a single closing line, preceded by a deliberate breath, followed by a 3-second pause of silence. Do this until the pause feels like power, not awkwardness.'},
+  speaking:{title:'Complete Opening + Close',
+   body:`<p>You now have the two bookends of any speech. Today you practise them together — no middle, just the frame.</p>`,
+   prompt:'Deliver just your opening (30 sec) and your closing (30 sec) for your 30-day goal topic — nothing in between. This strips away the middle and forces both bookends to be strong on their own. Record it three times and refine.'}},
+
+ {day:12,week:2,wTitle:'Structure & Clarity',title:'Speaking Without Notes',
+  lesson:{title:'Eye Contact Is Impossible When Your Eyes Are on Paper',
+   body:`<p>Notes are a safety net. But every time you look down at them, you break connection with your audience. The goal is not to memorise a script word-for-word — it is to internalise the structure so deeply that you can speak from knowledge rather than reading from text.</p><h4>The Memory Architecture Method</h4><p>Instead of memorising words, memorise your speech's skeleton: Point 1 → story → transition → Point 2 → data → transition → Point 3 → challenge → close. Speak from the skeleton, let the words come naturally. Different each time — and more alive for it.</p>`},
+  mindset:{title:'I Know This',
+   body:`<p>The anxiety about forgetting words usually comes from trying to remember too many words. When you know your structure and trust your own knowledge, "forgetting" becomes "speaking freely."</p>`,
+   prompt:'Write your speech skeleton (3–5 key words per section only — no sentences). Read it once. Turn it over. Speak your speech from memory using only the skeleton in your mind. Speak aloud: "I know this. I trust my knowledge."'},
+  breathing:{title:'Recovery Breath',
+   body:`<p>When you lose your thread mid-speech, this is the breath that saves you: pause, take one slow inhale through the nose, exhale through the mouth with a slight sigh. Your next sentence will come.</p>`,
+   prompt:'Practise deliberately losing your thread, using the recovery breath, then continuing smoothly. Do this 10 times in a row. Make recovery automatic.'},
+  speaking:{title:'Notes-Free Delivery',
+   body:`<p>Today you deliver a full 2-minute speech with zero notes. Not perfect — free.</p>`,
+   prompt:'Take a speech you have prepared earlier in this programme. Remove all notes. Deliver it from your skeleton only. Record it. Watch it back. You will almost certainly be better than you think.'}},
+
+ {day:13,week:2,wTitle:'Structure & Clarity',title:'Recovering Mid-Speech',
+  lesson:{title:'Every Speaker Loses the Thread. Champions Recover.',
+   body:`<p>The measure of a great speaker is not whether they ever stumble — it is how gracefully they recover. Audiences are far more forgiving than speakers imagine. Most people in a room do not even notice a moment of hesitation unless the speaker turns it into an emergency.</p><h4>Four Recovery Techniques</h4><p><strong>1. The Rhetorical Bridge:</strong> "And that brings me to something important…" (buys time, moves forward). <strong>2. The Summarise:</strong> "So to recap what we have covered…" (resets without drawing attention). <strong>3. The Audience Question:</strong> "Before I continue, I want to ask you…" (shifts focus, gives you 20 seconds to recalibrate). <strong>4. The Honest Pause:</strong> Say nothing. Breathe. Smile slightly. Continue. Audiences read confidence, not the pause.</p>`},
+  mindset:{title:'Stumbling Is Not Failing',
+   body:`<p>Perfectionism is the enemy of great speaking. The speaker who waits until they are perfect will never speak at all. Imperfection delivered with confidence is infinitely more powerful than perfection delivered with apology.</p>`,
+   prompt:'Say aloud, with conviction: "I am allowed to stumble. Recovery is a skill I am building. Every hesitation I recover from makes me stronger." Write it down. Come back to it whenever you freeze.'},
+  breathing:{title:'The 2-Second Reset',
+   body:`<p>Two seconds is all you need. Pause. Breathe once. Your audience will not even register it as a gap — they will register it as confidence.</p>`,
+   prompt:'Practise mid-speech freezing intentionally. Every 30 seconds, stop yourself, pause, breathe, and recover using one of the four techniques. Rotate through all four techniques across five practice rounds.'},
+  speaking:{title:'The Stumble & Recover Drill',
+   body:`<p>This is an advanced exercise that most speaking programmes never teach. You will deliberately fall apart — and deliberately recover. Repeatedly.</p>`,
+   prompt:'Give a 3-minute speech on any topic. Midway through, deliberately pause for 5 full seconds, say nothing, then use one of the four recovery techniques to continue. Do this three times within the same speech. Record it. Watch how composed you look even during the "crisis."'}},
+
+ {day:14,week:2,wTitle:'Structure & Clarity',title:'Week 2 — Full Structured Speech',
+  lesson:{title:'You Now Have the Architecture',
+   body:`<p>In the past seven days, you have learned how to open powerfully, build a three-point case, close with impact, speak without notes, and recover mid-speech. Today you bring all of it together in one complete, structured speech.</p><h4>The Assignment</h4><p>You will deliver a 4–5 minute speech that uses everything: a powerful opening, three structured points with evidence, smooth transitions, a strong close — and no notes. This is your Week 2 milestone performance.</p>`},
+  mindset:{title:'Competence Breeds Confidence',
+   body:`<p>You have been learning structure for a week. Today you trust that learning. Confidence is not a feeling you wait for — it is what appears when competence meets courage.</p>`,
+   prompt:'Before your speech, write: "I know how to open. I know my three points. I know how to close. I can recover from anything. I am ready." Say it aloud three times. Then go.'},
+  breathing:{title:'Full Pre-Speech Ritual',
+   body:`<p>Run your complete ritual: belly breathing × 3 → energising triple inhale × 4 → reset breath (5-2-7) × 1 → stillness posture → first word.</p>`,
+   prompt:'Run the ritual completely, then stand in speaking posture for 15 full seconds before saying a single word. Feel what your body does.'},
+  speaking:{title:'Week 2 Showcase Speech',
+   body:`<p>Topic: "One belief about public speaking that I held when I started this programme that I no longer believe — and what I believe instead."</p>`,
+   prompt:'Deliver this for 4–5 minutes. Record it. After watching it back, write: (1) your strongest moment, (2) your biggest structural improvement since Week 1, (3) one thing you will focus on in Week 3.'
+  }},
+
+ // WEEK 3 — DELIVERY & PRESENCE
+ {day:15,week:3,wTitle:'Delivery & Presence',title:'Voice Modulation',
+  lesson:{title:'Your Voice Is an Orchestra — Stop Playing One Note',
+   body:`<p>A monotone voice is the single greatest reason audiences disengage. It is not that your content is poor — it is that the delivery removes all the emotional texture that tells the audience how to feel about what you are saying. Vocal variety is not performance. It is communication at its fullest.</p><h4>The Four Controls</h4><p><strong>Pitch:</strong> Drop lower for gravity and authority. Rise higher for excitement, surprise, or question. <strong>Volume:</strong> Project to command; whisper to draw people in. <strong>Pace:</strong> Accelerate for energy; decelerate to signal importance. <strong>Tone:</strong> Let your feeling about the content colour your voice — warmth, urgency, wonder, conviction.</p>`},
+  mindset:{title:'My Voice Has Colour',
+   body:`<p>Many people grew up being told to be quieter, to be more serious, to not show emotion. Today you actively undo that conditioning.</p>`,
+   prompt:'Read a single sentence — any sentence — five times, each time changing one of the four controls. Record each version. Listen back. Say aloud: "My voice has range, warmth, and power. I am learning to use all of it."'},
+  breathing:{title:'Breathing for Vocal Power',
+   body:`<p>A full, resonant voice is only possible with full breath support. Shallow chest breathing produces a thin, high, nervous sound. Belly breathing produces a full, grounded, authoritative sound.</p>`,
+   prompt:'Take a full belly breath, then sustain the sound "AHHH" for as long as you can. Notice the richness of the tone. Do this 5 times. Then speak a sentence on that same breath support.'},
+  speaking:{title:'The Vocal Variety Drill',
+   body:`<p>You will read the same paragraph four times with four different emotional intents — each requiring a different combination of pitch, volume, pace, and tone.</p>`,
+   prompt:'Read this paragraph aloud 4 ways: (1) urgent and serious — as if breaking important news; (2) warm and celebratory — as if announcing great news; (3) slow and profound — as if sharing wisdom; (4) natural and conversational — as if talking to a friend. Record all 4. Which version of your voice surprises you most?'}},
+
+ {day:16,week:3,wTitle:'Delivery & Presence',title:'The Art of Eye Contact',
+  lesson:{title:'Eye Contact Is a Conversation at Scale',
+   body:`<p>Great speakers make every person in the room feel they are being spoken to directly. This is not magic — it is the deliberate practice of meaningful eye contact. Not darting glances, not staring at one person, not looking at the ceiling. Purposeful, moving, connecting eye contact.</p><h4>The 3-Second Rule</h4><p>Land on one person for 3 seconds — long enough to complete one thought. Then move to another. Cover all areas of the room. Return to individuals who are engaging back with you. Never look at a spot above heads. Never look at the floor.</p>`},
+  mindset:{title:'I See You — And You See Me',
+   body:`<p>Eye contact is one of the most vulnerable acts in communication. It says: "I am here and I see you and I am not afraid of what I see." That vulnerability is what creates trust.</p>`,
+   prompt:'Look at yourself in a mirror for one full minute without looking away. Notice the discomfort. Stay with it. By the end, say: "I can hold space with my eyes. My gaze communicates confidence."'},
+  breathing:{title:'Breath Anchors Eye Contact',
+   body:`<p>When you are nervous, you look away as you exhale. Practise doing the opposite: hold someone's gaze as you exhale. The breath becomes the anchor of connection.</p>`,
+   prompt:'Speaking to a mirror, hold eye contact through your entire exhale. Do not look away until the breath is complete. Do this 10 times. Notice how it changes your sense of groundedness.'},
+  speaking:{title:'3-Zone Eye Contact Practice',
+   body:`<p>Imagine your audience divided into three zones: left, centre, right. Your job is to deliver complete thoughts to each zone — not words, but complete ideas.</p>`,
+   prompt:'Deliver a 2-minute speech to 3 different objects placed at left, centre, and right of the room. Look at each one for one full thought (3–5 seconds), then move. Record it and notice how the eye contact makes your delivery feel more alive.'}},
+
+ {day:17,week:3,wTitle:'Delivery & Presence',title:'Body Language & Gesture',
+  lesson:{title:'Your Body Speaks Before Your Mouth Opens',
+   body:`<p>Research consistently shows that a significant portion of a speaker's impact comes from non-verbal communication — posture, gesture, movement, facial expression. Your body is either reinforcing your words or contradicting them.</p><h4>The Golden Rules of Speaker Body Language</h4><p><strong>Plant your feet:</strong> Stop pacing. Movement without purpose is distraction. <strong>Keep hands visible:</strong> Hands at your sides or in front of you — never in pockets. <strong>Gesture from your message:</strong> Let gestures arise naturally from what you are describing, not as performances. <strong>Facial congruence:</strong> Your face should reflect what you are saying. If you are describing something powerful, look like it matters.</p>`},
+  mindset:{title:'My Body Is Part of My Message',
+   body:`<p>Many people try to control their body by restricting it — standing rigid, gripping the podium, crossing their arms. Freedom of movement actually reduces anxiety and increases presence.</p>`,
+   prompt:'Stand in speaking posture. Drop your hands to your sides — just hang them there. Hold that position for 30 seconds. Notice the discomfort. This is your resting position as a speaker. Say: "My stillness is confidence. My movement is intention."'},
+  breathing:{title:'Posture and Breath Are One',
+   body:`<p>Collapsed posture restricts lung capacity by up to 30%. When you stand tall, your lungs fill fully, your voice projects naturally, and your presence increases immediately.</p>`,
+   prompt:'Stand tall, shoulders back, chin level. Take a full breath. Now collapse your posture — slump slightly forward. Take the same breath. Notice the difference. Straighten again. This is why posture is a breathing practice.'},
+  speaking:{title:'The Silent Speech',
+   body:`<p>The most powerful body language exercise: deliver a 2-minute speech with no sound. Communicate entirely through your face, gesture, and movement.</p>`,
+   prompt:'Stand before a mirror and deliver your speaking goal speech silently — no words, just body. Notice which gestures arise naturally. Notice your face. Then deliver the same speech with sound and keep the gestures. Record both versions.'}},
+
+ {day:18,week:3,wTitle:'Delivery & Presence',title:'Speaking with Emotion',
+  lesson:{title:'Logic Informs. Emotion Transforms.',
+   body:`<p>People make decisions emotionally and justify them rationally. A speech that only gives information leaves the audience intellectually satisfied but unmoved. A speech that carries genuine emotion leaves them transformed. The most memorable speeches you have ever heard were memorable because of how they made you feel.</p><h4>Emotional Connection Tools</h4><p><strong>Vulnerability:</strong> Sharing a moment of failure, fear, or doubt creates more trust than a list of achievements. <strong>Sensory language:</strong> "The room smelled of chalk dust" is infinitely more connecting than "I was in a classroom." <strong>Direct address:</strong> "You have felt this before…" collapses the distance between speaker and listener. <strong>Pace and silence:</strong> Emotional moments must breathe. Do not rush past them.</p>`},
+  mindset:{title:'Feeling Is Not Weakness',
+   body:`<p>Many speakers, especially men and people from professional backgrounds, have been trained to suppress emotion in communication. Today you actively practise allowing it.</p>`,
+   prompt:'Think of a moment that genuinely moved you — joy, grief, pride, wonder. Write 3 sentences describing it. Then speak those 3 sentences aloud, allowing yourself to feel what you felt then. This is not performance. This is access.'},
+  breathing:{title:'Breath for Emotional Moments',
+   body:`<p>When genuine emotion arises mid-speech, the instinct is to breathe it away — to push it down. Instead, breathe through it. One slow breath in the midst of emotion communicates authenticity. Audiences are moved by a speaker who is moved.</p>`,
+   prompt:'Think of something that matters deeply to you. Speak about it for 60 seconds. If emotion arises, breathe through it — do not suppress it. Notice what happens to your connection to the material.'},
+  speaking:{title:'The Emotional Story',
+   body:`<p>You will tell a 3-minute personal story that has emotional texture — not tragedy for its own sake, but real experience honestly told.</p>`,
+   prompt:'Tell a story from your own life about a moment of challenge, failure, or unexpected change — and what it taught you. Your goal is for a listener to feel something. Use sensory language. Allow pauses. Speak it into the room as if someone is sitting right in front of you.'}},
+
+ {day:19,week:3,wTitle:'Delivery & Presence',title:'Handling Questions Confidently',
+  lesson:{title:'Q&A Is Not an Ambush — It Is an Opportunity',
+   body:`<p>Many speakers who deliver polished speeches fall apart in Q&A because it feels uncontrolled. But Q&A is where your real credibility is built. It is where audiences see whether you truly know your material or were simply reciting it.</p><h4>The CLEAR Framework for Q&A</h4><p><strong>C — Clarify:</strong> Repeat or rephrase the question. "So you are asking…" This confirms you understood and buys thinking time. <strong>L — Listen:</strong> Do not answer until you have fully heard. <strong>E — Expand:</strong> Give your answer with a brief example. <strong>A — Anchor:</strong> Connect your answer back to your main message. <strong>R — Respect:</strong> Acknowledge the questioner: "That is an important question."</p>`},
+  mindset:{title:'I Am Ready for Questions',
+   body:`<p>The fear of Q&A usually comes from the fear of not knowing an answer. But "I do not know, and I will find out" is a completely acceptable and respected answer. What you must never say is nothing — or worse, make something up.</p>`,
+   prompt:'Say aloud: "I do not need to have every answer. I need to be honest, thoughtful, and clear. My value is in how I engage, not in being infallible." Write the CLEAR framework from memory. Practise it on a question someone asks you today.'},
+  breathing:{title:'The Thinking Breath',
+   body:`<p>When a difficult question arrives, the thinking breath is your tool. Pause. Breathe. Nod (if in person). This signals "I am taking your question seriously" — not "I am panicking." Those 3 seconds change everything.</p>`,
+   prompt:'Have someone ask you 5 random questions. After each one, pause for 3 full seconds and breathe before answering. Practise making that pause feel natural rather than anxious.'},
+  speaking:{title:'Live Q&A Simulation',
+   body:`<p>You will need one other person for this exercise — a friend, partner, or family member who will ask you challenging questions about your speaking journey or your 30-day goal.</p>`,
+   prompt:'Brief your partner: ask me at least 5 tough questions about my public speaking goal, my progress, or my ideas. I will answer using the CLEAR framework. Record the session. Review how you handled the pressure.'}},
+
+ {day:20,week:3,wTitle:'Delivery & Presence',title:'Storytelling as a Speaking Tool',
+  lesson:{title:'Story Is the Original Communication Technology',
+   body:`<p>Before data, before slide decks, before bullet points — there was story. The human brain does not process information and story the same way. Information is stored. Story is experienced. And we only remember what we experience.</p><h4>The Story Arc</h4><p><strong>The World Before:</strong> Set the scene — paint a picture of the situation before everything changed. <strong>The Disruption:</strong> What happened that shook things up? This is the moment of conflict, challenge, or change. <strong>The Struggle:</strong> The honest journey through difficulty. This is where audiences connect most deeply. <strong>The Resolution:</strong> What was learned, gained, or transformed. This is your message.</p>`},
+  mindset:{title:'My Story Has Worth',
+   body:`<p>Many people discount their own stories as uninteresting, thinking only famous or dramatic experiences are worth telling. Every human story, told with honesty and craft, has universal resonance. Your ordinary moment is someone else's extraordinary recognition.</p>`,
+   prompt:'Write one story from your own life — an ordinary moment that changed how you see something. Three sentences per arc section. Then read it aloud. Notice where you feel genuine emotion. That is where your audience will too.'},
+  breathing:{title:'Breath Pacing for Story',
+   body:`<p>Stories breathe differently to information. They expand in emotional moments (slower, with pauses) and contract in action (faster, with momentum). Practise letting your breath mirror the emotional pace of your story.</p>`,
+   prompt:'Tell a 2-minute story. Let your breathing speed up with tension and slow down with emotion. Record it and listen back for the rhythmic quality. Does it feel alive?'},
+  speaking:{title:'Your Signature Story',
+   body:`<p>Every great speaker has a signature story — the one that best captures who they are and what they stand for. Today you begin crafting yours.</p>`,
+   prompt:'Tell a 3-minute story from your own life using the Story Arc. Focus on: vivid scene-setting in the World Before, genuine honesty in the Struggle, and a resolution that connects to your deeper message about speaking or growth. This is a story you will tell again and again.'}},
+
+ {day:21,week:3,wTitle:'Delivery & Presence',title:'Week 3 Showcase',
+  lesson:{title:'You Are Not the Same Speaker',
+   body:`<p>Three weeks in. You have rebuilt the architecture of how you speak. You have learned to modulate your voice, hold space with your eyes, let your body speak, connect with emotion, handle questions, and tell stories that move people. Today you bring all of it together in your most complete performance yet.</p>`},
+  mindset:{title:'I Have Grown Significantly',
+   body:`<p>Compare where you started with where you are now. Not to a perfect standard — but to yourself on Day 1. That comparison is the only one that matters.</p>`,
+   prompt:'Write three specific things about your speaking that are demonstrably better than they were on Day 1. Speak them aloud with pride. This is not arrogance — this is honest accounting of your growth.'},
+  breathing:{title:'Full Ritual + Warm-Up',
+   body:`<p>Today runs the full ritual plus vocal warm-up: lip trills → hum → 4-4-4 breath × 3 → energising breath × 4 → stillness → speak.</p>`,
+   prompt:'Run the complete warm-up, then step into speaking posture. You are performance-ready.'},
+  speaking:{title:'Week 3 Speech — "A Story That Shaped Me"',
+   body:`<p>Deliver a 5-minute speech using storytelling as the primary vehicle for your message. Use vocal variety, deliberate eye contact (even to an imagined audience), intentional gesture, and emotional honesty.</p>`,
+   prompt:'Topic: "A story that shaped how I see my voice or my potential." This is your most personal speech yet. Record it. Watch it in full. Write a 150-word self-evaluation: what you are proud of, what you are still building, and how you feel about yourself as a speaker right now.'
+  }},
+
+ // WEEK 4 — ADVANCED SKILLS
+ {day:22,week:4,wTitle:'Advanced Skills',title:'Impromptu Speaking',
+  lesson:{title:'The Most Useful Speaking Skill Nobody Teaches',
+   body:`<p>Most speaking in real life is unplanned. A question in a meeting. An unexpected invitation to say a few words. A toast at dinner. A job interview pivot. Impromptu speaking is the daily currency of influence, and yet almost no speaking programme prepares you for it.</p><h4>The POINT Method</h4><p><strong>P — Pause:</strong> 3–5 seconds. Breathe. Do not rush into the first word. <strong>O — Open:</strong> State your position in one sentence. <strong>I — Illustrate:</strong> Give one concrete example or story. <strong>N — Note:</strong> Add one insight, principle, or evidence. <strong>T — Tie back:</strong> Return to your opening position, now reinforced.</p>`},
+  mindset:{title:'I Can Always Find Something to Say',
+   body:`<p>The fear of impromptu speaking is the fear of being caught unprepared. But with a framework, you are never unprepared. POINT works in 60 seconds or 6 minutes. It works on any topic.</p>`,
+   prompt:'Ask someone to give you a random topic. Use POINT to speak for 90 seconds without preparation. Do this 3 times with different topics. After each, say: "I found something to say. I always will."'},
+  breathing:{title:'The Composure Breath',
+   body:`<p>When called upon unexpectedly, the composure breath is the first thing you do — before a single word. It signals to your nervous system: we are not in danger, we are in opportunity.</p>`,
+   prompt:'Practise this transition: someone calls on you unexpectedly (simulate this with a partner or timer). Your first action is not speaking — it is one slow, visible breath. Then you begin. Do this 5 times.'},
+  speaking:{title:'Random Topic Drill',
+   body:`<p>This drill builds the neural pathways for confident, structured impromptu speaking. Speed and repetition are the keys.</p>`,
+   prompt:'Use a random word generator (or ask someone to call out 5 random topics) and speak for 90 seconds on each using POINT. Topics could be anything — "mangoes", "traffic in Accra", "smartphones", "forgiveness." Record all 5. Which one surprised you most?'}},
+
+ {day:23,week:4,wTitle:'Advanced Skills',title:'Persuasion & Influence',
+  lesson:{title:'Words That Move People',
+   body:`<p>Every speech is persuasive at some level. You are always asking your audience to believe something, feel something, or do something. Understanding the architecture of persuasion makes you not just a better speaker — but a more effective human being.</p><h4>Aristotle's Triangle — Still Undefeated</h4><p><strong>Ethos — Your Character:</strong> Why should I believe you? Establish your credibility, your experience, your skin in the game. <strong>Pathos — Your Heart:</strong> Why should I care? Connect to the audience's values, fears, or desires. <strong>Logos — Your Logic:</strong> Why should I agree? Evidence, reasoning, data that holds up.</p><p>The most persuasive speeches weave all three — credibility, emotion, and logic — in dynamic proportion.</p>`},
+  mindset:{title:'Persuasion Is Service, Not Manipulation',
+   body:`<p>The best speakers are not trying to win arguments — they are trying to expand someone's world. Persuasion used with integrity is one of the highest forms of service you can offer.</p>`,
+   prompt:'Think of something you genuinely believe could help the people around you. Write one sentence for Ethos ("I know this because…"), one for Pathos ("This matters because you…"), and one for Logos ("The evidence shows…"). Speak all three in sequence aloud.'},
+  breathing:{title:'Breath for Authority',
+   body:`<p>Persuasive speakers breathe from authority — slow, full, grounded. Before making your strongest point, a deliberate breath adds weight to what follows.</p>`,
+   prompt:'Practise delivering your most persuasive argument. Before your key point, take a visible, deliberate breath. After the point, pause. Notice how the breath and pause frame your message with authority.'},
+  speaking:{title:'3-Minute Persuasive Speech',
+   body:`<p>Today you persuade. Not trick, not manipulate — but genuinely move someone toward a belief or action using all three of Aristotle's tools.</p>`,
+   prompt:'Prepare and deliver a 3-minute persuasive speech on anything you genuinely believe in. Deliberately deploy Ethos, Pathos, and Logos. Label each in your written submission so your reflection shows you know where each appeared.'}},
+
+ {day:24,week:4,wTitle:'Advanced Skills',title:'Speaking in Professional Settings',
+  lesson:{title:'The Boardroom Speaks a Different Language',
+   body:`<p>Professional communication has its own code — more structured, more economical, more outcome-focused. The speaker who masters professional settings advances faster, earns more respect, and changes more outcomes.</p><h4>Professional Speaking Principles</h4><p><strong>Lead with the conclusion:</strong> State your recommendation first, then give the supporting evidence. Professionals do not want to sit through your argument before they know your position. <strong>Brevity is power:</strong> Every word that does not add earns its way out. <strong>Handle objections pre-emptively:</strong> "You might be thinking… and the answer is…" <strong>Close with a specific ask:</strong> "What I need from this group is…"</p>`},
+  mindset:{title:'My Voice Has Value in Every Room',
+   body:`<p>Imposter syndrome is most acute in professional settings — the sense that someone else is more qualified to speak. The truth is: you are in the room. That is your qualification.</p>`,
+   prompt:'Think of a professional context where you wish you spoke more confidently. Write: "In [that context], I will start speaking up by…" Speak your answer aloud. Make it specific, not abstract.'},
+  breathing:{title:'Composed Breathing Under Professional Pressure',
+   body:`<p>Professional settings often create a specific type of pressure — authority figures, stakes, judgment. The composure breath used here signals calm command.</p>`,
+   prompt:'Simulate a high-stakes professional moment: someone challenges you in a meeting. Take the composure breath (slowly, visibly), nod, then respond. Practice this 5 times with different challenge statements.'},
+  speaking:{title:'Professional Proposal Speech',
+   body:`<p>You have 3 minutes to propose an idea in a professional setting. Lead with your recommendation. Give three reasons. Close with a specific ask.</p>`,
+   prompt:'Deliver a 3-minute professional proposal speech. Topic: propose one improvement to any organisation, institution, or community you belong to. Record it. Review for: (1) Did you lead with your conclusion? (2) Was it economical? (3) Did you make a clear ask?'}},
+
+ {day:25,week:4,wTitle:'Advanced Skills',title:'Speaking in Faith & Community Contexts',
+  lesson:{title:'The Sacred Platform',
+   body:`<p>Speaking in church, at community events, or in ceremonies carries a unique weight. You are not simply communicating information — you are speaking into people's deepest values, identities, and hopes. This privilege demands your fullest preparation and your most authentic presence.</p><h4>Keys to Faith and Community Speaking</h4><p><strong>Honour the worldview:</strong> Speak from inside the community's framework, not above it. <strong>Use Scripture and proverb as anchors:</strong> Not as decoration, but as the bedrock that gives your words weight. <strong>Let the message carry you:</strong> The best moments in faith speaking come when the speaker gets out of the way and lets the truth speak. <strong>Conversational authority:</strong> You do not need to shout to be anointed. A quiet conviction is more powerful than performance.</p>`},
+  mindset:{title:'I Speak Because I Have Been Given Something to Say',
+   body:`<p>The most powerful speakers in faith contexts are not the most eloquent — they are the most convinced. Conviction is the fuel. Preparation is the vessel.</p>`,
+   prompt:'Reflect: what is one truth you hold so deeply that you could speak about it without notes, without fear, and without hesitation? Write it in one sentence. Speak it aloud with your full conviction. That is your platform.'},
+  breathing:{title:'Centring Before Sacred Speaking',
+   body:`<p>Before speaking in a faith or community context, take a moment to centre yourself — not with anxiety, but with intention. This is a breathing prayer: breathe in the gravity of the moment, breathe out the need to perform.</p>`,
+   prompt:'Sit quietly for 60 seconds. Breathe slowly. Set an intention for your speaking: "What I say today is meant to serve, not to impress." Then stand and speak the first line of a devotional or community address.'},
+  speaking:{title:'Community Address',
+   body:`<p>Deliver a 3-minute community or devotional address. The audience: a gathering of your community, church, or association.</p>`,
+   prompt:'Topic: "The Courage to Find Your Voice." Use a Scripture, proverb, or community-relevant anchor. Include one personal story. Close with a specific challenge for the audience. Record it. How does it feel to speak with conviction in this context?'}},
+
+ {day:26,week:4,wTitle:'Advanced Skills',title:'The Language of Leadership',
+  lesson:{title:'Leaders Speak Differently',
+   body:`<p>Leadership language is not about big vocabulary or loud delivery. It is about how you position yourself, your audience, and the vision in relation to each other. The way you speak either casts you as a follower narrating events — or a leader creating them.</p><h4>Leadership Language Principles</h4><p><strong>"We" over "I":</strong> Leaders build coalitions, not portfolios. <strong>Own the difficult:</strong> "We fell short" not "the results were disappointing." <strong>Vision language:</strong> "We will, we are building, we can" — present tense, active voice. <strong>Make others the hero:</strong> The best leadership communication elevates the people around the leader, not the leader themselves.</p>`},
+  mindset:{title:'I Lead When I Speak',
+   body:`<p>You do not need a title to use leadership language. The moment you take responsibility for the room, for the conversation, for the direction — you are leading. Speaking is leadership in its most immediate form.</p>`,
+   prompt:'Say aloud: "When I speak, I am leading. I take responsibility for the room, the direction, and the result." Then rewrite this passive sentence into leadership language: "The project was not completed on time" → speak your leadership version aloud.'},
+  breathing:{title:'Breath for Calm Authority',
+   body:`<p>Leaders breathe before they speak in crisis. The pause before speaking in a difficult moment is what separates the reactive from the responsive.</p>`,
+   prompt:'Simulate a leadership challenge — someone brings you bad news. Pause. Breathe. Then respond with calm, direct, forward-looking language. Practise 5 different crisis scenarios.'},
+  speaking:{title:'Leadership Address',
+   body:`<p>You are the leader of a team facing a significant challenge. Your 3-minute address needs to acknowledge the difficulty honestly, cast a clear vision forward, and activate the people in the room.</p>`,
+   prompt:'Deliver the address. Use leadership language principles throughout. Record it. After, review: (1) How many times did you say "I" vs "we"? (2) Did you cast vision or just describe problems? (3) Did you end with activation?'}},
+
+ {day:27,week:4,wTitle:'Advanced Skills',title:'Your Signature Speaking Style',
+  lesson:{title:'There Is Only One You',
+   body:`<p>After 26 days of tools, frameworks, and exercises, it is time to synthesise. Your signature style is not a performance or an imitation — it is your most authentic communication self, refined and delivered with full intention. The speakers you admire are not great because they are like other great speakers. They are great because they are completely, undefendably themselves.</p><h4>Discovering Your Style</h4><p>Your style is the intersection of your natural energy, your strongest tools, and the topics that make you come alive. It is the answer to: "What do you want people to feel and think and do when you finish speaking?" That answer, pursued with craft and consistency, is your signature.</p>`},
+  mindset:{title:'I Am an Original',
+   body:`<p>You are not becoming the next anyone. You are becoming the first you — and the world needs that speaker specifically.</p>`,
+   prompt:'Write your Speaker Bio as if it is three years from today and you are being introduced at a major event. Who have you become? What do you speak about? What is your reputation? Write it in full. Then read it aloud as your declaration of intent.'},
+  breathing:{title:'Breath as Part of Your Style',
+   body:`<p>Even your breathing patterns — how long you pause, how you breathe before emphasis — become part of your signature. Some speakers breathe loudly and deliberately (making the breath itself communicative). Others are silent. Discover your style.</p>`,
+   prompt:'Speak for 2 minutes on any topic you love. Notice your breathing naturally. Are your pauses short or long? Do you breathe fast or slow? This is data about your natural style. Work with it, not against it.'},
+  speaking:{title:'Signature Style Speech',
+   body:`<p>This speech has no structure requirements. No framework. No guidelines beyond: be completely yourself.</p>`,
+   prompt:'Speak for 3–4 minutes on a topic that makes you come alive. Use every tool you have learned — or ignore them all and just speak from your gut. Record it. This is the closest thing yet to your signature voice. What does it sound like?'}},
+
+ {day:28,week:4,wTitle:'Advanced Skills',title:'Week 4 Review',
+  lesson:{title:'Four Weeks of Transformation',
+   body:`<p>Take stock. Four weeks ago you were a person who wanted to speak better. Today you are a person who has rebuilt the architecture of how you communicate — from the inside out. You have frameworks for structure. You have tools for delivery. You have practised emotional connection, professional authority, faith context, leadership language, and your own signature style. What remains is to bring it all together in your most complete performance.</p>`},
+  mindset:{title:'I Am Almost There',
+   body:`<p>Two more sessions. Your Day 29 is summation. Your Day 30 is graduation. But first — this milestone performance.</p>`,
+   prompt:'Write the three biggest transformations in how you speak since Day 1. Be specific — not "I got better" but "I now know how to open a speech in 30 seconds without reading from notes." Speak your three transformations aloud with pride.'},
+  breathing:{title:'Complete Warm-Up Ritual',
+   body:`<p>This is the full ritual that should now be automatic: lip trills → vocal hum → belly breathing × 3 → energising breath × 4 → reset breath (5-2-7) → posture → stillness → speak.</p>`,
+   prompt:'Run the full ritual. Time it. It should take 3–4 minutes. Make it your non-negotiable before every significant speaking moment for the rest of your life.'},
+  speaking:{title:'Week 4 Showcase — 5 Minutes, No Limits',
+   body:`<p>Topic: anything you believe in deeply that would benefit the people around you.</p>`,
+   prompt:'Deliver a 5-minute speech using every tool available to you. This is your Week 4 performance: opening hook, 3-point structure or storytelling, vocal variety, intentional gesture, eye contact, and a close that lingers. Record it. Watch it in full. Write 200 words on what you see.'}},
+
+ // FINALE
+ {day:29,week:5,wTitle:'Final Summation',title:'Summation — The Month That Changed You',
+  lesson:{title:'Before You Graduate — Look Back',
+   body:`<p>Day 30 is your graduation. But first, today is your summation — an honest accounting of the month that changed how you speak, how you think about yourself, and perhaps how you move in the world.</p><h4>Three Questions for Today</h4><p>1. What was the single most powerful shift — in mindset, skill, or self-belief — that this programme produced? 2. What specific situation are you now ready to walk into that you were not ready for on Day 1? 3. What is the one speaking habit you are committing to maintain for the next year?</p>`},
+  mindset:{title:'I Have Done Something Most People Only Dream Of',
+   body:`<p>The majority of people who say "I want to be a better speaker" never do anything about it. You did 29 days of daily work. That alone puts you in a rare category of human beings.</p>`,
+   prompt:'Write a letter from yourself today to yourself on Day 1 — before you knew what you would discover and build. What do you want Day 1 You to know? Read it aloud, slowly, as your final mindset practice before graduation.'},
+  breathing:{title:'The Breath of Completion',
+   body:`<p>Take one long, full breath — all the way in, all the way out. That breath carries 29 days of practice, courage, and growth. Your lungs know it. Your voice knows it.</p>`,
+   prompt:'Do one final, extended breathing sequence: 4-4-4 × 5. Then stand in your speaker posture. Feel the difference from Day 1. Tomorrow you graduate.'},
+  speaking:{title:'Summation Reflection Speech',
+   body:`<p>This is not a performance speech — it is a reflection speech. Honest, personal, and meaningful.</p>`,
+   prompt:'Deliver a 4-minute reflection: "Who I was on Day 1, what this programme revealed, and who I am walking out as on Day 30." Record it. Save it. Watch it the night before your graduation speech tomorrow.'}},
+
+ {day:30,week:5,wTitle:'Graduation',title:'🎓 Graduation Day — Your Finest Hour',
+  lesson:{title:'You Did It.',
+   body:`<p>Thirty sessions ago you enrolled with a fear, a goal, and a decision to change. Today you stand on the other side of that decision. You are not the same speaker. You may not yet be the speaker you will eventually become — but you are demonstrably, measurably, powerfully different from who you were on Day 1. Today your voice gets its graduation ceremony.</p><h4>Your Graduation Speech</h4><p>No topic restrictions. No framework requirements. Speak on what matters most to you. Bring everything: story, structure, vocal variety, eye contact, silence, conviction, and your signature style. Speak as the speaker you have become — not the one you were.</p>`},
+  mindset:{title:'I Am a Divine Linguist',
+   body:`<p>The name is not just a brand. It is a declaration. A Divine Linguist is someone who understands that words carry weight — that language shapes reality, creates opportunity, and moves people toward their better selves.</p>`,
+   prompt:'Say aloud, with full conviction: "I am a Divine Linguist. My voice carries weight. What I say matters. I speak with confidence, clarity, and purpose — and I will never stop growing." Say it five times. Mean it more each time.'},
+  breathing:{title:'Graduation Ritual',
+   body:`<p>Run your complete ritual one final time. Then stand still for 30 full seconds before you begin. Feel the weight of what this moment represents.</p>`,
+   prompt:'Complete ritual → 30 seconds of stillness → one final deep breath → your first word. You are ready.'},
+  speaking:{title:'Your Graduation Speech — 5 Minutes',
+   body:`<p>This is it. Your graduation speech. Topic: anything your soul needs to say today.</p>`,
+   prompt:'Deliver 5 minutes of your finest speaking. Record it. Compare it with your Day 1 baseline. Then submit your final reflection: what has changed, what you are taking forward, and one promise you are making to your voice for the next year. Congratulations — you are a Divine Linguist. 🎤✨'}
+}
+];
+
+/* ════════════════════════════════════════════════════════
+   DIAGNOSTIC STEPS DATA
+   ════════════════════════════════════════════════════════ */
+const DIAG_STEPS = [
+  {id:'bio', title:'About You', sub:'Help your coach understand who you are coming in as.'},
+  {id:'speaking', title:'Your Speaking Background', sub:'Where are you starting from?'},
+  {id:'fears', title:'Fears & Challenges', sub:'Honest self-assessment — this helps your coach help you.'},
+  {id:'goals', title:'Goals & Vision', sub:'What does success look like for you?'},
+  {id:'temperament', title:'Personality Discovery', sub:'20 quick questions to find your Speaker Archetype.'},
+  {id:'mindset', title:'Mindset & Habits', sub:'One final look at your inner world as a speaker.'}
+];
+
+/* ════════════════════════════════════════════════════════
+   APP STATE
+   ════════════════════════════════════════════════════════ */
+let db,auth,ME,PROFILE;
+let allStudents=[],allDiags=[],allRefs=[],allAnns=[];
+let diagStep=0,diagData={},tempScores={S:0,C:0,M:0,P:0};
+let currentDayModal=null;
+let timerInterval=null,timerSecs=3600,timerRunning=false;
+let activityStates={};
+
+/* ════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded',()=>{
+  try{
+    firebase.initializeApp(FB_CONFIG);
+    db=firebase.firestore();
+    auth=firebase.auth();
+    auth.onAuthStateChanged(onAuth);
+  }catch(e){
+    hideLoader();showV('vwelcome');
+    toast('Firebase not yet configured. See Setup Guide.','err');
+  }
+});
+
+async function onAuth(user){
+  if(user){
+    ME=user;
+    if(user.email===ADMIN_EMAIL){ loadAdmin(); }
+    else{ loadStudent(); }
+  }else{
+    hideLoader();showV('vwelcome');
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   UI HELPERS
+   ════════════════════════════════════════════════════════ */
+const VIEWS=['vwelcome','vreg','vlogin','vadmin-login','vdiag','varchetype','vstudent','vadmin','vcertificate'];
+function showV(id){VIEWS.forEach(v=>el(v).classList.add('hidden'));el(id).classList.remove('hidden');window.scrollTo(0,0)}
+function showLoader(){el('loader').classList.remove('fade','hidden')}
+function hideLoader(){const l=el('loader');l.classList.add('fade');setTimeout(()=>l.classList.add('hidden'),400)}
+let _tt;
+function toast(msg,type=''){const t=el('toast');t.textContent=msg;t.className=type?`show ${type}`:'show';clearTimeout(_tt);_tt=setTimeout(()=>t.className='',3000)}
+function el(id){return document.getElementById(id)}
+function openM(id){el(id).classList.remove('hidden')}
+function closeM(id){el(id).classList.add('hidden')}
+function closeMIfOut(e,id){if(e.target.id===id)closeM(id)}
+function switchTab(id,btn){
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));
+  el(id).classList.add('act');
+  document.querySelectorAll('.bnav button').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+}
+function switchATab(id,btn){
+  document.querySelectorAll('.atab-pane').forEach(t=>t.classList.remove('act'));
+  el(id).classList.add('act');
+  document.querySelectorAll('.atab-btn').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+}
+function fmtDate(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function ago(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);const m=Math.floor((Date.now()-d)/60000);if(m<1)return'Just now';if(m<60)return`${m}m ago`;const h=Math.floor(m/60);if(h<24)return`${h}h ago`;return`${Math.floor(h/24)}d ago`}
+function initials(p){return((p.firstName||'?')[0]+(p.lastName||'?')[0]).toUpperCase()}
+
+/* ════════════════════════════════════════════════════════
+   AUTH
+   ════════════════════════════════════════════════════════ */
+async function doRegister(){
+  const fn=el('r-fn').value.trim(),ln=el('r-ln').value.trim();
+  const em=el('r-em').value.trim(),pw=el('r-pw').value.trim();
+  const ph=el('r-ph').value.trim(),ag=el('r-ag').value.trim();
+  const oc=el('r-oc').value.trim();
+  if(!fn||!ln)return toast('Please enter your full name.','err');
+  if(!em)return toast('Please enter your email.','err');
+  if(pw.length<6)return toast('Password needs at least 6 characters.','err');
+  showLoader();
+  try{
+    const c=await auth.createUserWithEmailAndPassword(em,pw);
+    await db.collection('users').doc(c.user.uid).set({
+      uid:c.user.uid,firstName:fn,lastName:ln,email:em,phone:ph,age:ag,occupation:oc,
+      enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
+      completedDays:[],currentDay:1,streak:0,goal:'',archetype:'',diagDone:false
+    });
+    toast('Account created! Let\'s build your speaker profile.','ok');
+  }catch(e){hideLoader();toast(e.message||'Registration failed.','err')}
+}
+
+async function doLogin(){
+  const em=el('l-em').value.trim(),pw=el('l-pw').value.trim();
+  if(!em||!pw)return toast('Please enter email and password.','err');
+  showLoader();
+  try{await auth.signInWithEmailAndPassword(em,pw)}
+  catch(e){hideLoader();toast('Invalid email or password.','err')}
+}
+
+async function doAdminLogin(){
+  const em=el('al-em').value.trim(),pw=el('al-pw').value.trim();
+  if(!em||!pw)return toast('Enter admin credentials.','err');
+  showLoader();
+  try{await auth.signInWithEmailAndPassword(em,pw)}
+  catch(e){hideLoader();toast('Admin login failed.','err')}
+}
+
+async function doLogout(){await auth.signOut();ME=null;PROFILE=null}
+
+/* ════════════════════════════════════════════════════════
+   GOOGLE SIGN-IN
+   ════════════════════════════════════════════════════════ */
+async function doGoogleSignIn(){
+  showLoader();
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({prompt:'select_account'});
+    const result=await auth.signInWithPopup(provider);
+    const user=result.user;
+    // Check if profile already exists
+    const snap=await db.collection('users').doc(user.uid).get();
+    if(!snap.exists){
+      // New Google user — create profile from Google data
+      const nameParts=(user.displayName||'').split(' ');
+      const firstName=nameParts[0]||'Student';
+      const lastName=nameParts.slice(1).join(' ')||'';
+      await db.collection('users').doc(user.uid).set({
+        uid:user.uid,
+        firstName,lastName,
+        email:user.email||'',
+        phone:'',age:'',occupation:'',
+        photoURL:user.photoURL||'',
+        enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
+        completedDays:[],currentDay:1,streak:0,
+        goal:'',archetype:'',diagDone:false,
+        signInMethod:'google'
+      });
+    }
+    // onAuth will handle routing
+  }catch(e){
+    hideLoader();
+    if(e.code==='auth/popup-closed-by-user'){
+      toast('Sign-in cancelled.','');
+    }else if(e.code==='auth/popup-blocked'){
+      toast('Pop-up blocked. Please allow pop-ups for this site and try again.','err');
+    }else{
+      toast('Google sign-in failed. Please try email registration instead.','err');
+      console.error(e);
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   FORGOT PASSWORD
+   ════════════════════════════════════════════════════════ */
+function openForgotPassword(){
+  const emailInput=el('l-em');
+  if(emailInput&&emailInput.value){
+    el('forgot-em').value=emailInput.value;
+  }
+  openM('modal-forgot');
+}
+
+async function doForgotPassword(){
+  const email=el('forgot-em').value.trim();
+  if(!email)return toast('Please enter your email address.','err');
+  try{
+    await auth.sendPasswordResetEmail(email);
+    closeM('modal-forgot');
+    toast('Reset link sent! Check your email inbox (and spam folder).','ok');
+  }catch(e){
+    if(e.code==='auth/user-not-found'){
+      toast('No account found with that email. Please check and try again.','err');
+    }else{
+      toast('Could not send reset email. Please try again.','err');
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   STUDENT LOAD
+   ════════════════════════════════════════════════════════ */
+async function loadStudent(){
+  try{
+    const snap=await db.collection('users').doc(ME.uid).get();
+    PROFILE=snap.data()||{};
+    if(!PROFILE.diagDone){
+      hideLoader();startDiagnostic();
+    }else{
+      await buildStudentDashboard();
+      hideLoader();showV('vstudent');
+    }
+  }catch(e){hideLoader();showV('vstudent');console.error(e)}
+}
+
+async function buildStudentDashboard(){
+  const name=PROFILE.firstName||'Speaker';
+  el('home-greet').textContent=`Welcome back, ${name}! 👋`;
+  const done=(PROFILE.completedDays||[]).length;
+  const pct=Math.round((done/30)*100);
+  el('home-prog').style.width=pct+'%';
+  el('prog-pct').textContent=`${done} / 30`;
+  el('streak-display').textContent=`🔥 ${done} day${done!==1?'s':''} completed`;
+  if(PROFILE.goal){
+    el('goal-banner').classList.remove('hidden');
+    el('goal-banner-txt').textContent=PROFILE.goal;
+  }
+  // Continue card
+  const nextDay=getNextDay();
+  const lesson=CURRICULUM[nextDay-1]||CURRICULUM[29];
+  el('continue-title').textContent=`Day ${nextDay}: ${lesson.title}`;
+  // Profile tab
+  el('p-avatar').textContent=initials(PROFILE);
+  el('p-name').textContent=`${PROFILE.firstName||''} ${PROFILE.lastName||''}`;
+  el('p-email').textContent=PROFILE.email||'';
+  const arch=ARCHETYPES[PROFILE.archetype];
+  if(arch){
+    el('p-archetype-badge').textContent=`${arch.icon} ${arch.name} · ${arch.temperament}`;
+  }
+  const rows=[['Phone',PROFILE.phone||'—'],['Age',PROFILE.age||'—'],['Occupation',PROFILE.occupation||'—'],
+    ['Enrolled',fmtDate(PROFILE.enrolledAt)],['Days Complete',done+' of 30'],
+    ['Archetype',arch?arch.name:'—']];
+  el('p-info').innerHTML=rows.map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bsoft);font-size:.86rem"><span style="color:var(--sub)">${l}</span><span>${v}</span></div>`).join('');
+  if(done===30)el('cert-btn-wrap').classList.remove('hidden');
+  renderProgram();
+  renderMilestones();
+  loadAnnouncements();
+}
+
+function getNextDay(){
+  const done=PROFILE.completedDays||[];
+  for(let i=1;i<=30;i++){if(!done.includes(i))return i}
+  return 30;
+}
+
+function renderProgram(){
+  const done=PROFILE.completedDays||[];
+  const byWeek={};
+  CURRICULUM.forEach(l=>{if(!byWeek[l.week])byWeek[l.week]={title:l.wTitle,lessons:[]};byWeek[l.week].lessons.push(l)});
+  let html='';
+  Object.keys(byWeek).forEach(w=>{
+    const wk=byWeek[w];
+    html+=`<div class="week-hdr"><div class="wnum">${w}</div><div class="wtitle">${wk.title}</div></div>`;
+    wk.lessons.forEach(l=>{
+      const isDone=done.includes(l.day);
+      const isNext=!isDone&&(l.day===1||done.includes(l.day-1));
+      const isLocked=!isDone&&!isNext;
+      const cls=isDone?'done':isNext?'current':isLocked?'locked':'';
+      const icon=isDone?'✓':isNext?`${l.day}`:`🔒`;
+      html+=`<div class="day-card ${cls}" onclick="${isLocked?'':''}" ${isLocked?'':''}
+        style="cursor:${isLocked?'not-allowed':'pointer'}"
+        onclick="if(!${isLocked})openDay(${l.day})">
+        <div class="day-badge">${isDone?'✓':l.day}</div>
+        <div class="day-info">
+          <div class="day-title-sm">${isDone?'✅ ':isNext?'▶️ ':'🔒 '}${l.title}</div>
+          <div class="day-meta">Week ${l.week} · ${l.wTitle}${isDone?' · Completed':isNext?' · Ready to start':' · Complete previous days first'}</div>
+        </div>
+        <div class="day-arrow">›</div>
+      </div>`;
+    });
+  });
+  el('program-list').innerHTML=html;
+}
+
+async function renderMilestones(){
+  const WEEKS=[
+    {w:1,days:'Days 1–7',title:'Foundation & Mindset',
+     goal:'What is one mindset shift you want to achieve this week?'},
+    {w:2,days:'Days 8–14',title:'Structure & Clarity',
+     goal:'What is one structural skill you will master this week?'},
+    {w:3,days:'Days 15–21',title:'Delivery & Presence',
+     goal:'What is one delivery quality you will develop this week?'},
+    {w:4,days:'Days 22–28',title:'Advanced Skills',
+     goal:'What is the specific context where you will use your new skills this week?'}
+  ];
+  const done=PROFILE.completedDays||[];
+  let html='';
+  for(const wk of WEEKS){
+    const lastDay=wk.w*7;const firstDay=(wk.w-1)*7+1;
+    const wDone=done.filter(d=>d>=firstDay&&d<=lastDay).length;
+    const isActive=done.includes(firstDay)||wk.w===1;
+    const isComplete=wDone>=7||(wk.w===5);
+    let snap;
+    try{snap=await db.collection('milestones').doc(`${ME.uid}_w${wk.w}`).get()}catch(e){}
+    const ms=snap&&snap.exists?snap.data():{};
+    html+=`<div class="ms-card ${isComplete?'ms-done':isActive?'ms-active':''}">
+      <div class="ms-week">Week ${wk.w} Milestone</div>
+      <div class="ms-title">${wk.title}</div>
+      <div class="ms-days">${wk.days} · ${wDone}/7 days complete</div>
+      ${ms.goal?`<div class="ms-goal-display">"${ms.goal}"</div>`:''}
+      ${ms.achieved?`<div class="badge b-ok" style="margin-bottom:8px">✓ Milestone Achieved</div>`:''}
+      <button class="btn btn-o btn-sm" onclick="openMilestone(${wk.w},'${wk.goal}')" style="font-size:.8rem">
+        ${ms.goal?'Update Milestone':'Set My Week '+wk.w+' Milestone'}
+      </button>
+    </div>`;
+  }
+  el('milestones-list').innerHTML=html;
+}
+
+function openMilestone(week,prompt){
+  el('modal-ms-body').innerHTML=`
+    <div class="handle"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold-l);margin-bottom:6px">Week ${week} Milestone</div>
+    <p style="font-size:.84rem;color:var(--sub);margin-bottom:14px;line-height:1.5">${prompt}</p>
+    <div class="f"><div class="flbl">My Milestone Goal</div>
+    <textarea id="ms-goal-input" placeholder="Write your specific milestone goal here…" rows="3"></textarea></div>
+    <label style="display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.86rem;color:var(--text);cursor:pointer">
+      <input type="checkbox" id="ms-achieved" style="width:18px;height:18px;accent-color:var(--gold)">
+      I have achieved this milestone ✅
+    </label>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="closeM('modal-ms')">Cancel</button>
+      <button class="btn btn-p" onclick="saveMilestone(${week})">Save Milestone</button>
+    </div>`;
+  // Load existing
+  db.collection('milestones').doc(`${ME.uid}_w${week}`).get().then(snap=>{
+    if(snap.exists){const d=snap.data();if(d.goal)el('ms-goal-input').value=d.goal;if(d.achieved)el('ms-achieved').checked=true}
+  });
+  openM('modal-ms');
+}
+
+async function saveMilestone(week){
+  const goal=el('ms-goal-input').value.trim();
+  const achieved=el('ms-achieved').checked;
+  if(!goal)return toast('Please write your milestone goal.','err');
+  try{
+    await db.collection('milestones').doc(`${ME.uid}_w${week}`).set({
+      userId:ME.uid,userName:`${PROFILE.firstName} ${PROFILE.lastName}`,week,goal,achieved,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    closeM('modal-ms');renderMilestones();toast('Milestone saved! 🏁','ok');
+  }catch(e){toast('Save failed.','err')}
+}
+
+async function loadAnnouncements(){
+  try{
+    const snap=await db.collection('announcements').orderBy('postedAt','desc').limit(5).get();
+    allAnns=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(!allAnns.length)return;
+    el('ann-list').innerHTML=allAnns.map(a=>`
+      <div class="ann-item">
+        <div class="ann-title">📢 ${a.title}</div>
+        <div class="ann-date">${ago(a.postedAt)}</div>
+        <div class="ann-body">${a.body}</div>
+      </div>`).join('');
+  }catch(e){}
+}
+
+function openCurrentDay(){openDay(getNextDay())}
+
+/* ════════════════════════════════════════════════════════
+   DAY MODAL
+   ════════════════════════════════════════════════════════ */
+async function openDay(dayNum){
+  const lesson=CURRICULUM[dayNum-1];if(!lesson)return;
+  currentDayModal=dayNum;
+  activityStates={lesson:false,mindset:false,breathing:false,speaking:false};
+  // Check existing progress
+  try{
+    const snap=await db.collection('dayProgress').doc(`${ME.uid}_d${dayNum}`).get();
+    if(snap.exists){
+      const d=snap.data();
+      if(d.activities)Object.assign(activityStates,d.activities);
+    }
+  }catch(e){}
+  // Check if already completed
+  const isDone=(PROFILE.completedDays||[]).includes(dayNum);
+  renderDayModal(lesson,isDone);
+  openM('modal-day');
+}
+
+function renderDayModal(lesson,isDone){
+  const arch=ARCHETYPES[PROFILE.archetype];
+  const allDone=Object.values(activityStates).every(v=>v);
+  el('modal-day-body').innerHTML=`
+    <div class="handle"></div>
+    <div class="day-modal-hdr">
+      <div class="day-modal-week">Week ${lesson.week} · ${lesson.wTitle}</div>
+      <div class="day-modal-title">Day ${lesson.day}: ${lesson.title}</div>
+      ${arch?`<div class="arch-tip"><strong>${arch.icon} ${arch.name} Tip:</strong> ${arch.tip}</div>`:''}
+    </div>
+
+    <!-- VOLUNTARY TIMER -->
+    <div class="timer-wrap">
+      <div class="timer-lbl">🕐 Focus Timer (Optional)</div>
+      <div class="timer-display" id="timer-display">60:00</div>
+      <div class="timer-sub">Start the timer to track your practice session — it does not gate your progress.</div>
+      <div class="timer-btns">
+        <button class="btn btn-o btn-sm" id="timer-start-btn" onclick="timerStart()">▶ Start</button>
+        <button class="btn btn-g btn-sm" onclick="timerPause()">⏸ Pause</button>
+        <button class="btn btn-g btn-sm" onclick="timerReset()">↺ Reset</button>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:.78rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em">Today's Activities</span>
+      <span id="act-count" style="font-size:.78rem;color:var(--gold)">${Object.values(activityStates).filter(v=>v).length}/4 complete</span>
+    </div>
+    <div class="pgwrap" style="margin-bottom:14px"><div class="pgfill" id="act-prog" style="width:${Object.values(activityStates).filter(v=>v).length*25}%"></div></div>
+
+    <!-- ACTIVITY CARDS -->
+    ${actCard('lesson','📖 Lesson','Read & Study',lesson.lesson,'lesson')}
+    ${actCard('mindset','🧠 Mindset Practice','Positive Thinking & Writing',lesson.mindset,'mindset')}
+    ${actCard('breathing','💨 Breathing Practice','Breath & Regulation',lesson.breathing,'breathing')}
+    ${actCard('speaking','🎤 Speaking Practice','Practical Exercise',lesson.speaking,'speaking')}
+
+    <!-- REFLECTION -->
+    <div style="margin-top:8px">
+      <div class="sh" style="margin-bottom:6px">📝 Daily Reflection</div>
+      ${isDone?renderReflectionDone():allDone?renderReflectionForm(lesson.day):renderReflectionLocked()}
+    </div>
+    ${isDone?`<div style="height:10px"></div><button class="btn btn-g" onclick="closeM('modal-day')">Close</button>`:''}
+  `;
+  timerSecs=3600;updateTimerDisplay();
+}
+
+function actCard(key,title,type,data,cssKey){
+  const done=activityStates[key];
+  return`<div class="act-card ${done?'done-act':''}" id="act-card-${key}">
+    <div class="act-card-hdr" onclick="toggleActCard('${key}')">
+      <div class="act-check">${done?'✓':''}</div>
+      <div class="act-card-info">
+        <div class="act-card-title">${title}</div>
+        <div class="act-card-type"><span class="badge b-${cssKey}" style="font-size:.65rem">${type}</span> ${data.title}</div>
+      </div>
+      <span style="color:var(--muted);font-size:.8rem" id="act-arrow-${key}">›</span>
+    </div>
+    <div class="act-card-body" id="act-body-${key}">
+      <div class="act-content">${data.body}</div>
+      <div class="act-prompt"><strong>Your Practice</strong>${data.prompt}</div>
+      ${!done?`<button class="btn btn-ok btn-sm" onclick="markActivity('${key}')">✅ Mark as Complete</button>`:`<div class="badge b-ok">✓ Completed</div>`}
+    </div>
+  </div>`;
+}
+
+function toggleActCard(key){
+  const body=el(`act-body-${key}`);
+  const arrow=el(`act-arrow-${key}`);
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  if(arrow)arrow.textContent=open?'›':'⌄';
+}
+
+async function markActivity(key){
+  activityStates[key]=true;
+  // Save progress
+  try{
+    await db.collection('dayProgress').doc(`${ME.uid}_d${currentDayModal}`).set({
+      userId:ME.uid,day:currentDayModal,activities:activityStates,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+  }catch(e){}
+  const doneCount=Object.values(activityStates).filter(v=>v).length;
+  // Update UI
+  const card=el(`act-card-${key}`);
+  if(card){card.classList.add('done-act');card.querySelector('.act-check').textContent='✓';}
+  el('act-count').textContent=`${doneCount}/4 complete`;
+  if(el('act-prog'))el('act-prog').style.width=(doneCount*25)+'%';
+  if(doneCount===4){
+    // All done — unlock reflection
+    const ref=document.querySelector('[id="reflection-locked"]')||document.querySelector('.reflection-locked');
+    const refArea=document.querySelector('.reflection-locked')||document.querySelector('.reflection-open');
+    if(refArea){
+      const lesson=CURRICULUM[currentDayModal-1];
+      refArea.outerHTML=renderReflectionForm(lesson.day);
+    }
+    toast('All activities complete! Reflection unlocked 🎉','ok');
+  }
+}
+
+function renderReflectionLocked(){
+  return`<div class="reflection-locked">
+    <div class="rl-icon">🔒</div>
+    <p>Complete all 4 activities above to unlock your daily reflection.</p>
+  </div>`;
+}
+
+function renderReflectionForm(day){
+  return`<div class="reflection-open">
+    <div class="ref-hdr">Your Daily Reflection</div>
+    <div class="ref-sub">Three quick prompts. Be honest — your coach reads these.</div>
+    <div class="ref-q"><div class="ref-qn">1 — What I Practised & One Breakthrough</div>
+    <textarea class="ref-ta" id="ref1" placeholder="What did you do today and what was one breakthrough, however small?"></textarea></div>
+    <div class="ref-q"><div class="ref-qn">2 — Connection to My 30-Day Goal</div>
+    <textarea class="ref-ta" id="ref2" placeholder="How does what you did today connect to your 30-day goal?"></textarea></div>
+    <div class="ref-q"><div class="ref-qn">3 — Tomorrow's Intention</div>
+    <textarea class="ref-ta" id="ref3" placeholder="What is one specific thing you will do tomorrow to keep building?"></textarea></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-g" onclick="closeM('modal-day')">Save for Later</button>
+      <button class="btn btn-p" onclick="submitReflection(${day})">Submit & Complete Day ✅</button>
+    </div>
+  </div>`;
+}
+
+function renderReflectionDone(){
+  return`<div class="day-done-banner">
+    <div class="dd-icon">🎉</div>
+    <div class="dd-title">Day Complete!</div>
+    <div class="dd-sub">You submitted your reflection. Keep the momentum going.</div>
+  </div>`;
+}
+
+async function submitReflection(day){
+  const r1=el('ref1')?.value?.trim();
+  const r2=el('ref2')?.value?.trim();
+  const r3=el('ref3')?.value?.trim();
+  if(!r1||!r2||!r3)return toast('Please complete all 3 reflection prompts.','err');
+  try{
+    // Save reflection
+    await db.collection('reflections').add({
+      userId:ME.uid,day,
+      userName:`${PROFILE.firstName} ${PROFILE.lastName}`,
+      userEmail:PROFILE.email,
+      archetype:PROFILE.archetype,
+      q1:r1,q2:r2,q3:r3,read:false,
+      submittedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    // Mark day complete
+    const newDone=[...(PROFILE.completedDays||[])];
+    if(!newDone.includes(day))newDone.push(day);
+    await db.collection('users').doc(ME.uid).update({completedDays:newDone,streak:newDone.length});
+    PROFILE.completedDays=newDone;PROFILE.streak=newDone.length;
+    // Update dashboard
+    const done=newDone.length;
+    el('home-prog').style.width=Math.round((done/30)*100)+'%';
+    el('prog-pct').textContent=`${done} / 30`;
+    el('streak-display').textContent=`🔥 ${done} day${done!==1?'s':''} completed`;
+    if(done===30)el('cert-btn-wrap').classList.remove('hidden');
+    renderProgram();renderMilestones();
+    // Update continue card
+    const nextD=getNextDay();
+    const nl=CURRICULUM[nextD-1]||CURRICULUM[29];
+    el('continue-title').textContent=`Day ${nextD}: ${nl.title}`;
+    closeM('modal-day');
+    toast(`Day ${day} complete! 🎉 Great work.`,'ok');
+  }catch(e){toast('Submission failed. Please try again.','err');console.error(e)}
+}
+
+/* ════════════════════════════════════════════════════════
+   TIMER
+   ════════════════════════════════════════════════════════ */
+function updateTimerDisplay(){
+  const m=Math.floor(timerSecs/60),s=timerSecs%60;
+  const disp=el('timer-display');
+  if(disp)disp.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function timerStart(){
+  if(timerRunning)return;
+  timerRunning=true;
+  const btn=el('timer-start-btn');if(btn)btn.textContent='▶ Running';
+  timerInterval=setInterval(()=>{
+    if(timerSecs>0){timerSecs--;updateTimerDisplay();}
+    else{clearInterval(timerInterval);timerRunning=false;toast('60-minute focus session complete! 🎯','ok');}
+  },1000);
+}
+function timerPause(){
+  clearInterval(timerInterval);timerRunning=false;
+  const btn=el('timer-start-btn');if(btn)btn.textContent='▶ Resume';
+}
+function timerReset(){
+  clearInterval(timerInterval);timerRunning=false;timerSecs=3600;updateTimerDisplay();
+  const btn=el('timer-start-btn');if(btn)btn.textContent='▶ Start';
+}
+
+/* ════════════════════════════════════════════════════════
+   DIAGNOSTIC FORM
+   ════════════════════════════════════════════════════════ */
+function startDiagnostic(){
+  diagStep=0;diagData={};tempScores={S:0,C:0,M:0,P:0};
+  renderDiagStep();
+  showV('vdiag');
+}
+
+function renderDiagStep(){
+  const step=DIAG_STEPS[diagStep];
+  const pct=Math.round((diagStep/DIAG_STEPS.length)*100);
+  el('diag-prog-fill').style.width=pct+'%';
+  el('diag-step-title').textContent=step.title;
+  el('diag-step-pill').textContent=`Step ${diagStep+1} of ${DIAG_STEPS.length}`;
+  el('diag-back-btn').style.visibility=diagStep===0?'hidden':'visible';
+  el('diag-next-btn').textContent=diagStep===DIAG_STEPS.length-1?'Complete Profile →':'Continue →';
+  el('diag-body').innerHTML=buildDiagStep(step.id,step.title,step.sub);
+}
+
+function buildDiagStep(id,title,sub){
+  const hdr=`<div class="diag-section-title">${title}</div><div class="diag-section-sub">${sub}</div>`;
+  if(id==='bio') return hdr+`
+    <div class="diag-q"><div class="diag-qn">Q1 — Your Name</div><div class="diag-qt">What would you like us to call you?</div>
+    <div class="f"><input type="text" id="d-nickname" value="${diagData.nickname||''}" placeholder="Your preferred name"></div></div>
+    <div class="diag-q"><div class="diag-qn">Q2 — Location</div><div class="diag-qt">Where are you based?</div>
+    <div class="f"><input type="text" id="d-location" value="${diagData.location||''}" placeholder="City, Country"></div></div>
+    <div class="diag-q"><div class="diag-qn">Q3 — Education</div><div class="diag-qt">What is your highest level of education?</div>
+    <div class="f"><select id="d-edu"><option value="">Select…</option>${['High School','Diploma','Bachelor\'s Degree','Master\'s Degree','PhD','Professional Certification','Other'].map(o=>`<option ${diagData.edu===o?'selected':''}>${o}</option>`).join('')}</select></div></div>
+    <div class="diag-q"><div class="diag-qn">Q4 — Language</div><div class="diag-qt">What is your primary speaking language?</div>
+    <div class="f"><input type="text" id="d-lang" value="${diagData.lang||''}" placeholder="e.g. English, Twi, both…"></div></div>`;
+
+  if(id==='speaking') return hdr+`
+    <div class="diag-q"><div class="diag-qn">Q5</div><div class="diag-qt">How much public speaking experience do you have?</div>
+    ${dRadio('exp',['None — this is completely new to me','A little — I have done it a few times','Some — occasional presentations or talks','Moderate — I speak regularly but struggle','Experienced — I want to refine and master my craft'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q6</div><div class="diag-qt">Which context do you most commonly speak in? (or most want to)</div>
+    ${dRadio('context',['Professional / workplace','Church / faith settings','Academic / school','Community / social events','All of the above'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q7</div><div class="diag-qt">How long does your typical speaking engagement last?</div>
+    ${dRadio('duration',['Under 1 minute (introductions, comments)','1–3 minutes (brief presentations)','3–10 minutes (structured talks)','10–30 minutes (full presentations)','30+ minutes (keynotes or sermons)'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q8</div><div class="diag-qt">On a scale of 1–10, how would you rate your current speaking confidence?</div>
+    <div class="scale-row" id="s-conf">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="sdot ${diagData.conf==n?'sel':''}" onclick="dScale('conf',${n},'s-conf')">${n}</button>`).join('')}</div></div>`;
+
+  if(id==='fears') return hdr+`
+    <div class="diag-q"><div class="diag-qn">Q9</div><div class="diag-qt">Your biggest fear when speaking in public is…</div>
+    ${dRadio('bigfear',['People judging me or laughing at me','Going blank and having nothing to say','My voice or body betraying my nervousness','Being wrong or not knowing enough','Being the centre of attention','All of the above honestly'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q10</div><div class="diag-qt">When you imagine speaking to a large audience, your body feels…</div>
+    ${dRadio('bodyfeel',['Heart racing, hands shaking, sweating','Mind going blank or racing','Frozen or paralysed with no words','Nauseous or physically uncomfortable','Calm but mentally unprepared','Fine — my fear is more emotional than physical'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q11</div><div class="diag-qt">Rate your fear of being judged or criticised while speaking (1=no fear, 10=extreme fear)</div>
+    <div class="scale-row" id="s-judg">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="sdot ${diagData.judg==n?'sel':''}" onclick="dScale('judg',${n},'s-judg')">${n}</button>`).join('')}</div></div>
+    <div class="diag-q"><div class="diag-qn">Q12</div><div class="diag-qt">Have you ever had a specific negative experience while speaking publicly?</div>
+    <div class="f"><textarea id="d-bad-exp" placeholder="Describe it briefly if you are comfortable — or write 'None'">${diagData.badExp||''}</textarea></div></div>`;
+
+  if(id==='goals') return hdr+`
+    <div class="diag-q"><div class="diag-qn">Q13 — Your 30-Day Goal</div><div class="diag-qt">Complete this: "By the end of this programme, I want to be able to…"</div>
+    <div class="f"><textarea id="d-goal" placeholder="Be as specific as possible. Name the exact situation, the feeling, the outcome…" rows="4">${diagData.goal||''}</textarea></div></div>
+    <div class="diag-q"><div class="diag-qn">Q14 — Target Situation</div><div class="diag-qt">Which specific setting do you most want to conquer?</div>
+    ${dRadio('target',['Work presentation or meeting','Church / speaking to a congregation','Job interview','Social gathering or event','Academic presentation','Community leadership platform'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q15 — Success Definition</div><div class="diag-qt">What would success look like on Day 30?</div>
+    ${dRadio('success',['No physical nervousness when speaking','Speaking fluently without notes or blanking','People responding positively to what I say','Feeling confident and not dreading speaking','All of the above — complete transformation'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q16</div><div class="diag-qt">Do you have a speaker you admire? What do you love about how they communicate?</div>
+    <div class="f"><textarea id="d-admire" placeholder="Name (optional) and what you love about their style…">${diagData.admire||''}</textarea></div></div>`;
+
+  if(id==='temperament') return hdr+`
+    <p style="font-size:.82rem;color:var(--sub);margin-bottom:16px;line-height:1.6">For each question, choose the option that most naturally describes you. There are no right or wrong answers.</p>
+    ${tQ(17,'In a group discussion, you tend to…',['S','C','M','P'],['Energise the group and jump in enthusiastically','Take charge and steer the direction','Think deeply before speaking with care','Listen first and speak to support others'])}
+    ${tQ(18,'When preparing a speech, you…',['M','C','S','P'],['Research thoroughly and prepare detailed notes','Know what you want to say and feel ready to go','Improvise because you speak better spontaneously','Prepare but worry whether it will be good enough'])}
+    ${tQ(19,'Your biggest speaking strength is…',['S','C','M','P'],['Your enthusiasm and storytelling energy','Your authority and conviction','Your depth of knowledge and preparation','Your warmth and connection with people'])}
+    ${tQ(20,'After a speech, you typically feel…',['S','P','C','M'],['Energised — speaking pumps you up','Relieved but quietly satisfied','Like you could have done more or done it differently','Good if you achieved what you set out to do'])}
+    ${tQ(21,'When someone challenges you publicly, you…',['C','S','P','M'],['Stand your ground with confidence','Turn it into humour or redirect','Listen patiently and respond with care','Carefully consider before responding with evidence'])}
+    ${tQ(22,'You are most comfortable speaking when…',['S','C','M','P'],['The atmosphere is warm and energetic','You have a clear leadership role','You have had time to prepare thoroughly','You know the people and feel trusted'])}
+    ${tQ(23,'Your biggest speaking challenge is…',['S','P','C','M'],['Staying on track without going off on stories','Sounding too assertive or intense','Showing emotion or spontaneity','Finding the courage to assert yourself'])}
+    ${tQ(24,'People describe your natural communication style as…',['S','C','P','M'],['Fun, expressive, and engaging','Direct, confident, and decisive','Warm, calm, and reassuring','Thoughtful, detailed, and credible'])}
+    ${tQ(25,'When given an unexpected speaking opportunity, you…',['S','C','P','M'],['Jump at it enthusiastically','Take it as a natural opportunity','Panic internally but manage','Politely defer if possible'])}
+    ${tQ(26,'Your ideal speaking environment is…',['S','P','M','C'],['A lively, interactive crowd','A warm, intimate group','A structured, focused setting','A high-stakes, important platform'])}`;
+
+  if(id==='mindset') return hdr+`
+    <div class="diag-q"><div class="diag-qn">Q27</div><div class="diag-qt">How would you describe your relationship with your own voice right now?</div>
+    ${dRadio('voicerel',['I dislike how I sound and avoid recordings','I am neutral — I do not love or hate it','I accept it but believe it could be much more','I am proud of my voice and want to develop it further'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q28</div><div class="diag-qt">How often do you currently practise any form of public speaking?</div>
+    ${dRadio('practfreq',['Never — this programme is my first real attempt','Rarely — when forced by circumstances','Occasionally — once a month or less','Regularly — weekly in some form'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q29</div><div class="diag-qt">What do you believe most about your potential as a speaker?</div>
+    ${dRadio('belief',['Honestly, I do not think I can become a great speaker','I might improve somewhat but not dramatically','I believe I can become significantly better','I know I have a powerful speaker inside me waiting to emerge'])}</div>
+    <div class="diag-q"><div class="diag-qn">Q30 — Open Letter</div><div class="diag-qt">Complete this: "The thing I most want my coach to know about me as a speaker is…"</div>
+    <div class="f"><textarea id="d-letter" placeholder="Be honest. This is just for Coach Senyo." rows="4">${diagData.letter||''}</textarea></div></div>`;
+
+  return hdr;
+}
+
+function dRadio(key,options){
+  return`<div class="ropts">${options.map(o=>`
+    <div class="ropt ${diagData[key]===o?'sel':''}" onclick="dSelect('${key}','${o.replace(/'/g,"\\'")}',this)">
+      <div class="rdot"></div><div class="rtxt">${o}</div>
+    </div>`).join('')}</div>`;
+}
+
+function tQ(qn,question,scores,options){
+  const key=`temp${qn}`;
+  return`<div class="diag-q">
+    <div class="diag-qn">Q${qn}</div>
+    <div class="diag-qt">${question}</div>
+    <div class="ropts">${options.map((o,i)=>`
+      <div class="ropt ${diagData[key]===o?'sel':''}" onclick="dTempSelect(${qn},'${scores[i]}','${o.replace(/'/g,"\\'")}',this)">
+        <div class="rdot"></div><div class="rtxt">${o}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function dSelect(key,val,el){
+  el.closest('.ropts').querySelectorAll('.ropt').forEach(r=>r.classList.remove('sel'));
+  el.classList.add('sel');
+  diagData[key]=val;
+}
+
+function dTempSelect(qn,score,val,elem){
+  const key=`temp${qn}`;
+  const oldScore=diagData[`${key}score`];
+  if(oldScore)tempScores[oldScore]=Math.max(0,(tempScores[oldScore]||0)-1);
+  tempScores[score]=(tempScores[score]||0)+1;
+  diagData[key]=val;diagData[`${key}score`]=score;
+  elem.closest('.ropts').querySelectorAll('.ropt').forEach(r=>r.classList.remove('sel'));
+  elem.classList.add('sel');
+}
+
+function dScale(key,val,rowId){
+  document.getElementById(rowId).querySelectorAll('.sdot').forEach((b,i)=>b.classList.toggle('sel',i+1===val));
+  diagData[key]=val;
+}
+
+function diagBack(){if(diagStep>0){collectDiagFields();diagStep--;renderDiagStep()}}
+
+async function diagNext(){
+  collectDiagFields();
+  if(diagStep<DIAG_STEPS.length-1){diagStep++;renderDiagStep();}
+  else{await submitDiag();}
+}
+
+function collectDiagFields(){
+  const step=DIAG_STEPS[diagStep];
+  if(step.id==='bio'){
+    if(el('d-nickname'))diagData.nickname=el('d-nickname').value.trim();
+    if(el('d-location'))diagData.location=el('d-location').value.trim();
+    if(el('d-edu'))diagData.edu=el('d-edu').value;
+    if(el('d-lang'))diagData.lang=el('d-lang').value.trim();
+  }
+  if(step.id==='fears'){if(el('d-bad-exp'))diagData.badExp=el('d-bad-exp').value.trim()}
+  if(step.id==='goals'){
+    if(el('d-goal'))diagData.goal=el('d-goal').value.trim();
+    if(el('d-admire'))diagData.admire=el('d-admire').value.trim();
+  }
+  if(step.id==='mindset'){if(el('d-letter'))diagData.letter=el('d-letter').value.trim()}
+}
+
+function calcArchetype(){
+  const keys=Object.keys(tempScores);
+  let best=keys[0];
+  keys.forEach(k=>{if((tempScores[k]||0)>(tempScores[best]||0))best=k});
+  return best;
+}
+
+async function submitDiag(){
+  if(!diagData.goal)return toast('Please complete your 30-day goal (Step 4).','err');
+  showLoader();
+  const archKey=calcArchetype()||'S';
+  diagData.archetype=archKey;
+  diagData.tempScores=tempScores;
+  try{
+    await db.collection('diagnostics').doc(ME.uid).set({
+      userId:ME.uid,
+      userName:`${PROFILE.firstName} ${PROFILE.lastName}`,
+      userEmail:PROFILE.email,
+      archetype:archKey,
+      answers:diagData,
+      submittedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await db.collection('users').doc(ME.uid).update({
+      diagDone:true,archetype:archKey,goal:diagData.goal
+    });
+    PROFILE.diagDone=true;PROFILE.archetype=archKey;PROFILE.goal=diagData.goal;
+    hideLoader();
+    showArchetype(archKey);
+  }catch(e){hideLoader();toast('Submission failed. Please try again.','err');console.error(e)}
+}
+
+/* ════════════════════════════════════════════════════════
+   ARCHETYPE REVEAL
+   ════════════════════════════════════════════════════════ */
+function showArchetype(key){
+  const a=ARCHETYPES[key];
+  el('arch-reveal-content').innerHTML=`
+    <div class="arch-icon">${a.icon}</div>
+    <div class="arch-label">Your Divine Linguist Archetype</div>
+    <div class="arch-name">${a.name}</div>
+    <div class="arch-temper">${a.temperament} Temperament</div>
+    <div class="arch-affirmation">${a.affirmation}</div>
+    <div class="arch-card" style="max-width:380px;width:100%;margin:0 auto 18px">
+      <div class="arch-card-row"><div class="arch-card-lbl">Your Core Gift</div><div class="arch-card-val">${a.gift}</div></div>
+      <div class="arch-card-row"><div class="arch-card-lbl">Your Natural Strength</div><div class="arch-card-val">${a.strength}</div></div>
+      <div class="arch-card-row"><div class="arch-card-lbl">Your Growth Edge</div><div class="arch-card-val">${a.growth}</div></div>
+      <div class="arch-card-row" style="margin:0"><div class="arch-card-lbl">Coach Senyo's Word for You</div><div class="arch-card-val">"${a.tip}"</div></div>
+    </div>
+    <button class="btn btn-p" style="max-width:340px;width:100%" onclick="enterAcademy()">Begin My 30-Day Journey → 🎤</button>
+    <div style="height:14px"></div>
+    <div style="font-size:.72rem;color:var(--muted)">@thehotprof · Divine Linguist Academy</div>
+  `;
+  showV('varchetype');
+}
+
+async function enterAcademy(){
+  showLoader();
+  await buildStudentDashboard();
+  hideLoader();showV('vstudent');
+}
+
+/* ════════════════════════════════════════════════════════
+   CERTIFICATE
+   ════════════════════════════════════════════════════════ */
+function showCertificate(){
+  const arch=ARCHETYPES[PROFILE.archetype];
+  el('cert-name').textContent=`${PROFILE.firstName||''} ${PROFILE.lastName||''}`;
+  el('cert-arch').textContent=arch?`${arch.icon} ${arch.name} · ${arch.temperament}`:'Divine Linguist Graduate';
+  el('cert-date').textContent=`Completed ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`;
+  showV('vcertificate');
+}
+
+function printCert(){
+  window.print();
+}
+
+/* ════════════════════════════════════════════════════════
+   ADMIN DASHBOARD
+   ════════════════════════════════════════════════════════ */
+async function loadAdmin(){
+  try{
+    el('adm-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    await Promise.all([loadAdminStudents(),loadAdminDiags(),loadAdminRefs(),loadAdminAnns()]);
+    updateStats();
+    hideLoader();showV('vadmin');
+  }catch(e){console.error(e);hideLoader();showV('vadmin')}
+}
+
+async function loadAdminStudents(){
+  const snap=await db.collection('users').orderBy('enrolledAt','desc').get();
+  allStudents=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderStudents();
+  el('cnt-s').textContent=allStudents.length;
+}
+
+async function loadAdminDiags(){
+  const snap=await db.collection('diagnostics').orderBy('submittedAt','desc').get();
+  allDiags=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderDiags();
+  el('cnt-d').textContent=allDiags.length;
+}
+
+async function loadAdminRefs(){
+  const snap=await db.collection('reflections').orderBy('submittedAt','desc').get();
+  allRefs=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderRefs();
+  const unread=allRefs.filter(r=>!r.read).length;
+  el('cnt-r').textContent=unread;
+}
+
+async function loadAdminAnns(){
+  const snap=await db.collection('announcements').orderBy('postedAt','desc').get();
+  allAnns=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderAdminAnns();
+}
+
+function updateStats(){
+  el('stat-stu').textContent=allStudents.length;
+  el('stat-comp').textContent=allStudents.filter(s=>(s.completedDays||[]).length>=30).length;
+  el('stat-diag').textContent=allDiags.length;
+  el('stat-ref').textContent=allRefs.filter(r=>!r.read).length;
+  const recent=allRefs.slice(0,5);
+  el('overview-recent').innerHTML=recent.length?recent.map(r=>`
+    <div class="refrow" onclick="openRef('${r.id}')">
+      <div class="refrow-hdr">
+        <div><div class="refrow-name">${r.userName}</div><div class="refrow-day">Day ${r.day} · ${ARCHETYPES[r.archetype]?ARCHETYPES[r.archetype].icon+' '+ARCHETYPES[r.archetype].name:''}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          ${!r.read?'<span class="badge b-warn">New</span>':''}
+          <span style="font-size:.7rem;color:var(--muted)">${ago(r.submittedAt)}</span>
+        </div>
+      </div>
+      <div class="refrow-preview">${r.q1||''}</div>
+    </div>`).join(''):'<div class="empty"><div class="ei">📭</div><p>No reflections yet.</p></div>';
+}
+
+function renderStudents(filter=''){
+  let list=allStudents;
+  if(filter)list=list.filter(s=>`${s.firstName} ${s.lastName} ${s.email}`.toLowerCase().includes(filter.toLowerCase()));
+  el('students-list').innerHTML=list.length?list.map(s=>{
+    const done=(s.completedDays||[]).length;
+    const arch=ARCHETYPES[s.archetype];
+    return`<div class="srow" onclick="openStudentModal('${s.uid}')">
+      <div class="savatar">${initials(s)}</div>
+      <div class="srow-info">
+        <div class="srow-name">${s.firstName} ${s.lastName}</div>
+        <div class="srow-meta">${s.email} · ${done}/30 days · ${arch?arch.icon+' '+arch.name:'No archetype yet'}</div>
+      </div>
+      <div class="badge ${done>=30?'b-ok':done>0?'b-gold':'b-muted'}">${done>=30?'Graduate':done>0?'Active':'New'}</div>
+    </div>`}).join(''):'<div class="empty"><div class="ei">👥</div><p>No students yet.</p></div>';
+}
+
+function filterStudents(){renderStudents(el('s-search').value)}
+
+function openStudentModal(uid){
+  const s=allStudents.find(x=>x.uid===uid);if(!s)return;
+  const done=(s.completedDays||[]).length;
+  const arch=ARCHETYPES[s.archetype];
+  const pct=Math.round((done/30)*100);
+  el('modal-student-body').innerHTML=`
+    <div class="handle"></div>
+    <div style="text-align:center;margin-bottom:14px">
+      <div class="savatar" style="width:52px;height:52px;font-size:1.3rem;margin:0 auto 10px">${initials(s)}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem">${s.firstName} ${s.lastName}</div>
+      <div style="font-size:.78rem;color:var(--muted)">${s.email}</div>
+      ${arch?`<div class="badge b-gold" style="margin-top:6px">${arch.icon} ${arch.name}</div>`:''}
+    </div>
+    <div class="pgwrap" style="margin-bottom:4px"><div class="pgfill" style="width:${pct}%"></div></div>
+    <div style="font-size:.74rem;color:var(--sub);text-align:right;margin-bottom:12px">${done} of 30 days complete</div>
+    ${s.goal?`<div style="background:var(--gold-bg);border-radius:var(--rs);padding:10px;margin-bottom:12px;font-size:.84rem;color:var(--text);font-style:italic">"${s.goal}"</div>`:''}
+    <div class="card">${[['Phone',s.phone||'—'],['Age',s.age||'—'],['Occupation',s.occupation||'—'],['Location',s.diagDone?(allDiags.find(d=>d.userId===s.uid)?.answers?.location||'—'):'—'],['Enrolled',fmtDate(s.enrolledAt)],['Diagnostic',s.diagDone?'✅ Submitted':'⏳ Not yet'],['Days Done',done+' of 30']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bsoft);font-size:.85rem"><span style="color:var(--sub)">${l}</span><span>${v}</span></div>`).join('')}</div>
+    <button class="btn btn-g" onclick="closeM('modal-student')" style="margin-top:10px">Close</button>
+  `;
+  openM('modal-student');
+}
+
+function renderDiags(){
+  el('diags-list').innerHTML=allDiags.length?allDiags.map(d=>`
+    <div class="drow" onclick="openDiagModal('${d.id}')">
+      <div class="drow-hdr">
+        <div class="drow-name">📋 ${d.userName}</div>
+        <div class="drow-date">${ago(d.submittedAt)}</div>
+      </div>
+      <div class="drow-arch">${ARCHETYPES[d.archetype]?ARCHETYPES[d.archetype].icon+' '+ARCHETYPES[d.archetype].name:''} · ${d.userEmail}</div>
+    </div>`).join(''):'<div class="empty"><div class="ei">📋</div><p>No diagnostics yet.</p></div>';
+}
+
+function openDiagModal(id){
+  const d=allDiags.find(x=>x.id===id);if(!d)return;
+  const a=d.answers||{};
+  const arch=ARCHETYPES[d.archetype];
+  const qMap={
+    nickname:'Preferred Name',location:'Location',edu:'Education',lang:'Language',
+    exp:'Speaking Experience',context:'Speaking Context',duration:'Typical Duration',
+    conf:'Confidence Rating',bigfear:'Biggest Fear',bodyfeel:'Physical Response to Fear',
+    judg:'Fear of Judgment',badExp:'Negative Experience',goal:'30-Day Goal',
+    target:'Target Situation',success:'Definition of Success',admire:'Speaker They Admire',
+    voicerel:'Voice Relationship',practfreq:'Practice Frequency',belief:'Self-Belief',letter:'Message to Coach'
+  };
+  const rows=Object.keys(qMap).map(k=>a[k]?`<div style="padding:8px 0;border-bottom:1px solid var(--bsoft)"><div style="font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px">${qMap[k]}</div><div style="font-size:.85rem;color:var(--text)">${a[k]}</div></div>`:''  ).join('');
+  el('modal-diag-body').innerHTML=`
+    <div class="handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l)">${d.userName}</div>
+      <div style="font-size:.74rem;color:var(--muted)">${d.userEmail} · ${fmtDate(d.submittedAt)}</div></div>
+      ${arch?`<div class="badge b-gold">${arch.icon} ${arch.name}</div>`:''}
+    </div>
+    ${arch?`<div style="background:var(--gold-bg);border-radius:var(--rs);padding:12px;margin-bottom:14px;font-size:.84rem;color:var(--sub)">${arch.affirmation}</div>`:''}
+    ${rows||'<p style="color:var(--muted)">No data.</p>'}
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-g" onclick="closeM('modal-diag')">Close</button>
+      <button class="btn btn-o" onclick="downloadDiagPDF('${id}')">⬇ Download PDF</button>
+    </div>`;
+  openM('modal-diag');
+}
+
+function downloadDiagPDF(id){
+  const d=allDiags.find(x=>x.id===id);if(!d)return;
+  const a=d.answers||{};
+  const arch=ARCHETYPES[d.archetype];
+  const printWin=window.open('','_blank');
+  printWin.document.write(`<!DOCTYPE html><html><head><title>Diagnostic — ${d.userName}</title>
+  <style>body{font-family:'Georgia',serif;max-width:700px;margin:40px auto;color:#222;padding:0 30px}
+  h1{font-size:1.4rem;color:#8a6d2f;margin-bottom:4px}
+  h2{font-size:1rem;color:#8a6d2f;margin:18px 0 6px;border-bottom:1px solid #ddd;padding-bottom:4px}
+  .q{margin-bottom:12px}.ql{font-size:.75rem;color:#8a6d2f;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+  .qv{font-size:.9rem;color:#333}.arch{background:#fff8e8;border:1px solid #C9A84C;border-radius:6px;padding:12px;margin:14px 0}
+  .footer{margin-top:30px;border-top:1px solid #ddd;padding-top:12px;font-size:.78rem;color:#888}</style></head><body>
+  <h1>Divine Linguist Public Speaking Academy</h1>
+  <p style="font-size:.85rem;color:#666">Diagnostic Report · ${d.userName} · ${new Date(d.submittedAt?.seconds*1000||Date.now()).toLocaleDateString('en-GB')}</p>
+  ${arch?`<div class="arch"><strong>${arch.icon} Speaker Archetype: ${arch.name}</strong> (${arch.temperament})<br><em>${arch.affirmation}</em></div>`:''}
+  ${Object.entries({nickname:'Preferred Name',location:'Location',edu:'Education',lang:'Language',exp:'Speaking Experience',context:'Speaking Context',conf:'Confidence Rating',bigfear:'Biggest Fear',bodyfeel:'Physical Response',judg:'Fear of Judgment Rating',badExp:'Negative Experience',goal:'30-Day Goal',target:'Target Situation',success:'Definition of Success',admire:'Speaker Admired',voicerel:'Voice Relationship',practfreq:'Practice Frequency',belief:'Self-Belief',letter:'Message to Coach'}).map(([k,l])=>a[k]?`<div class="q"><div class="ql">${l}</div><div class="qv">${a[k]}</div></div>`:'').join('')}
+  <div class="footer">Divine Linguist Academy · Coach Senyo Kwame Adzoro · @thehotprof<br>+233 248 089 238 · senyoadzoro@gmail.com</div>
+  </body></html>`);
+  printWin.document.close();printWin.focus();setTimeout(()=>printWin.print(),800);
+}
+
+function renderRefs(filter='all'){
+  let list=allRefs;
+  if(filter==='unread')list=list.filter(r=>!r.read);
+  el('refs-list').innerHTML=list.length?list.map(r=>`
+    <div class="refrow" onclick="openRef('${r.id}')">
+      <div class="refrow-hdr">
+        <div><div class="refrow-name">${r.userName}</div>
+        <div class="refrow-day">Day ${r.day} Reflection · ${ARCHETYPES[r.archetype]?ARCHETYPES[r.archetype].icon+' '+ARCHETYPES[r.archetype].name:''}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          ${!r.read?'<span class="badge b-warn">New</span>':'<span class="badge b-muted">Read</span>'}
+          <span style="font-size:.7rem;color:var(--muted)">${ago(r.submittedAt)}</span>
+        </div>
+      </div>
+      <div class="refrow-preview">${r.q1||''}</div>
+    </div>`).join(''):'<div class="empty"><div class="ei">📝</div><p>No reflections found.</p></div>';
+}
+
+function filterRefs(f,btn){document.querySelectorAll('#a-refs .ftab').forEach(b=>b.classList.remove('act'));btn.classList.add('act');renderRefs(f)}
+
+async function openRef(id){
+  const r=allRefs.find(x=>x.id===id);if(!r)return;
+  el('modal-ref-body').innerHTML=`
+    <div class="handle"></div>
+    <div style="margin-bottom:12px">
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l)">${r.userName}</div>
+      <div style="font-size:.74rem;color:var(--muted)">Day ${r.day} · ${fmtDate(r.submittedAt)}</div>
+      ${ARCHETYPES[r.archetype]?`<div class="badge b-gold" style="margin-top:5px">${ARCHETYPES[r.archetype].icon} ${ARCHETYPES[r.archetype].name}</div>`:''}
+    </div>
+    ${[['What I Practised & Breakthrough',r.q1],['Connection to 30-Day Goal',r.q2],['Tomorrow\'s Intention',r.q3]].map(([l,v])=>`
+      <div style="margin-bottom:14px">
+        <div style="font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px">${l}</div>
+        <div style="font-size:.87rem;color:var(--text);line-height:1.6;background:var(--navy-s);padding:10px;border-radius:var(--rs)">${v||'—'}</div>
+      </div>`).join('')}
+    <button class="btn btn-g" onclick="closeM('modal-ref')" style="margin-top:6px">Close</button>
+  `;
+  // Mark as read
+  if(!r.read){
+    try{await db.collection('reflections').doc(id).update({read:true});r.read=true;updateStats();}catch(e){}
+  }
+  openM('modal-ref');
+}
+
+async function postAnn(){
+  const t=el('ann-t').value.trim(),b=el('ann-b').value.trim();
+  if(!t||!b)return toast('Please fill in title and message.','err');
+  try{
+    const ref=await db.collection('announcements').add({title:t,body:b,postedAt:firebase.firestore.FieldValue.serverTimestamp()});
+    allAnns.unshift({id:ref.id,title:t,body:b,postedAt:{toDate:()=>new Date()}});
+    el('ann-t').value='';el('ann-b').value='';
+    renderAdminAnns();toast('Announcement posted! 📢','ok');
+  }catch(e){toast('Failed to post.','err')}
+}
+
+function renderAdminAnns(){
+  el('adm-ann-list').innerHTML=allAnns.length?allAnns.map(a=>`
+    <div class="ann-admin-item">
+      <div class="ann-admin-hdr">
+        <div class="ann-title">📢 ${a.title}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:.7rem;color:var(--muted)">${ago(a.postedAt)}</span>
+          <button class="ann-del-btn" onclick="delAnn('${a.id}')">🗑</button>
+        </div>
+      </div>
+      <div style="font-size:.83rem;color:var(--sub)">${a.body}</div>
+    </div>`).join(''):'<div class="empty"><div class="ei">📢</div><p>No announcements yet.</p></div>';
+}
+
+async function delAnn(id){
+  if(!
