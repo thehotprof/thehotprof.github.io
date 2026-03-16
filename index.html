@@ -813,6 +813,35 @@ const FB_CONFIG = {
 const ADMIN_EMAIL = 'senyoadzoro\u0040gmail.com';
 
 /* ════════════════════════════════════════════════════════
+   CRITICAL UI FUNCTIONS — defined first so buttons always work
+   ════════════════════════════════════════════════════════ */
+const VIEWS=['vwelcome','vreg','vlogin','vadmin-login','vdiag','varchetype','vstudent','vadmin','vcertificate'];
+function el(id){return document.getElementById(id)}
+function showV(id){VIEWS.forEach(v=>{const e=el(v);if(e)e.classList.add('hidden')});const t=el(id);if(t)t.classList.remove('hidden');window.scrollTo(0,0)}
+function showLoader(){const l=el('loader');if(l){l.classList.remove('fade','hidden')}}
+function hideLoader(){const l=el('loader');if(l){l.classList.add('fade');setTimeout(()=>l.classList.add('hidden'),400)}}
+let _tt;
+function toast(msg,type=''){const t=el('toast');if(!t)return;t.textContent=msg;t.className=type?`show ${type}`:'show';clearTimeout(_tt);_tt=setTimeout(()=>t.className='',3000)}
+function openM(id){const e=el(id);if(e)e.classList.remove('hidden')}
+function closeM(id){const e=el(id);if(e)e.classList.add('hidden')}
+function closeMIfOut(e,id){if(e.target.id===id)closeM(id)}
+function switchTab(id,btn){
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));
+  const tab=el(id);if(tab)tab.classList.add('act');
+  document.querySelectorAll('.bnav button').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+}
+function switchATab(id,btn){
+  document.querySelectorAll('.atab-pane').forEach(t=>t.classList.remove('act'));
+  const tab=el(id);if(tab)tab.classList.add('act');
+  document.querySelectorAll('.atab-btn').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+}
+function fmtDate(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function ago(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);const m=Math.floor((Date.now()-d)/60000);if(m<1)return'Just now';if(m<60)return`${m}m ago`;const h=Math.floor(m/60);if(h<24)return`${h}h ago`;return`${Math.floor(h/24)}d ago`}
+function initials(p){return((p.firstName||'?')[0]+(p.lastName||'?')[0]).toUpperCase()}
+
+/* ════════════════════════════════════════════════════════
    ARCHETYPES
    ════════════════════════════════════════════════════════ */
 const ARCHETYPES = {
@@ -1276,7 +1305,7 @@ let timerInterval=null,timerSecs=3600,timerRunning=false;
 let activityStates={};
 
 // Split email to prevent Cloudflare from encoding it in the JS
-const ADMIN_EMAIL = ['senyoadzoro','gmail.com'].join('@');
+// ADMIN_EMAIL defined above
 
 /* ════════════════════════════════════════════════════════
    INIT
@@ -1342,35 +1371,6 @@ async function onAuth(user){
     hideLoader();showV('vwelcome');
   }
 }
-
-/* ════════════════════════════════════════════════════════
-   UI HELPERS
-   ════════════════════════════════════════════════════════ */
-const VIEWS=['vwelcome','vreg','vlogin','vadmin-login','vdiag','varchetype','vstudent','vadmin','vcertificate'];
-function showV(id){VIEWS.forEach(v=>el(v).classList.add('hidden'));el(id).classList.remove('hidden');window.scrollTo(0,0)}
-function showLoader(){el('loader').classList.remove('fade','hidden')}
-function hideLoader(){const l=el('loader');l.classList.add('fade');setTimeout(()=>l.classList.add('hidden'),400)}
-let _tt;
-function toast(msg,type=''){const t=el('toast');t.textContent=msg;t.className=type?`show ${type}`:'show';clearTimeout(_tt);_tt=setTimeout(()=>t.className='',3000)}
-function el(id){return document.getElementById(id)}
-function openM(id){el(id).classList.remove('hidden')}
-function closeM(id){el(id).classList.add('hidden')}
-function closeMIfOut(e,id){if(e.target.id===id)closeM(id)}
-function switchTab(id,btn){
-  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));
-  el(id).classList.add('act');
-  document.querySelectorAll('.bnav button').forEach(b=>b.classList.remove('act'));
-  if(btn)btn.classList.add('act');
-}
-function switchATab(id,btn){
-  document.querySelectorAll('.atab-pane').forEach(t=>t.classList.remove('act'));
-  el(id).classList.add('act');
-  document.querySelectorAll('.atab-btn').forEach(b=>b.classList.remove('act'));
-  if(btn)btn.classList.add('act');
-}
-function fmtDate(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
-function ago(ts){if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);const m=Math.floor((Date.now()-d)/60000);if(m<1)return'Just now';if(m<60)return`${m}m ago`;const h=Math.floor(m/60);if(h<24)return`${h}h ago`;return`${Math.floor(h/24)}d ago`}
-function initials(p){return((p.firstName||'?')[0]+(p.lastName||'?')[0]).toUpperCase()}
 
 /* ════════════════════════════════════════════════════════
    AUTH
@@ -2319,4 +2319,21 @@ function renderAdminAnns(){
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:.7rem;color:var(--muted)">${ago(a.postedAt)}</span>
           <button class="ann-del-btn" onclick="delAnn('${a.id}')">🗑</button>
-      
+        </div>
+      </div>
+      <div style="font-size:.83rem;color:var(--sub)">${a.body}</div>
+    </div>`).join(''):'<div class="empty"><div class="ei">📢</div><p>No announcements yet.</p></div>';
+}
+
+async function delAnn(id){
+  if(!confirm('Delete this announcement?'))return;
+  try{
+    await db.collection('announcements').doc(id).delete();
+    allAnns=allAnns.filter(a=>a.id!==id);
+    renderAdminAnns();
+    toast('Announcement deleted.','');
+  }catch(e){toast('Delete failed.','err')}
+}
+</script>
+</body>
+</html>
