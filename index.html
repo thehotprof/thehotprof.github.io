@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<!-- Disable Cloudflare email obfuscation -->
+<meta name="robots" content="noindex">
 <title>Divine Linguist Public Speaking Academy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ═══════════════════════════════════════════
    ROOT VARIABLES
@@ -648,7 +653,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
         <div style="height:10px"></div>
       </div>
       <div style="text-align:center;font-size:.72rem;color:var(--muted);line-height:1.8">
-        📞 +233 248 089 238 · +233 546 998 184<br>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9be8fef5e2f4faffe1f4e9f4dbfcf6faf2f7b5f8f4f6">[email&#160;protected]</a><br>@thehotprof · Instagram · TikTok · Facebook
+        📞 +233 248 089 238 · +233 546 998 184<br>✉️ senyoadzoro@gmail.com<br>@thehotprof · Instagram · TikTok · Facebook
       </div>
     </div>
   </div>
@@ -773,7 +778,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 </div>
 
 <!-- Firebase -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -789,7 +794,7 @@ const FB_CONFIG = {
   messagingSenderId: "671263286302",
   appId:             "1:671263286302:web:aa0cc7cf3f67fc8a4afa0f"
 };
-const ADMIN_EMAIL = 'senyoadzoro@gmail.com';
+const ADMIN_EMAIL = 'senyoadzoro\u0040gmail.com';
 
 /* ════════════════════════════════════════════════════════
    ARCHETYPES
@@ -1254,18 +1259,60 @@ let currentDayModal=null;
 let timerInterval=null,timerSecs=3600,timerRunning=false;
 let activityStates={};
 
+// Split email to prevent Cloudflare from encoding it in the JS
+const ADMIN_EMAIL = ['senyoadzoro','gmail.com'].join('@');
+
 /* ════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded',()=>{
+
+  // Update loader text to show progress
+  const loaderTxt = document.querySelector('.loader-txt');
+
+  // Check if Firebase SDK loaded at all
+  if(typeof firebase === 'undefined'){
+    hideLoader();showV('vwelcome');
+    toast('Could not connect. Please check your internet and refresh.','err');
+    return;
+  }
+
+  // Show slow network message after 6 seconds
+  const slowMsg = setTimeout(()=>{
+    if(loaderTxt) loaderTxt.textContent = 'Slow connection detected… please wait';
+  }, 6000);
+
+  // Hard fallback after 20 seconds — show welcome screen with retry
+  const initTimeout = setTimeout(()=>{
+    clearTimeout(slowMsg);
+    hideLoader();
+    showV('vwelcome');
+    // Add retry button to welcome screen
+    const wactions = document.querySelector('.wactions');
+    if(wactions && !document.getElementById('retry-btn')){
+      const retryDiv = document.createElement('div');
+      retryDiv.style.cssText = 'text-align:center;margin-top:6px';
+      retryDiv.innerHTML = `<p style="font-size:.8rem;color:#e07070;margin-bottom:8px">⚠️ Connection timed out. Check your internet and retry.</p>
+        <button id="retry-btn" onclick="location.reload()" style="background:none;border:1px solid #a89878;color:#a89878;padding:8px 20px;border-radius:20px;font-size:.82rem;cursor:pointer">🔄 Retry Connection</button>`;
+      wactions.appendChild(retryDiv);
+    }
+  }, 20000);
+
   try{
     firebase.initializeApp(FB_CONFIG);
     db=firebase.firestore();
     auth=firebase.auth();
-    auth.onAuthStateChanged(onAuth);
+    auth.onAuthStateChanged(user=>{
+      clearTimeout(initTimeout);
+      clearTimeout(slowMsg);
+      onAuth(user);
+    });
   }catch(e){
+    clearTimeout(initTimeout);
+    clearTimeout(slowMsg);
     hideLoader();showV('vwelcome');
-    toast('Firebase not yet configured. See Setup Guide.','err');
+    toast('Setup error. Please refresh and try again.','err');
+    console.error('Firebase init error:',e);
   }
 });
 
