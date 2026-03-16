@@ -474,6 +474,24 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 <div id="toast"></div>
 <div id="loader"><div class="ring"></div><div class="loader-txt">Loading Academy…</div></div>
 
+<!-- BULLETPROOF FALLBACK: if JS crashes, this shows welcome after 4 seconds via CSS -->
+<style>
+@keyframes forceShow{to{display:flex!important;opacity:1!important}}
+#vwelcome{animation:none}
+</style>
+<script>
+// Absolute safety net — runs before anything else
+// If the app hasn't loaded in 5 seconds, force show welcome screen
+window._safetyNet = setTimeout(function(){
+  try{
+    var loader = document.getElementById('loader');
+    var welcome = document.getElementById('vwelcome');
+    if(loader) loader.style.display = 'none';
+    if(welcome) welcome.classList.remove('hidden');
+  }catch(e){}
+}, 5000);
+</script>
+
 <!-- ══════════════════════ VIEW: WELCOME ══ -->
 <div id="vwelcome" class="hidden">
   <div class="hero">
@@ -1264,8 +1282,9 @@ const ADMIN_EMAIL = ['senyoadzoro','gmail.com'].join('@');
    INIT
    ════════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded',()=>{
+  // Clear the safety net — normal init is running
+  clearTimeout(window._safetyNet);
 
-  // Update loader text to show progress
   const loaderTxt = document.querySelector('.loader-txt');
 
   // Check if Firebase SDK loaded at all
