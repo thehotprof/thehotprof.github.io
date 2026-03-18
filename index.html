@@ -24,10 +24,10 @@
   --r:12px;--rs:8px;--sh:0 4px 24px rgba(0,0,0,.3);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;font-family:'DM Sans',sans-serif;font-weight:300;background:var(--navy);color:var(--text);overflow-x:hidden}
+html,body{height:100%;font-family:'DM Sans',sans-serif;font-weight:300;background:var(--navy);color:var(--text);overflow-x:hidden;font-size:19px}
 a{color:var(--gold);text-decoration:none}
 button{cursor:pointer;font-family:'DM Sans',sans-serif}
-input,textarea,select{font-family:'DM Sans',sans-serif}
+input,textarea,select{font-family:'DM Sans',sans-serif;font-size:1rem}
 .hidden{display:none!important}
 
 /* ═══════════════════════════════════════════
@@ -51,7 +51,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
   position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-90px);
   background:var(--navy-s);border:1px solid var(--border);
   color:var(--text);padding:11px 20px;border-radius:30px;
-  font-size:.84rem;z-index:9999;transition:transform .3s;
+  font-size:.96rem;z-index:9999;transition:transform .3s;
   white-space:nowrap;max-width:90vw;box-shadow:var(--sh);
 }
 #toast.show{transform:translateX(-50%) translateY(0)}
@@ -95,24 +95,24 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .b-speak{background:rgba(220,100,200,.12);color:#e07ad4}
 
 /* Buttons */
-.btn{display:block;width:100%;padding:13px;text-align:center;border-radius:var(--rs);font-size:.9rem;font-weight:500;border:none;transition:opacity .2s,transform .1s;letter-spacing:.02em}
+.btn{display:block;width:100%;padding:14px;text-align:center;border-radius:var(--rs);font-size:1rem;font-weight:500;border:none;transition:opacity .2s,transform .1s;letter-spacing:.02em}
 .btn:active{transform:scale(.98)}
 .btn-p{background:linear-gradient(135deg,var(--gold),#a8802a);color:var(--navy);font-weight:600}
 .btn-o{background:transparent;color:var(--gold);border:1px solid var(--gold)}
 .btn-g{background:transparent;color:var(--sub);border:1px solid var(--bsoft)}
 .btn-ok{background:rgba(76,175,130,.15);color:var(--ok);border:1px solid rgba(76,175,130,.3)}
 .btn-d{background:rgba(224,112,112,.12);color:var(--err);border:1px solid rgba(224,112,112,.25)}
-.btn-sm{padding:8px 16px;font-size:.82rem;width:auto;display:inline-block}
+.btn-sm{padding:9px 18px;font-size:.9rem;width:auto;display:inline-block}
 .btn-row{display:flex;gap:10px;margin-top:12px}
 .btn-row .btn{flex:1}
 
 /* Form */
-.f{margin-bottom:14px}
-.flbl{font-size:.73rem;color:var(--sub);margin-bottom:5px;letter-spacing:.03em;text-transform:uppercase}
-.f input,.f textarea,.f select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.9rem;font-weight:300;padding:10px 13px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.f{margin-bottom:16px}
+.flbl{font-size:.88rem;color:var(--sub);margin-bottom:6px;letter-spacing:.03em;text-transform:uppercase}
+.f input,.f textarea,.f select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:1.05rem;font-weight:300;padding:13px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .f input:focus,.f textarea:focus,.f select:focus{border-color:var(--gold)}
 .f input::placeholder,.f textarea::placeholder{color:var(--muted)}
-.f textarea{resize:vertical;min-height:76px}
+.f textarea{resize:vertical;min-height:84px}
 .f select option{background:var(--navy-m)}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
@@ -121,8 +121,8 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .pgfill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:20px;transition:width .5s}
 
 /* Section heading */
-.sh{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:4px}
-.ssub{font-size:.82rem;color:var(--sub);margin-bottom:14px}
+.sh{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold-l);margin-bottom:4px}
+.ssub{font-size:1rem;color:var(--sub);margin-bottom:14px}
 
 /* Divider */
 .hr{border:none;border-top:1px solid var(--border);margin:14px 0}
@@ -133,15 +133,15 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .stats-4{grid-template-columns:repeat(4,1fr)}
 .scard{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center}
 .snum{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold)}
-.slbl{font-size:.68rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.slbl{font-size:.75rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
 
 /* Empty state */
 .empty{text-align:center;padding:36px 20px;color:var(--muted)}
 .empty .ei{font-size:2.2rem;margin-bottom:10px;opacity:.5}
-.empty p{font-size:.84rem;line-height:1.6}
+.empty p{font-size:.92rem;line-height:1.6}
 
 /* Streak badge */
-.streak-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(224,160,64,.12);border:1px solid rgba(224,160,64,.3);border-radius:20px;padding:5px 12px;font-size:.8rem;color:var(--warn)}
+.streak-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(224,160,64,.12);border:1px solid rgba(224,160,64,.3);border-radius:20px;padding:6px 14px;font-size:.86rem;color:var(--warn)}
 
 /* Radio / Check opts */
 .ropts{display:flex;flex-direction:column;gap:7px}
@@ -151,7 +151,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .ropt.sel .rdot{background:var(--gold);border-color:var(--gold)}
 .cbox{width:16px;height:16px;border-radius:4px;border:2px solid rgba(201,168,76,.35);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .15s}
 .ropt.sel .cbox{background:var(--gold);border-color:var(--gold);color:var(--navy)}
-.rtxt{font-size:.86rem;color:var(--text);line-height:1.4}
+.rtxt{font-size:1.02rem;color:var(--text);line-height:1.45}
 .scale-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
 .sdot{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--sub);font-size:.78rem;cursor:pointer;transition:all .15s}
 .sdot.sel{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
@@ -167,8 +167,8 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .hero-acad{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;line-height:1.35}
 .hero-div{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto}
 .hero-tag{font-size:.78rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-.hero-h{font-family:'Playfair Display',serif;font-size:1.55rem;font-style:italic;color:var(--cream);line-height:1.4;margin-bottom:10px}
-.hero-p{font-size:.87rem;color:var(--sub);line-height:1.65;max-width:300px;margin:0 auto}
+.hero-h{font-family:'Playfair Display',serif;font-size:1.7rem;font-style:italic;color:var(--cream);line-height:1.4;margin-bottom:10px}
+.hero-p{font-size:1rem;color:var(--sub);line-height:1.65;max-width:300px;margin:0 auto}
 .wactions{padding:22px 24px 44px}
 .wactions .btn{margin-bottom:11px}
 .wnote{text-align:center;font-size:.74rem;color:var(--muted);margin-top:4px}
@@ -191,11 +191,11 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .diag-hdr-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold-l)}
 .diag-step-pill{font-size:.72rem;color:var(--sub);background:var(--bsoft);padding:4px 12px;border-radius:20px}
 .diag-body{flex:1;padding:20px 20px 60px;max-width:600px;width:100%;margin:0 auto}
-.diag-section-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold-l);margin-bottom:4px;margin-top:6px}
-.diag-section-sub{font-size:.82rem;color:var(--sub);margin-bottom:18px;line-height:1.5}
-.diag-q{margin-bottom:20px}
-.diag-qn{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.diag-qt{font-size:.9rem;color:var(--text);line-height:1.55;margin-bottom:8px}
+.diag-section-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold-l);margin-bottom:4px;margin-top:6px}
+.diag-section-sub{font-size:.92rem;color:var(--sub);margin-bottom:18px;line-height:1.55}
+.diag-q{margin-bottom:22px}
+.diag-qn{font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.diag-qt{font-size:1rem;color:var(--text);line-height:1.6;margin-bottom:10px}
 .diag-nav{position:fixed;bottom:0;left:0;right:0;background:var(--navy-m);border-top:1px solid var(--border);padding:14px 20px 28px;display:flex;gap:10px;max-width:600px;margin:0 auto}
 .diag-prog{height:3px;background:var(--bsoft)}
 .diag-prog-fill{height:100%;background:var(--gold);transition:width .4s}
@@ -233,8 +233,8 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .stab.act{display:block;animation:fadeUp .25s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--navy-m);border-top:1px solid var(--border);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);max-width:600px;margin:0 auto}
-.bnav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 0 7px;font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;gap:3px;transition:color .2s}
-.bnav button .ni{font-size:1.15rem;line-height:1}
+.bnav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 8px;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;gap:3px;transition:color .2s}
+.bnav button .ni{font-size:1.3rem;line-height:1}
 .bnav button.act{color:var(--gold)}
 .bnav button.act .ni{filter:drop-shadow(0 0 5px rgba(201,168,76,.55))}
 
@@ -243,20 +243,20 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 ═══════════════════════════════════════════ */
 .wcard{background:linear-gradient(135deg,var(--navy-s),#1a2d42);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
 .wcard::after{content:'🎤';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:2.8rem;opacity:.07}
-.wcard h2{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold-l);margin-bottom:4px}
-.wcard p{font-size:.83rem;color:var(--sub);line-height:1.5}
-.goal-banner{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
-.goal-banner-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
-.goal-banner-lbl{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
-.goal-banner-txt{font-size:.85rem;color:var(--text);line-height:1.45;font-style:italic}
+.wcard h2{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold-l);margin-bottom:4px}
+.wcard p{font-size:.95rem;color:var(--sub);line-height:1.55}
+.goal-banner{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.goal-banner-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+.goal-banner-lbl{font-size:.76rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.goal-banner-txt{font-size:.95rem;color:var(--text);line-height:1.5;font-style:italic}
 .continue-card{background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.04));border:1px solid var(--gold-d);border-radius:14px;padding:18px;margin-bottom:14px;cursor:pointer;transition:border-color .2s}
 .continue-card:active{border-color:var(--gold)}
-.cc-label{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.cc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:10px}
-.ann-item{border-left:2px solid var(--gold);padding:10px 14px;margin-bottom:9px;background:var(--gold-bg);border-radius:0 var(--rs) var(--rs) 0}
-.ann-title{font-size:.87rem;color:var(--text);font-weight:500;margin-bottom:2px}
-.ann-date{font-size:.7rem;color:var(--muted)}
-.ann-body{font-size:.82rem;color:var(--sub);margin-top:5px;line-height:1.5}
+.cc-label{font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.cc-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:10px}
+.ann-item{border-left:2px solid var(--gold);padding:11px 15px;margin-bottom:9px;background:var(--gold-bg);border-radius:0 var(--rs) var(--rs) 0}
+.ann-title{font-size:.95rem;color:var(--text);font-weight:500;margin-bottom:2px}
+.ann-date{font-size:.78rem;color:var(--muted)}
+.ann-body{font-size:.92rem;color:var(--sub);margin-top:5px;line-height:1.6}
 
 /* ═══════════════════════════════════════════
    STUDENT: PROGRAM TAB
@@ -273,9 +273,9 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .day-card.done .day-badge{background:rgba(76,175,130,.15);border-color:rgba(76,175,130,.4);color:var(--ok)}
 .day-card.current .day-badge{background:var(--gold-bg2);border-color:var(--gold);color:var(--gold)}
 .day-info{flex:1}
-.day-title-sm{font-size:.87rem;color:var(--text);font-weight:400;margin-bottom:2px}
-.day-meta{font-size:.7rem;color:var(--muted)}
-.day-arrow{color:var(--muted);font-size:.8rem}
+.day-title-sm{font-size:.95rem;color:var(--text);font-weight:400;margin-bottom:2px}
+.day-meta{font-size:.78rem;color:var(--muted)}
+.day-arrow{color:var(--muted);font-size:.9rem}
 
 /* ═══════════════════════════════════════════
    DAY MODAL (full experience)
@@ -293,17 +293,17 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .act-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;transition:all .2s}
 .act-card.done-act .act-check{background:var(--ok);border-color:var(--ok);color:white}
 .act-card-info{flex:1}
-.act-card-title{font-size:.9rem;color:var(--text);font-weight:400}
-.act-card-type{font-size:.7rem;color:var(--muted);margin-top:2px}
+.act-card-title{font-size:1rem;color:var(--text);font-weight:400}
+.act-card-type{font-size:.78rem;color:var(--muted);margin-top:2px}
 .act-card-body{padding:0 13px 14px;display:none}
 .act-card-body.open{display:block;animation:fadeUp .2s ease}
-.act-content{font-size:.85rem;color:var(--sub);line-height:1.7;margin-bottom:12px}
-.act-content h4{font-family:'Playfair Display',serif;color:var(--gold-l);margin:10px 0 5px;font-size:.92rem}
-.act-content p{margin-bottom:8px}
-.act-content ul{padding-left:16px;margin-bottom:8px}
-.act-content ul li{margin-bottom:5px}
-.act-prompt{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:11px;font-size:.84rem;color:var(--text);line-height:1.55;margin-bottom:12px}
-.act-prompt strong{color:var(--gold);display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.act-content{font-size:.95rem;color:var(--sub);line-height:1.75;margin-bottom:12px}
+.act-content h4{font-family:'Playfair Display',serif;color:var(--gold-l);margin:12px 0 6px;font-size:1rem}
+.act-content p{margin-bottom:10px}
+.act-content ul{padding-left:18px;margin-bottom:10px}
+.act-content ul li{margin-bottom:6px}
+.act-prompt{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:13px;font-size:.95rem;color:var(--text);line-height:1.65;margin-bottom:12px}
+.act-prompt strong{color:var(--gold);display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
 
 /* Timer */
 .timer-wrap{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;text-align:center}
@@ -316,13 +316,13 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 /* Reflection */
 .reflection-locked{background:var(--navy-s);border:1px dashed var(--border);border-radius:var(--r);padding:18px;text-align:center;margin-top:4px}
 .reflection-locked .rl-icon{font-size:1.5rem;margin-bottom:8px;opacity:.4}
-.reflection-locked p{font-size:.83rem;color:var(--muted)}
+.reflection-locked p{font-size:.92rem;color:var(--muted)}
 .reflection-open{background:var(--navy-c);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:4px}
-.ref-hdr{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold-l);margin-bottom:4px}
-.ref-sub{font-size:.78rem;color:var(--sub);margin-bottom:14px}
-.ref-q{margin-bottom:14px}
-.ref-qn{font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
-.ref-ta{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.88rem;padding:10px;outline:none;resize:vertical;min-height:72px;font-weight:300;transition:border-color .2s}
+.ref-hdr{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:4px}
+.ref-sub{font-size:.88rem;color:var(--sub);margin-bottom:14px}
+.ref-q{margin-bottom:16px}
+.ref-qn{font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.ref-ta{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.97rem;padding:11px;outline:none;resize:vertical;min-height:80px;font-weight:300;transition:border-color .2s}
 .ref-ta:focus{border-color:var(--gold)}
 
 /* Day complete state */
@@ -352,7 +352,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .adm-pill{background:var(--gold-bg2);border:1px solid var(--gold-d);color:var(--gold);font-size:.68rem;padding:3px 10px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase}
 .atabs{display:flex;overflow-x:auto;background:var(--navy-m);border-bottom:1px solid var(--border);padding:0 6px;scrollbar-width:none}
 .atabs::-webkit-scrollbar{display:none}
-.atab-btn{background:none;border:none;color:var(--muted);padding:12px 14px;font-size:.78rem;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:5px}
+.atab-btn{background:none;border:none;color:var(--muted);padding:13px 15px;font-size:.88rem;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:5px}
 .atab-btn.act{color:var(--gold);border-bottom-color:var(--gold)}
 .atab-count{background:var(--gold);color:var(--navy);font-size:.63rem;padding:1px 6px;border-radius:10px;font-weight:700}
 .atab-count.warn-bg{background:var(--warn);color:var(--navy)}
@@ -480,6 +480,234 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .forgot-box h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:6px}
 .forgot-box p{font-size:.84rem;color:var(--sub);margin-bottom:16px;line-height:1.55}
 
+/* ═══════════════════════════════════════════
+   VIDEO LESSON CARD
+═══════════════════════════════════════════ */
+.video-card{
+  background:#000;border-radius:var(--r);overflow:hidden;
+  margin-bottom:14px;position:relative;
+}
+.video-placeholder{
+  background:linear-gradient(135deg,#0a1520,#1a2d40);
+  padding:28px 20px;text-align:center;
+  border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:14px;
+}
+.video-placeholder .vp-icon{font-size:2rem;margin-bottom:8px;opacity:.6}
+.video-placeholder .vp-text{font-size:.9rem;color:var(--sub)}
+.video-embed-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--r);margin-bottom:14px}
+.video-embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* ═══════════════════════════════════════════
+   WELCOME VIDEO SECTION
+═══════════════════════════════════════════ */
+.welcome-video-section{padding:0 20px 4px;max-width:600px;margin:0 auto}
+.welcome-video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:14px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.welcome-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.welcome-video-placeholder{background:linear-gradient(135deg,var(--navy-s),#1a2d40);border:1px solid var(--border);border-radius:14px;padding:32px 20px;text-align:center;margin:0 20px}
+.wvp-icon{font-size:2.5rem;margin-bottom:10px;filter:drop-shadow(0 0 12px rgba(201,168,76,.4))}
+.wvp-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold-l);margin-bottom:6px}
+.wvp-desc{font-size:.95rem;color:var(--sub);line-height:1.6}
+
+/* Enrollment code */
+.enrol-code-wrap{background:var(--gold-bg);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:14px}
+.enrol-code-label{font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.enrol-code-hint{font-size:.88rem;color:var(--sub);margin-bottom:10px;line-height:1.5}
+
+/* Blocked screen */
+#vblocked{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px;background:radial-gradient(ellipse at 50% 30%,rgba(224,112,112,.08) 0,transparent 65%),var(--navy)}
+.blocked-icon{font-size:3rem;margin-bottom:16px;opacity:.7}
+.blocked-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--err);margin-bottom:10px}
+.blocked-sub{font-size:1rem;color:var(--sub);line-height:1.7;max-width:320px;margin:0 auto 24px}
+
+/* Admin block/unblock */
+.btn-block{background:rgba(224,112,112,.12);color:var(--err);border:1px solid rgba(224,112,112,.3);border-radius:var(--rs);padding:7px 14px;font-size:.82rem;cursor:pointer}
+.btn-unblock{background:rgba(76,175,130,.12);color:var(--ok);border:1px solid rgba(76,175,130,.3);border-radius:var(--rs);padding:7px 14px;font-size:.82rem;cursor:pointer}
+
+/* Larger fonts for adults */
+.flbl{font-size:.84rem}
+.f input,.f textarea,.f select{font-size:1rem;padding:12px 14px}
+.btn{font-size:1rem;padding:15px}
+.sh{font-size:1.18rem}
+.ssub{font-size:.95rem}
+.diag-qt{font-size:1rem}
+.rtxt{font-size:.95rem}
+.act-content{font-size:.95rem}
+.act-prompt{font-size:.92rem}
+.ref-ta{font-size:.95rem;min-height:90px}
+.ann-body{font-size:.92rem}
+.srow-name,.drow-name,.refrow-name{font-size:.95rem}
+.day-title-sm{font-size:.95rem}
+.card-title{font-size:1rem}
+
+/* ═══════════════════════════════════════════
+   WEEK CELEBRATION MODAL
+═══════════════════════════════════════════ */
+#modal-celebrate{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:900;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.celebrate-box{
+  background:linear-gradient(145deg,#0e1e2e,#1a2d40);
+  border:1px solid var(--gold-d);border-radius:20px;
+  padding:36px 28px;max-width:360px;width:100%;text-align:center;
+  animation:celebIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes celebIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.celebrate-stars{font-size:2rem;margin-bottom:6px;animation:starPop .6s ease .2s both}
+@keyframes starPop{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:none;opacity:1}}
+.celebrate-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:6px}
+.celebrate-sub{font-size:.88rem;color:var(--sub);line-height:1.6;margin-bottom:18px}
+.celebrate-badge{
+  display:inline-block;background:var(--gold-bg2);border:1px solid var(--border);
+  color:var(--gold);font-size:.8rem;padding:6px 16px;border-radius:20px;margin-bottom:18px;
+}
+
+/* ═══════════════════════════════════════════
+   WEEKLY CALL CARD
+═══════════════════════════════════════════ */
+.call-card{
+  background:linear-gradient(135deg,rgba(76,175,130,.12),rgba(76,175,130,.04));
+  border:1px solid rgba(76,175,130,.35);border-radius:14px;
+  padding:16px;margin-bottom:14px;display:flex;gap:14px;align-items:center;
+}
+.call-card-icon{font-size:1.8rem;flex-shrink:0}
+.call-card-info{flex:1}
+.call-card-label{font-size:.68rem;color:var(--ok);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.call-card-title{font-size:.9rem;color:var(--text);font-weight:400;margin-bottom:4px}
+.call-card-time{font-size:.78rem;color:var(--sub)}
+.call-card-btn{
+  background:var(--ok);color:white;border:none;border-radius:var(--rs);
+  padding:8px 14px;font-size:.78rem;font-weight:500;cursor:pointer;
+  white-space:nowrap;transition:opacity .2s;
+}
+.call-card-btn:hover{opacity:.85}
+
+/* ═══════════════════════════════════════════
+   COHORT BADGE
+═══════════════════════════════════════════ */
+.cohort-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(100,150,255,.1);border:1px solid rgba(100,150,255,.3);
+  border-radius:20px;padding:4px 12px;font-size:.75rem;color:#7aabff;
+  margin-bottom:10px;
+}
+
+/* ═══════════════════════════════════════════
+   COACH FEEDBACK IN REFLECTION
+═══════════════════════════════════════════ */
+.coach-feedback-box{
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));
+  border:1px solid var(--border);border-radius:var(--rs);
+  padding:12px 14px;margin-top:12px;
+}
+.cf-label{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.cf-text{font-size:.86rem;color:var(--text);line-height:1.6;font-style:italic}
+
+/* ═══════════════════════════════════════════
+   WELCOME VIDEO
+═══════════════════════════════════════════ */
+.welcome-video-wrap{
+  margin:0 24px 0;border-radius:14px;overflow:hidden;
+  position:relative;background:#000;
+}
+.welcome-video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.welcome-video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.welcome-video-placeholder{
+  background:linear-gradient(135deg,#0a1520,#1a2d40);
+  border:1px solid var(--border);border-radius:14px;
+  padding:24px 20px;text-align:center;margin:0 24px;
+}
+.wvp-icon{font-size:2.5rem;margin-bottom:8px;opacity:.7;filter:drop-shadow(0 0 10px rgba(201,168,76,.4))}
+.wvp-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:4px}
+.wvp-text{font-size:.88rem;color:var(--sub);line-height:1.55}
+
+/* ═══════════════════════════════════════════
+   BLOCKED USER VIEW
+═══════════════════════════════════════════ */
+#vblocked{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:32px 28px;
+  background:radial-gradient(ellipse at 50% 30%,rgba(224,112,112,.08) 0,transparent 65%),var(--navy);
+}
+.blocked-icon{font-size:3rem;margin-bottom:14px}
+.blocked-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--err);margin-bottom:10px}
+.blocked-sub{font-size:.95rem;color:var(--sub);line-height:1.7;max-width:320px;margin:0 auto 24px}
+.blocked-contact{font-size:.84rem;color:var(--muted);line-height:1.9}
+
+/* ═══════════════════════════════════════════
+   FREE TRIAL
+═══════════════════════════════════════════ */
+.trial-toggle{display:flex;gap:10px;margin-bottom:18px}
+.trial-toggle button{flex:1;padding:11px;border-radius:var(--rs);font-size:.9rem;font-weight:500;transition:all .2s;cursor:pointer}
+.trial-btn-active{background:var(--gold);color:var(--navy);border:none}
+.trial-btn-inactive{background:transparent;color:var(--sub);border:1px solid var(--bsoft)}
+.trial-lock-card{
+  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));
+  border:2px solid var(--gold-d);border-radius:14px;padding:24px 20px;text-align:center;
+}
+.tlc-icon{font-size:2.5rem;margin-bottom:10px}
+.tlc-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);margin-bottom:8px}
+.tlc-sub{font-size:.92rem;color:var(--sub);line-height:1.65;margin-bottom:16px}
+.tlc-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#25D366;color:white;border:none;border-radius:var(--rs);
+  padding:13px 20px;font-size:.95rem;font-weight:600;cursor:pointer;
+  text-decoration:none;margin-bottom:10px;
+}
+.trial-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(224,160,64,.15);border:1px solid rgba(224,160,64,.4);
+  color:var(--warn);border-radius:20px;padding:4px 12px;font-size:.76rem;
+  margin-bottom:10px;
+}
+
+/* ═══════════════════════════════════════════
+   STUDENT INBOX
+═══════════════════════════════════════════ */
+.inbox-msg{
+  background:var(--navy-c);border:1px solid var(--bsoft);
+  border-radius:var(--rs);padding:14px;margin-bottom:10px;
+  cursor:pointer;transition:border-color .2s;
+}
+.inbox-msg:hover{border-color:var(--border)}
+.inbox-msg.unread{border-color:var(--gold-d);background:var(--gold-bg)}
+.inbox-msg-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.inbox-msg-from{font-size:.9rem;color:var(--text);font-weight:400}
+.inbox-msg-time{font-size:.72rem;color:var(--muted);white-space:nowrap}
+.inbox-msg-preview{font-size:.85rem;color:var(--sub);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.inbox-unread-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px}
+
+/* ═══════════════════════════════════════════
+   AUDIO RECORDER
+═══════════════════════════════════════════ */
+.audio-recorder{
+  background:var(--navy-s);border:1px solid var(--border);
+  border-radius:var(--rs);padding:14px;margin-top:10px;
+}
+.ar-label{font-size:.76rem;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.ar-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ar-btn{
+  display:flex;align-items:center;gap:6px;padding:9px 14px;
+  border-radius:var(--rs);font-size:.85rem;font-weight:500;cursor:pointer;
+  border:none;transition:all .2s;
+}
+.ar-btn-record{background:#e07070;color:white}
+.ar-btn-record.recording{background:#c00;animation:recPulse .8s ease-in-out infinite}
+@keyframes recPulse{0%,100%{opacity:1}50%{opacity:.6}}
+.ar-btn-stop{background:var(--navy-m);color:var(--sub);border:1px solid var(--bsoft)}
+.ar-btn-play{background:var(--gold-bg2);color:var(--gold);border:1px solid var(--border)}
+.ar-timer{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);min-width:44px}
+.ar-status{font-size:.8rem;color:var(--sub);width:100%;margin-top:6px}
+.ar-playback{margin-top:8px;width:100%}
+.ar-playback audio{width:100%;border-radius:6px;height:36px}
+
+/* Submission tabs */
+.sub-tabs{display:flex;gap:6px;margin-bottom:12px}
+.sub-tab{flex:1;padding:9px;border-radius:var(--rs);font-size:.84rem;text-align:center;cursor:pointer;border:1px solid var(--bsoft);background:none;color:var(--sub);transition:all .2s}
+.sub-tab.act{background:var(--gold-bg2);border-color:var(--gold);color:var(--gold)}
+
 /* Responsive */
 @media(min-width:600px){
   .abody,.scontent,.diag-body,.acontent{max-width:600px;margin:0 auto}
@@ -489,6 +717,17 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 </style>
 </head>
 <body>
+
+<!-- WEEK CELEBRATION MODAL -->
+<div id="modal-celebrate" class="hidden">
+  <div class="celebrate-box">
+    <div class="celebrate-stars" id="cel-stars">🌟🎤🌟</div>
+    <div class="celebrate-title" id="cel-title">Week Complete!</div>
+    <div class="celebrate-badge" id="cel-badge">Week 1 — Foundation</div>
+    <div class="celebrate-sub" id="cel-sub">You have completed 7 days of practice. Your voice is already different from when you started.</div>
+    <button class="btn btn-p" onclick="closeM('modal-celebrate')" style="max-width:220px;margin:0 auto">Keep Going! →</button>
+  </div>
+</div>
 
 <div id="toast"></div>
 <div id="loader"><div class="ring"></div><div class="loader-txt">Loading Academy…</div></div>
@@ -513,6 +752,8 @@ window._safetyNet = setTimeout(function(){
 
 <!-- ══════════════════════ VIEW: WELCOME ══ -->
 <div id="vwelcome" class="hidden">
+  <!-- COACH WELCOME VIDEO -->
+  <div id="welcome-video-container"></div>
   <div class="hero">
     <div class="hero-mic">🎤</div>
     <div class="hero-acad">Divine Linguist<br>Public Speaking Academy</div>
@@ -523,8 +764,45 @@ window._safetyNet = setTimeout(function(){
   </div>
   <div class="wactions">
     <button class="btn btn-p" onclick="showV('vreg')">🚀 Begin My Journey — Enrol Now</button>
-    <button class="btn btn-o" onclick="showV('vlogin')">I Already Have an Account</button>
+    <button class="btn btn-o" onclick="showV('vtrial')">🎯 Try 3 Days Free — No Code Needed</button>
+    <button class="btn btn-g" style="margin-top:0" onclick="showV('vlogin')">I Already Have an Account</button>
     <div class="wnote">Coach? <a href="#" onclick="showV('vadmin-login')">Admin Login →</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ VIEW: BLOCKED ══ -->
+<div id="vblocked" class="hidden">
+  <div class="blocked-icon">🚫</div>
+  <div class="blocked-title">Account Suspended</div>
+  <div class="blocked-sub">Your access to the Divine Linguist Academy has been suspended. Please contact your coach to resolve this.</div>
+  <div style="font-size:.88rem;color:var(--sub);line-height:2;margin-bottom:20px">
+    📞 +233 248 089 238<br>
+    ✉️ senyoadzoro&#64;gmail&#46;com<br>
+    📱 @thehotprof
+  </div>
+  <button class="btn btn-g" style="max-width:280px;width:100%" onclick="doLogout()">← Log Out</button>
+</div>
+
+<!-- ══════════════════════ VIEW: TRIAL REGISTER ══ -->
+<div id="vtrial" class="aview hidden">
+  <div class="ahdr"><button class="ahdr-back" onclick="showV('vwelcome')">←</button><div class="ahdr-title">3-Day Free Trial</div></div>
+  <div class="abody">
+    <div class="trial-badge">🎯 Free Trial — Days 1, 2 & 3</div>
+    <div class="sh">Try Before You Commit</div>
+    <div class="ssub">Experience the first 3 days of the programme — free. No payment. No pressure. Discover your Speaker Archetype and see what transformation feels like.</div>
+    <div class="f2">
+      <div class="f"><div class="flbl">First Name</div><input type="text" id="t-fn" placeholder="First name"></div>
+      <div class="f"><div class="flbl">Last Name</div><input type="text" id="t-ln" placeholder="Last name"></div>
+    </div>
+    <div class="f"><div class="flbl">Email Address</div><input type="email" id="t-em" placeholder="your@email.com"></div>
+    <div class="f"><div class="flbl">Password</div><input type="password" id="t-pw" placeholder="Min 6 characters"></div>
+    <div class="f"><div class="flbl">Phone / WhatsApp</div><input type="tel" id="t-ph" placeholder="+233... (so Coach Senyo can reach you)"></div>
+    <div class="f"><div class="flbl">Occupation / Role</div><input type="text" id="t-oc" placeholder="Your role or profession"></div>
+    <button class="btn btn-p" onclick="doTrialRegister()">Start My Free Trial →</button>
+    <div class="aswitch" style="margin-top:12px">Have an enrollment code? <a href="#" onclick="showV('vreg')">Full registration →</a></div>
+    <div style="background:var(--gold-bg);border-radius:var(--rs);padding:12px;margin-top:16px;font-size:.84rem;color:var(--sub);line-height:1.6">
+      💡 After your 3-day trial, contact Coach Senyo on WhatsApp to enrol in the full 30-day programme.
+    </div>
   </div>
 </div>
 
@@ -534,6 +812,13 @@ window._safetyNet = setTimeout(function(){
   <div class="abody">
     <div class="sh">Student Registration</div>
     <div class="ssub">Join speakers who are finding their voice.</div>
+
+    <!-- ENROLLMENT CODE -->
+    <div class="enrol-code-wrap">
+      <div class="enrol-code-label">🔑 Enrollment Code</div>
+      <div class="enrol-code-hint">You received this code from Coach Senyo after payment. Enter it to unlock your account.</div>
+      <div class="f" style="margin:0"><input type="text" id="r-code" placeholder="Enter your enrollment code" style="text-transform:uppercase;letter-spacing:.1em;font-weight:500"></div>
+    </div>
 
     <!-- GOOGLE SIGN-IN (PRIMARY) -->
     <button class="btn-google" onclick="doGoogleSignIn()">
@@ -617,6 +902,11 @@ window._safetyNet = setTimeout(function(){
       <div class="sh" style="margin-top:8px">One More Step</div>
       <div class="ssub">Tell us a little more about yourself so your coach can personalise your training.</div>
     </div>
+    <div class="enrol-code-wrap">
+      <div class="enrol-code-label">🔑 Enrollment Code</div>
+      <div class="enrol-code-hint">Enter the code Coach Senyo sent you after payment.</div>
+      <div class="f" style="margin:0"><input type="text" id="gp-code" placeholder="Enter your enrollment code" style="text-transform:uppercase;letter-spacing:.1em;font-weight:500"></div>
+    </div>
     <div class="f2">
       <div class="f"><div class="flbl">Phone / WhatsApp</div><input type="tel" id="gp-ph" placeholder="+233..."></div>
       <div class="f"><div class="flbl">Age</div><input type="number" id="gp-ag" placeholder="e.g. 34"></div>
@@ -660,10 +950,24 @@ window._safetyNet = setTimeout(function(){
   <div class="scontent">
     <!-- HOME -->
     <div class="stab act" id="s-home">
-      <div class="wcard"><h2 id="home-greet">Welcome back!</h2><p id="home-sub">Keep going — your voice grows stronger every day.</p></div>
+      <div class="wcard">
+        <div class="cohort-pill" id="cohort-pill" style="display:none">🎓 <span id="cohort-name-display">Cohort 1 — The Pioneers</span></div>
+        <h2 id="home-greet">Welcome back!</h2>
+        <p id="home-sub">Keep going — your voice grows stronger every day.</p>
+      </div>
       <div class="goal-banner hidden" id="goal-banner">
         <div class="goal-banner-icon">🎯</div>
         <div><div class="goal-banner-lbl">Your 30-Day Goal</div><div class="goal-banner-txt" id="goal-banner-txt"></div></div>
+      </div>
+      <!-- WEEKLY CALL CARD -->
+      <div class="call-card hidden" id="weekly-call-card">
+        <div class="call-card-icon">📹</div>
+        <div class="call-card-info">
+          <div class="call-card-label">Live Group Session</div>
+          <div class="call-card-title" id="call-card-title">Weekly Coaching Call</div>
+          <div class="call-card-time" id="call-card-time">With Coach Senyo</div>
+        </div>
+        <button class="call-card-btn" id="call-card-btn" onclick="joinGroupCall()">Join</button>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div class="streak-pill" id="streak-display">🔥 0 days completed</div>
@@ -692,6 +996,12 @@ window._safetyNet = setTimeout(function(){
       <div class="ssub">Set one milestone goal per week. These build toward your 30-day goal.</div>
       <div id="milestones-list"></div>
     </div>
+    <!-- INBOX -->
+    <div class="stab" id="s-inbox">
+      <div class="sh">My Inbox</div>
+      <div class="ssub" id="inbox-sub">Messages from Coach Senyo appear here.</div>
+      <div id="inbox-list"><div class="empty"><div class="ei">💬</div><p>No messages yet.<br>Your coach will send you personal feedback here.</p></div></div>
+    </div>
     <!-- PROFILE -->
     <div class="stab" id="s-profile">
       <div class="profile-avatar" id="p-avatar" style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--navy);margin:0 auto 12px;font-weight:700"></div>
@@ -717,6 +1027,7 @@ window._safetyNet = setTimeout(function(){
     <button class="act" onclick="switchTab('s-home',this)"><span class="ni">🏠</span>Home</button>
     <button onclick="switchTab('s-program',this)"><span class="ni">📖</span>Program</button>
     <button onclick="switchTab('s-milestones',this)"><span class="ni">🏁</span>Milestones</button>
+    <button onclick="switchTab('s-inbox',this)" id="inbox-nav-btn"><span class="ni" style="position:relative">💬<span id="inbox-badge" class="hidden" style="position:absolute;top:-2px;right:-4px;width:8px;height:8px;border-radius:50%;background:var(--err);display:block"></span></span>Inbox</button>
     <button onclick="switchTab('s-profile',this)"><span class="ni">👤</span>Profile</button>
   </nav>
 </div>
@@ -736,8 +1047,10 @@ window._safetyNet = setTimeout(function(){
   <div class="atabs">
     <button class="atab-btn act" onclick="switchATab('a-overview',this)">📊 Overview</button>
     <button class="atab-btn" onclick="switchATab('a-students',this)">👥 Students <span class="atab-count" id="cnt-s">0</span></button>
+    <button class="atab-btn" onclick="switchATab('a-trials',this)">🎯 Trials <span class="atab-count" id="cnt-trials" style="background:var(--warn)">0</span></button>
     <button class="atab-btn" onclick="switchATab('a-diags',this)">📋 Diagnostics <span class="atab-count" id="cnt-d">0</span></button>
     <button class="atab-btn" onclick="switchATab('a-refs',this)">📝 Reflections <span class="atab-count warn-bg" id="cnt-r">0</span></button>
+    <button class="atab-btn" onclick="switchATab('a-msg',this)">💬 Messages</button>
     <button class="atab-btn" onclick="switchATab('a-program',this)">📖 Program</button>
     <button class="atab-btn" onclick="switchATab('a-ann',this)">📢 Announce</button>
   </div>
@@ -760,6 +1073,12 @@ window._safetyNet = setTimeout(function(){
       <div class="sh">All Students</div>
       <div class="search-wrap"><input type="text" placeholder="🔍 Search name or email…" id="s-search" oninput="filterStudents()"></div>
       <div id="students-list"></div>
+    </div>
+    <!-- TRIALS -->
+    <div class="atab-pane" id="a-trials">
+      <div class="sh">🎯 Free Trial Users</div>
+      <div class="ssub">Students on the 3-day trial. They can access Days 1–3 only. Contact them to convert to full enrolment.</div>
+      <div id="trials-list"></div>
     </div>
     <!-- DIAGNOSTICS -->
     <div class="atab-pane" id="a-diags">
@@ -784,8 +1103,32 @@ window._safetyNet = setTimeout(function(){
         <div class="f"><div class="flbl">Message</div><textarea id="ann-b" placeholder="Message to all students…"></textarea></div>
         <button class="btn btn-p" onclick="postAnn()">📢 Post to All Students</button>
       </div>
-      <div class="sh">Previous</div>
+      <hr class="hr">
+      <div class="sh">📹 Update Weekly Call Links</div>
+      <div class="ssub">Paste your Google Meet link for each week's group session.</div>
+      <div id="admin-calls-list"></div>
+      <hr class="hr">
+      <div class="sh">Previous Announcements</div>
       <div id="adm-ann-list"></div>
+    </div>
+    <!-- PERSONAL MESSAGES -->
+    <div class="atab-pane" id="a-msg">
+      <div class="sh">💬 Send Personal Message</div>
+      <div class="ssub">Send a private message directly to one student. It appears in their inbox only.</div>
+      <div class="ann-compose">
+        <div class="f">
+          <div class="flbl">Student</div>
+          <select id="msg-student-select">
+            <option value="">— Select a student —</option>
+          </select>
+        </div>
+        <div class="f"><div class="flbl">Subject</div><input type="text" id="msg-subject" placeholder="e.g. Great progress on Day 5!"></div>
+        <div class="f"><div class="flbl">Message</div><textarea id="msg-body" rows="5" placeholder="Write your personal message to this student…"></textarea></div>
+        <button class="btn btn-p" onclick="sendPersonalMsg()">💬 Send Message</button>
+      </div>
+      <hr class="hr">
+      <div class="sh">Sent Messages</div>
+      <div id="sent-msgs-list"></div>
     </div>
     <!-- ADMIN PROGRAM — full access to all 30 days -->
     <div class="atab-pane" id="a-program">
@@ -857,9 +1200,54 @@ const FB_CONFIG = {
 const ADMIN_EMAIL = 'senyoadzoro\u0040gmail.com';
 
 /* ════════════════════════════════════════════════════════
+   COHORT CONFIG — update each new cohort
+   ════════════════════════════════════════════════════════ */
+const COHORT = {
+  name: 'Cohort 1 — The Pioneers',
+  startDate: '2026-03-21',
+  tagline: 'The first voices of the Divine Linguist Academy.',
+  enrollmentCode: 'DLA2026'   // ← Change this each new cohort. Share only with paid students.
+};
+
+/* ════════════════════════════════════════════════════════
+   WELCOME VIDEO — paste your YouTube video ID here
+   Example: if your video URL is youtube.com/watch?v=abc123
+   then set welcomeVideoId: 'abc123'
+   Leave empty string '' until you have recorded your video
+   ════════════════════════════════════════════════════════ */
+const WELCOME_VIDEO_ID = '';  // ← Paste your YouTube video ID here when ready
+
+/* ════════════════════════════════════════════════════════
+   WEEKLY GROUP CALLS
+   Format: { week, title, dateTime, meetLink }
+   Update meetLink each week with your Google Meet link
+   ════════════════════════════════════════════════════════ */
+const WEEKLY_CALLS = [
+  { week:1, title:'Week 1 Group Session — Foundations', dateTime:'Saturday 22 Mar · 10:00 AM GMT', meetLink:'https://meet.google.com/your-link-here' },
+  { week:2, title:'Week 2 Group Session — Structure & Clarity', dateTime:'Saturday 29 Mar · 10:00 AM GMT', meetLink:'https://meet.google.com/your-link-here' },
+  { week:3, title:'Week 3 Group Session — Delivery & Presence', dateTime:'Saturday 5 Apr · 10:00 AM GMT', meetLink:'https://meet.google.com/your-link-here' },
+  { week:4, title:'Week 4 Group Session — Advanced Skills', dateTime:'Saturday 12 Apr · 10:00 AM GMT', meetLink:'https://meet.google.com/your-link-here' },
+  { week:5, title:'Graduation Celebration Session 🎓', dateTime:'Saturday 19 Apr · 10:00 AM GMT', meetLink:'https://meet.google.com/your-link-here' }
+];
+
+/* ════════════════════════════════════════════════════════
+   VIDEO URLS — paste your YouTube video ID for each day
+   Format: 'DAY_NUMBER': 'YOUTUBE_VIDEO_ID'
+   Example: '1': 'dQw4w9WgXcQ'
+   Leave as empty string '' until video is recorded
+   ════════════════════════════════════════════════════════ */
+const VIDEO_URLS = {
+  '1':'','2':'','3':'','4':'','5':'','6':'','7':'',
+  '8':'','9':'','10':'','11':'','12':'','13':'','14':'',
+  '15':'','16':'','17':'','18':'','19':'','20':'','21':'',
+  '22':'','23':'','24':'','25':'','26':'','27':'','28':'',
+  '29':'','30':''
+};
+
+/* ════════════════════════════════════════════════════════
    CRITICAL UI FUNCTIONS — defined first so buttons always work
    ════════════════════════════════════════════════════════ */
-const VIEWS=['vwelcome','vreg','vlogin','vadmin-login','vgoogle-profile','vdiag','varchetype','vstudent','vadmin','vcertificate'];
+const VIEWS=['vwelcome','vtrial','vreg','vlogin','vadmin-login','vgoogle-profile','vblocked','vdiag','varchetype','vstudent','vadmin','vcertificate'];
 function el(id){return document.getElementById(id)}
 function showV(id){VIEWS.forEach(v=>{const e=el(v);if(e)e.classList.add('hidden')});const t=el(id);if(t)t.classList.remove('hidden');window.scrollTo(0,0)}
 function showLoader(){const l=el('loader');if(l){l.classList.remove('fade','hidden')}}
@@ -1412,7 +1800,30 @@ async function onAuth(user){
     if(user.email===ADMIN_EMAIL){ loadAdmin(); }
     else{ loadStudent(); }
   }else{
-    hideLoader();showV('vwelcome');
+    hideLoader();
+    renderWelcomeVideo();
+    showV('vwelcome');
+  }
+}
+
+function renderWelcomeVideo(){
+  const container=el('welcome-video-container');
+  if(!container)return;
+  if(WELCOME_VIDEO_ID){
+    container.innerHTML=`
+      <div class="welcome-video-wrap">
+        <div class="welcome-video-embed">
+          <iframe src="https://www.youtube.com/embed/${WELCOME_VIDEO_ID}?rel=0&modestbranding=1"
+            title="Welcome from Coach Senyo" allowfullscreen></iframe>
+        </div>
+      </div>`;
+  }else{
+    container.innerHTML=`
+      <div class="welcome-video-placeholder">
+        <div class="wvp-icon">🎤</div>
+        <div class="wvp-name">Coach Senyo Kwame Adzoro</div>
+        <div class="wvp-text">Welcome video coming soon — in the meantime, enrol below and begin your transformation today.</div>
+      </div>`;
   }
 }
 
@@ -1424,6 +1835,9 @@ async function doRegister(){
   const em=el('r-em').value.trim(),pw=el('r-pw').value.trim();
   const ph=el('r-ph').value.trim(),ag=el('r-ag').value.trim();
   const oc=el('r-oc').value.trim();
+  const code=(el('r-code').value.trim()).toUpperCase();
+  if(!code)return toast('Please enter your enrollment code.','err');
+  if(code!==COHORT.enrollmentCode.toUpperCase())return toast('Invalid enrollment code. Please check with Coach Senyo.','err');
   if(!fn||!ln)return toast('Please enter your full name.','err');
   if(!em)return toast('Please enter your email.','err');
   if(pw.length<6)return toast('Password needs at least 6 characters.','err');
@@ -1433,7 +1847,8 @@ async function doRegister(){
     await db.collection('users').doc(c.user.uid).set({
       uid:c.user.uid,firstName:fn,lastName:ln,email:em,phone:ph,age:ag,occupation:oc,
       enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
-      completedDays:[],currentDay:1,streak:0,goal:'',archetype:'',diagDone:false
+      completedDays:[],currentDay:1,streak:0,goal:'',archetype:'',diagDone:false,
+      cohort:COHORT.name,blocked:false
     });
     toast('Account created! Let\'s build your speaker profile.','ok');
   }catch(e){hideLoader();toast(e.message||'Registration failed.','err')}
@@ -1461,13 +1876,19 @@ async function doLogout(){await auth.signOut();ME=null;PROFILE=null}
    GOOGLE SIGN-IN
    ════════════════════════════════════════════════════════ */
 async function doGoogleSignIn(){
+  // Check enrollment code first (on register screen) 
+  const codeInput=el('r-code');
+  if(codeInput){
+    const code=(codeInput.value.trim()).toUpperCase();
+    if(!code)return toast('Please enter your enrollment code first.','err');
+    if(code!==COHORT.enrollmentCode.toUpperCase())return toast('Invalid enrollment code. Please check with Coach Senyo.','err');
+  }
   showLoader();
   try{
     const provider=new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({prompt:'select_account'});
     const result=await auth.signInWithPopup(provider);
     const user=result.user;
-    // Check if profile already exists
     const snap=await db.collection('users').doc(user.uid).get();
     if(!snap.exists){
       // New Google user — create basic profile then show completion form
@@ -1481,22 +1902,22 @@ async function doGoogleSignIn(){
         enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
         completedDays:[],currentDay:1,streak:0,
         goal:'',archetype:'',diagDone:false,
-        signInMethod:'google',profileComplete:false
+        signInMethod:'google',profileComplete:false,
+        cohort:COHORT.name,blocked:false
       });
       hideLoader();
       showV('vgoogle-profile');
+    }else{
+      // Existing user — check if blocked, then onAuth handles routing
+      const data=snap.data();
+      if(data.blocked===true){hideLoader();showV('vblocked');}
+      // else onAuth fires automatically
     }
-    // If existing user, onAuth handles routing normally
   }catch(e){
     hideLoader();
-    if(e.code==='auth/popup-closed-by-user'){
-      toast('Sign-in cancelled.','');
-    }else if(e.code==='auth/popup-blocked'){
-      toast('Pop-up blocked. Please allow pop-ups for this site and try again.','err');
-    }else{
-      toast('Google sign-in failed. Please try email registration instead.','err');
-      console.error(e);
-    }
+    if(e.code==='auth/popup-closed-by-user'){toast('Sign-in cancelled.','');}
+    else if(e.code==='auth/popup-blocked'){toast('Pop-up blocked. Please allow pop-ups for this site.','err');}
+    else{toast('Google sign-in failed. Please try email registration instead.','err');console.error(e);}
   }
 }
 
@@ -1534,6 +1955,10 @@ async function loadStudent(){
   try{
     const snap=await db.collection('users').doc(ME.uid).get();
     PROFILE=snap.data()||{};
+    // BLOCKED CHECK
+    if(PROFILE.blocked===true){
+      hideLoader();showV('vblocked');return;
+    }
     if(!PROFILE.diagDone){
       hideLoader();startDiagnostic();
     }else{
@@ -1546,6 +1971,18 @@ async function loadStudent(){
 async function buildStudentDashboard(){
   const name=PROFILE.firstName||'Speaker';
   el('home-greet').textContent=`Welcome back, ${name}! 👋`;
+
+  // Cohort display
+  const cohortPill=el('cohort-pill');
+  const cohortNameEl=el('cohort-name-display');
+  if(COHORT.name&&cohortPill){
+    cohortNameEl.textContent=COHORT.name;
+    cohortPill.style.display='inline-flex';
+  }
+
+  // Load live call links then render call card
+  await loadCallLinks();
+  renderWeeklyCallCard();
   const done=(PROFILE.completedDays||[]).length;
   const pct=Math.round((done/30)*100);
   el('home-prog').style.width=pct+'%';
@@ -1575,6 +2012,7 @@ async function buildStudentDashboard(){
   renderProgram();
   renderMilestones();
   loadAnnouncements();
+  loadInbox();
 }
 
 function getNextDay(){
@@ -1595,15 +2033,16 @@ function renderProgram(){
       const isDone=done.includes(l.day);
       const isNext=!isDone&&(l.day===1||done.includes(l.day-1));
       const isLocked=!isDone&&!isNext;
-      const cls=isDone?'done':isNext?'current':isLocked?'locked':'';
-      const icon=isDone?'✓':isNext?`${l.day}`:`🔒`;
-      html+=`<div class="day-card ${cls}" onclick="${isLocked?'':''}" ${isLocked?'':''}
-        style="cursor:${isLocked?'not-allowed':'pointer'}"
-        onclick="if(!${isLocked})openDay(${l.day})">
+      const trialLocked=isTrialLocked&&isTrialLocked(l.day);
+      const cls=isDone?'done':isNext?'current':(isLocked||trialLocked)?'locked':'';
+      const icon=isDone?'✓':isNext?`${l.day}`:trialLocked?'🔒🎯':'🔒';
+      html+=`<div class="day-card ${cls}"
+        style="cursor:${(isLocked||trialLocked)?'not-allowed':'pointer'}"
+        onclick="if(!${isLocked||false}&&!${trialLocked||false})openDay(${l.day})">
         <div class="day-badge">${isDone?'✓':l.day}</div>
         <div class="day-info">
-          <div class="day-title-sm">${isDone?'✅ ':isNext?'▶️ ':'🔒 '}${l.title}</div>
-          <div class="day-meta">Week ${l.week} · ${l.wTitle}${isDone?' · Completed':isNext?' · Ready to start':' · Complete previous days first'}</div>
+          <div class="day-title-sm">${isDone?'✅ ':isNext?'▶️ ':trialLocked?'🎯 ':'🔒 '}${l.title}</div>
+          <div class="day-meta">Week ${l.week} · ${l.wTitle}${isDone?' · Completed':isNext?' · Ready to start':trialLocked?' · Upgrade to unlock':' · Complete previous days first'}</div>
         </div>
         <div class="day-arrow">›</div>
       </div>`;
@@ -1705,23 +2144,33 @@ async function openDay(dayNum){
   const lesson=CURRICULUM[dayNum-1];if(!lesson)return;
   currentDayModal=dayNum;
   activityStates={lesson:false,mindset:false,breathing:false,speaking:false};
+  let coachFeedback='';
   // Check existing progress
   try{
     const snap=await db.collection('dayProgress').doc(`${ME.uid}_d${dayNum}`).get();
-    if(snap.exists){
-      const d=snap.data();
-      if(d.activities)Object.assign(activityStates,d.activities);
-    }
+    if(snap.exists){const d=snap.data();if(d.activities)Object.assign(activityStates,d.activities);}
   }catch(e){}
-  // Check if already completed
+  // Check if already completed + load coach feedback
   const isDone=(PROFILE.completedDays||[]).includes(dayNum);
-  renderDayModal(lesson,isDone);
+  if(isDone){
+    try{
+      const refSnap=await db.collection('reflections')
+        .where('userId','==',ME.uid).where('day','==',dayNum).limit(1).get();
+      if(!refSnap.empty){coachFeedback=refSnap.docs[0].data().coachFeedback||'';}
+    }catch(e){}
+  }
+  renderDayModal(lesson,isDone,coachFeedback);
   openM('modal-day');
 }
 
-function renderDayModal(lesson,isDone){
+function renderDayModal(lesson,isDone,coachFeedback=''){
   const arch=ARCHETYPES[PROFILE.archetype];
   const allDone=Object.values(activityStates).every(v=>v);
+  const videoId=VIDEO_URLS[String(lesson.day)]||'';
+  const videoHTML=videoId
+    ?`<div class="video-embed-wrap"><iframe src="https://www.youtube.com/embed/${videoId}?rel=0" allowfullscreen></iframe></div>`
+    :`<div class="video-placeholder"><div class="vp-icon">🎬</div><div class="vp-text">Video lesson coming soon — Coach Senyo is recording Day ${lesson.day}.<br>Complete the activities below in the meantime.</div></div>`;
+
   el('modal-day-body').innerHTML=`
     <div class="handle"></div>
     <div class="day-modal-hdr">
@@ -1730,7 +2179,8 @@ function renderDayModal(lesson,isDone){
       ${arch?`<div class="arch-tip"><strong>${arch.icon} ${arch.name} Tip:</strong> ${arch.tip}</div>`:''}
     </div>
 
-    <!-- VOLUNTARY TIMER -->
+    <!-- VIDEO LESSON -->
+    ${videoHTML}
     <div class="timer-wrap">
       <div class="timer-lbl">🕐 Focus Timer (Optional)</div>
       <div class="timer-display" id="timer-display">60:00</div>
@@ -1758,7 +2208,7 @@ function renderDayModal(lesson,isDone){
     <!-- REFLECTION -->
     <div style="margin-top:8px">
       <div class="sh" style="margin-bottom:6px">📝 Daily Reflection</div>
-      ${isDone?renderReflectionDone():allDone?renderReflectionForm(lesson.day):renderReflectionLocked()}
+      ${isDone?renderReflectionDone(coachFeedback):allDone?renderReflectionForm(lesson.day):renderReflectionLocked()}
     </div>
     ${isDone?`<div style="height:10px"></div><button class="btn btn-g" onclick="closeM('modal-day')">Close</button>`:''}
   `;
@@ -1829,25 +2279,60 @@ function renderReflectionLocked(){
 function renderReflectionForm(day){
   return`<div class="reflection-open">
     <div class="ref-hdr">Your Daily Reflection</div>
-    <div class="ref-sub">Three quick prompts. Be honest — your coach reads these.</div>
+    <div class="ref-sub">Three prompts — be honest. Your coach reads and responds to these.</div>
+
     <div class="ref-q"><div class="ref-qn">1 — What I Practised & One Breakthrough</div>
     <textarea class="ref-ta" id="ref1" placeholder="What did you do today and what was one breakthrough, however small?"></textarea></div>
+
     <div class="ref-q"><div class="ref-qn">2 — Connection to My 30-Day Goal</div>
     <textarea class="ref-ta" id="ref2" placeholder="How does what you did today connect to your 30-day goal?"></textarea></div>
+
     <div class="ref-q"><div class="ref-qn">3 — Tomorrow's Intention</div>
     <textarea class="ref-ta" id="ref3" placeholder="What is one specific thing you will do tomorrow to keep building?"></textarea></div>
-    <div class="btn-row" style="margin-top:14px">
+
+    <hr class="hr">
+    <div class="ref-qn" style="margin-bottom:10px">🎤 Speaking Practice Submission <span style="color:var(--muted);font-weight:300">(optional but recommended)</span></div>
+    <div class="sub-tabs">
+      <button class="sub-tab act" onclick="switchSubTab('text',this)">📝 Text</button>
+      <button class="sub-tab" onclick="switchSubTab('audio',this)">🎙 Voice Note</button>
+      <button class="sub-tab" onclick="switchSubTab('video',this)">🎬 Video Link</button>
+    </div>
+
+    <div id="sub-text" class="sub-panel">
+      <textarea class="ref-ta" id="ref-practice-text" placeholder="Describe your speaking practice — what you said, how it felt, what you noticed…" rows="3"></textarea>
+    </div>
+    <div id="sub-audio" class="sub-panel hidden">
+      <div class="audio-recorder">
+        <div class="ar-label">Record a voice note (max 3 minutes)</div>
+        <div class="ar-controls">
+          <button class="ar-btn ar-btn-record" id="ar-rec-btn" onclick="arToggleRecord()">🔴 Record</button>
+          <span class="ar-timer" id="ar-timer">0:00</span>
+        </div>
+        <div class="ar-status" id="ar-status">Tap Record to start your voice note.</div>
+        <div class="ar-playback hidden" id="ar-playback"></div>
+      </div>
+    </div>
+    <div id="sub-video" class="sub-panel hidden">
+      <div class="f" style="margin:0">
+        <div class="flbl">YouTube Video Link</div>
+        <input type="url" id="ref-video-url" placeholder="Paste your YouTube or Google Drive link here">
+      </div>
+      <div style="font-size:.8rem;color:var(--muted);margin-top:6px">Upload your practice video to YouTube as Unlisted, then paste the link above.</div>
+    </div>
+
+    <div class="btn-row" style="margin-top:16px">
       <button class="btn btn-g" onclick="closeM('modal-day')">Save for Later</button>
       <button class="btn btn-p" onclick="submitReflection(${day})">Submit & Complete Day ✅</button>
     </div>
   </div>`;
 }
 
-function renderReflectionDone(){
+function renderReflectionDone(coachFeedback=''){
   return`<div class="day-done-banner">
     <div class="dd-icon">🎉</div>
     <div class="dd-title">Day Complete!</div>
     <div class="dd-sub">You submitted your reflection. Keep the momentum going.</div>
+    ${coachFeedback?`<div class="coach-feedback-box"><div class="cf-label">🎤 Coach Senyo's Feedback</div><div class="cf-text">${coachFeedback}</div></div>`:'<div style="font-size:.78rem;color:var(--muted);margin-top:8px;font-style:italic">Your coach will respond to this reflection soon.</div>'}
   </div>`;
 }
 
@@ -1856,34 +2341,39 @@ async function submitReflection(day){
   const r2=el('ref2')?.value?.trim();
   const r3=el('ref3')?.value?.trim();
   if(!r1||!r2||!r3)return toast('Please complete all 3 reflection prompts.','err');
+  const practiceText=el('ref-practice-text')?.value?.trim()||'';
+  const practiceVideoUrl=el('ref-video-url')?.value?.trim()||'';
+  let practiceAudioUrl='';
+  if(arBlob){
+    try{practiceAudioUrl=await uploadAudio(arBlob,day);}catch(e){console.warn('Audio upload:',e);}
+  }
   try{
-    // Save reflection
     await db.collection('reflections').add({
       userId:ME.uid,day,
       userName:`${PROFILE.firstName} ${PROFILE.lastName}`,
-      userEmail:PROFILE.email,
-      archetype:PROFILE.archetype,
-      q1:r1,q2:r2,q3:r3,read:false,
+      userEmail:PROFILE.email,archetype:PROFILE.archetype,
+      cohort:COHORT.name,isTrial:PROFILE.isTrial||false,
+      q1:r1,q2:r2,q3:r3,
+      practiceText,practiceAudioUrl,practiceVideoUrl,
+      coachFeedback:'',read:false,
       submittedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-    // Mark day complete
     const newDone=[...(PROFILE.completedDays||[])];
     if(!newDone.includes(day))newDone.push(day);
     await db.collection('users').doc(ME.uid).update({completedDays:newDone,streak:newDone.length});
     PROFILE.completedDays=newDone;PROFILE.streak=newDone.length;
-    // Update dashboard
     const done=newDone.length;
     el('home-prog').style.width=Math.round((done/30)*100)+'%';
     el('prog-pct').textContent=`${done} / 30`;
     el('streak-display').textContent=`🔥 ${done} day${done!==1?'s':''} completed`;
     if(done===30)el('cert-btn-wrap').classList.remove('hidden');
     renderProgram();renderMilestones();
-    // Update continue card
     const nextD=getNextDay();
     const nl=CURRICULUM[nextD-1]||CURRICULUM[29];
     el('continue-title').textContent=`Day ${nextD}: ${nl.title}`;
+    arBlob=null;arStream=null;
     closeM('modal-day');
-    toast(`Day ${day} complete! 🎉 Great work.`,'ok');
+    checkWeekCelebration(day,done);
   }catch(e){toast('Submission failed. Please try again.','err');console.error(e)}
 }
 
@@ -1914,8 +2404,334 @@ function timerReset(){
 }
 
 /* ════════════════════════════════════════════════════════
-   GOOGLE PROFILE COMPLETION
+   SUBMISSION TABS (text / audio / video)
    ════════════════════════════════════════════════════════ */
+function switchSubTab(tab,btn){
+  ['text','audio','video'].forEach(t=>{
+    const p=el(`sub-${t}`);
+    if(p)p.classList.toggle('hidden',t!==tab);
+  });
+  document.querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+}
+
+/* ════════════════════════════════════════════════════════
+   AUDIO RECORDER
+   ════════════════════════════════════════════════════════ */
+let arMediaRecorder=null,arChunks=[],arBlob=null,arStream=null;
+let arTimerInterval=null,arSeconds=0,arRecording=false;
+
+function arToggleRecord(){
+  if(arRecording){arStopRecord();}else{arStartRecord();}
+}
+
+async function arStartRecord(){
+  try{
+    arStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    arMediaRecorder=new MediaRecorder(arStream);
+    arChunks=[];arSeconds=0;arBlob=null;
+    arMediaRecorder.ondataavailable=e=>{if(e.data.size>0)arChunks.push(e.data);};
+    arMediaRecorder.onstop=()=>{
+      arBlob=new Blob(arChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(arBlob);
+      const pb=el('ar-playback');
+      if(pb){
+        pb.classList.remove('hidden');
+        pb.innerHTML=`<audio controls src="${url}" class="ar-playback"></audio>`;
+      }
+      el('ar-status').textContent='Recording saved ✅ — you can play it back above.';
+    };
+    arMediaRecorder.start();
+    arRecording=true;
+    const btn=el('ar-rec-btn');
+    if(btn){btn.textContent='⏹ Stop';btn.classList.add('recording');}
+    el('ar-status').textContent='Recording… speak clearly into your microphone.';
+    arTimerInterval=setInterval(()=>{
+      arSeconds++;
+      const m=Math.floor(arSeconds/60),s=arSeconds%60;
+      const t=el('ar-timer');
+      if(t)t.textContent=`${m}:${String(s).padStart(2,'0')}`;
+      if(arSeconds>=180){arStopRecord();toast('Maximum 3 minutes reached.','');}
+    },1000);
+  }catch(e){
+    toast('Microphone access denied. Please allow microphone in your browser settings.','err');
+  }
+}
+
+function arStopRecord(){
+  if(arMediaRecorder&&arMediaRecorder.state!=='inactive'){arMediaRecorder.stop();}
+  if(arStream){arStream.getTracks().forEach(t=>t.stop());}
+  clearInterval(arTimerInterval);
+  arRecording=false;
+  const btn=el('ar-rec-btn');
+  if(btn){btn.textContent='🔴 Record Again';btn.classList.remove('recording');}
+}
+
+async function uploadAudio(blob,day){
+  // Store audio as base64 in Firestore (for small files up to ~500KB)
+  // For larger files, use Firebase Storage when upgraded
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onloadend=()=>{
+      // Store reference — actual audio stored separately
+      resolve(`audio_day${day}_${ME.uid}_${Date.now()}`);
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(blob);
+    // Save to Firestore audioSubmissions collection
+    const reader2=new FileReader();
+    reader2.onloadend=async()=>{
+      try{
+        await db.collection('audioSubmissions').add({
+          userId:ME.uid,day,
+          userName:`${PROFILE.firstName} ${PROFILE.lastName}`,
+          audioData:reader2.result.substring(0,500000), // max 500KB
+          submittedAt:firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }catch(e){console.warn('Audio save:',e);}
+    };
+    reader2.readAsDataURL(blob);
+  });
+}
+
+/* ════════════════════════════════════════════════════════
+   FREE TRIAL REGISTRATION
+   ════════════════════════════════════════════════════════ */
+async function doTrialRegister(){
+  const fn=el('t-fn').value.trim(),ln=el('t-ln').value.trim();
+  const em=el('t-em').value.trim(),pw=el('t-pw').value.trim();
+  const ph=el('t-ph').value.trim(),oc=el('t-oc').value.trim();
+  if(!fn||!ln)return toast('Please enter your full name.','err');
+  if(!em)return toast('Please enter your email address.','err');
+  if(pw.length<6)return toast('Password needs at least 6 characters.','err');
+  if(!ph)return toast('Please enter your WhatsApp number so Coach Senyo can reach you.','err');
+  showLoader();
+  try{
+    const c=await auth.createUserWithEmailAndPassword(em,pw);
+    await db.collection('users').doc(c.user.uid).set({
+      uid:c.user.uid,firstName:fn,lastName:ln,email:em,phone:ph,
+      age:'',occupation:oc,
+      enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
+      completedDays:[],currentDay:1,streak:0,
+      goal:'',archetype:'',diagDone:false,
+      isTrial:true,trialDaysAllowed:3,
+      cohort:'Trial',blocked:false
+    });
+    toast('Trial account created! Discover your Speaker Archetype now.','ok');
+  }catch(e){hideLoader();toast(e.message||'Registration failed.','err');}
+}
+
+/* ════════════════════════════════════════════════════════
+   TRIAL LOCK (gate Days 4+ for trial users)
+   ════════════════════════════════════════════════════════ */
+function isTrialLocked(dayNum){
+  return PROFILE.isTrial===true && dayNum>(PROFILE.trialDaysAllowed||3);
+}
+
+function renderTrialLockCard(){
+  return`<div class="trial-lock-card">
+    <div class="tlc-icon">🔓</div>
+    <div class="tlc-title">Your Free Trial is Complete!</div>
+    <div class="tlc-sub">You have experienced Days 1–3 of the Divine Linguist Academy — including your Speaker Archetype discovery. You have seen what's possible.<br><br>To unlock all 30 days, contact Coach Senyo on WhatsApp to enrol in the full programme.</div>
+    <a class="tlc-wa" href="https://wa.me/233248089238?text=Hi%20Coach%20Senyo%2C%20I%20completed%20my%203-day%20trial%20and%20I%20want%20to%20enrol%20in%20the%20full%20programme!" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+    </a>
+    <div style="font-size:.82rem;color:var(--muted)">📞 +233 248 089 238 · @thehotprof</div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════════
+   STUDENT INBOX
+   ════════════════════════════════════════════════════════ */
+let inboxMessages=[];
+
+async function loadInbox(){
+  try{
+    const snap=await db.collection('messages')
+      .where('toUserId','==',ME.uid)
+      .orderBy('sentAt','desc').get();
+    inboxMessages=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderInbox();
+    // Show badge if unread
+    const unread=inboxMessages.filter(m=>!m.read).length;
+    const badge=el('inbox-badge');
+    if(badge)badge.classList.toggle('hidden',unread===0);
+  }catch(e){console.warn('Inbox:',e);}
+}
+
+function renderInbox(){
+  const list=el('inbox-list');if(!list)return;
+  if(!inboxMessages.length){
+    list.innerHTML=`<div class="empty"><div class="ei">💬</div><p>No messages yet.<br>Your coach will send you personal feedback here.</p></div>`;
+    return;
+  }
+  list.innerHTML=inboxMessages.map(m=>`
+    <div class="inbox-msg ${m.read?'':'unread'}" onclick="openInboxMsg('${m.id}')">
+      <div class="inbox-msg-hdr">
+        <div style="display:flex;align-items:center;gap:8px">
+          ${!m.read?'<div class="inbox-unread-dot"></div>':''}
+          <div class="inbox-msg-from">🎤 Coach Senyo</div>
+        </div>
+        <div class="inbox-msg-time">${ago(m.sentAt)}</div>
+      </div>
+      <div style="font-size:.84rem;color:var(--gold);margin-bottom:4px">${m.subject||'Personal Message'}</div>
+      <div class="inbox-msg-preview">${m.body||''}</div>
+    </div>`).join('');
+}
+
+async function openInboxMsg(id){
+  const m=inboxMessages.find(x=>x.id===id);if(!m)return;
+  el('modal-ref-body').innerHTML=`
+    <div class="handle"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div class="savatar" style="width:40px;height:40px;font-size:.9rem;flex-shrink:0">SA</div>
+      <div>
+        <div style="font-size:.92rem;color:var(--text);font-weight:500">Coach Senyo Kwame Adzoro</div>
+        <div style="font-size:.74rem;color:var(--muted)">${fmtDate(m.sentAt)}</div>
+      </div>
+    </div>
+    <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l);margin-bottom:12px">${m.subject||'Personal Message'}</div>
+    <div style="font-size:.95rem;color:var(--text);line-height:1.75;background:var(--navy-s);padding:14px;border-radius:var(--rs)">${m.body||''}</div>
+    <button class="btn btn-g" onclick="closeM('modal-ref')" style="margin-top:14px">Close</button>
+  `;
+  if(!m.read){
+    try{
+      await db.collection('messages').doc(id).update({read:true});
+      m.read=true;
+      renderInbox();
+      const unread=inboxMessages.filter(x=>!x.read).length;
+      const badge=el('inbox-badge');
+      if(badge)badge.classList.toggle('hidden',unread===0);
+    }catch(e){}
+  }
+  openM('modal-ref');
+}
+
+/* ════════════════════════════════════════════════════════
+   ADMIN — PERSONAL MESSAGES
+   ════════════════════════════════════════════════════════ */
+let allSentMsgs=[];
+
+function populateMsgStudentSelect(){
+  const sel=el('msg-student-select');if(!sel)return;
+  sel.innerHTML='<option value="">— Select a student —</option>';
+  [...allStudents].sort((a,b)=>`${a.firstName}${a.lastName}`.localeCompare(`${b.firstName}${b.lastName}`))
+    .forEach(s=>{
+      const opt=document.createElement('option');
+      opt.value=s.uid;
+      opt.textContent=`${s.firstName} ${s.lastName} (${s.email})`;
+      sel.appendChild(opt);
+    });
+}
+
+async function loadSentMsgs(){
+  try{
+    const snap=await db.collection('messages').where('fromAdmin','==',true)
+      .orderBy('sentAt','desc').limit(20).get();
+    allSentMsgs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderSentMsgs();
+  }catch(e){console.warn('Sent msgs:',e);}
+}
+
+function renderSentMsgs(){
+  const list=el('sent-msgs-list');if(!list)return;
+  list.innerHTML=allSentMsgs.length?allSentMsgs.map(m=>`
+    <div class="ann-admin-item">
+      <div class="ann-admin-hdr">
+        <div>
+          <div style="font-size:.9rem;color:var(--text);font-weight:400">To: ${m.toUserName||'—'}</div>
+          <div style="font-size:.8rem;color:var(--gold);margin-top:2px">${m.subject||'Personal Message'}</div>
+          <div style="font-size:.72rem;color:var(--muted)">${ago(m.sentAt)} · ${m.read?'✅ Read':'⏳ Unread'}</div>
+        </div>
+        <button class="ann-del-btn" onclick="deleteMsg('${m.id}')">🗑</button>
+      </div>
+      <div style="font-size:.85rem;color:var(--sub);margin-top:6px;line-height:1.5">${m.body||''}</div>
+    </div>`).join('')
+    :'<div class="empty"><div class="ei">💬</div><p>No messages sent yet.</p></div>';
+}
+
+async function sendPersonalMsg(){
+  const toUid=el('msg-student-select')?.value;
+  const subject=el('msg-subject')?.value?.trim();
+  const body=el('msg-body')?.value?.trim();
+  if(!toUid)return toast('Please select a student.','err');
+  if(!subject)return toast('Please add a subject.','err');
+  if(!body)return toast('Please write your message.','err');
+  const student=allStudents.find(s=>s.uid===toUid);
+  try{
+    await db.collection('messages').add({
+      toUserId:toUid,
+      toUserName:`${student?.firstName||''} ${student?.lastName||''}`,
+      fromAdmin:true,subject,body,
+      read:false,
+      sentAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    el('msg-student-select').value='';
+    el('msg-subject').value='';
+    el('msg-body').value='';
+    await loadSentMsgs();
+    toast(`Message sent to ${student?.firstName||'student'}! 💬`,'ok');
+  }catch(e){toast('Failed to send message.','err');}
+}
+
+async function deleteMsg(id){
+  if(!confirm('Delete this message?'))return;
+  try{
+    await db.collection('messages').doc(id).delete();
+    allSentMsgs=allSentMsgs.filter(m=>m.id!==id);
+    renderSentMsgs();
+  }catch(e){toast('Delete failed.','err');}
+}
+
+/* ════════════════════════════════════════════════════════
+   ADMIN — TRIAL USERS
+   ════════════════════════════════════════════════════════ */
+let allTrials=[];
+
+async function loadAdminTrials(){
+  try{
+    const snap=await db.collection('users').where('isTrial','==',true)
+      .orderBy('enrolledAt','desc').get();
+    allTrials=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderTrials();
+    el('cnt-trials').textContent=allTrials.length;
+  }catch(e){console.warn('Trials:',e);}
+}
+
+function renderTrials(){
+  const list=el('trials-list');if(!list)return;
+  if(!allTrials.length){
+    list.innerHTML=`<div class="empty"><div class="ei">🎯</div><p>No trial users yet.</p></div>`;
+    return;
+  }
+  list.innerHTML=allTrials.map(s=>{
+    const done=(s.completedDays||[]).length;
+    const arch=ARCHETYPES[s.archetype];
+    return`<div class="srow" style="cursor:default">
+      <div class="savatar" style="background:linear-gradient(135deg,var(--warn),#a06020)">${initials(s)}</div>
+      <div class="srow-info">
+        <div class="srow-name">${s.firstName} ${s.lastName} <span class="trial-badge" style="margin:0;font-size:.68rem">Trial</span></div>
+        <div class="srow-meta">${s.email} · ${s.phone||'No phone'} · ${done}/3 days · ${arch?arch.icon+' '+arch.name:'No archetype yet'}</div>
+      </div>
+      <a href="https://wa.me/${(s.phone||'').replace(/[^0-9]/g,'')}" target="_blank"
+        style="background:#25D366;color:white;border:none;border-radius:var(--rs);padding:8px 10px;font-size:.8rem;text-decoration:none;white-space:nowrap">
+        💬 WhatsApp
+      </a>
+    </div>`;
+  }).join('');
+}
+
+/* Override openDay to show trial lock for gated days */
+const _origOpenDay=openDay;
+async function openDay(dayNum){
+  if(PROFILE&&isTrialLocked(dayNum)){
+    el('modal-day-body').innerHTML=`<div class="handle"></div>${renderTrialLockCard()}
+      <button class="btn btn-g" onclick="closeM('modal-day')" style="margin-top:14px">Close</button>`;
+    openM('modal-day');return;
+  }
+  await _origOpenDay(dayNum);
+}
 async function saveGoogleProfile(){
   const ph=el('gp-ph').value.trim();
   const ag=el('gp-ag').value.trim();
@@ -2015,6 +2831,57 @@ function openAdminDay(dayNum){
     <button class="btn btn-g" onclick="closeM('modal-day')">Close</button>
   `;
   openM('modal-day');
+}
+
+/* ════════════════════════════════════════════════════════
+   WEEK CELEBRATION
+   ════════════════════════════════════════════════════════ */
+function checkWeekCelebration(day, totalDone){
+  const celebrations={
+    7:{stars:'🌟🎤🌟',title:'Week 1 Complete!',badge:'Week 1 — Foundation & Mindset',
+       sub:'Seven days of courage and practice. Your voice is already different. You have built the foundation that most speakers never build.'},
+    14:{stars:'🔥🎤🔥',title:'Week 2 Complete!',badge:'Week 2 — Structure & Clarity',
+        sub:'Two weeks in. You can now structure any speech in minutes. Half of this programme is behind you — and the best half is ahead.'},
+    21:{stars:'⚡🎤⚡',title:'Week 3 Complete!',badge:'Week 3 — Delivery & Presence',
+        sub:'Three weeks. You have rebuilt how you deliver, connect, and tell stories. You are not the same speaker who started on Day 1.'},
+    28:{stars:'👑🎤👑',title:'Week 4 Complete!',badge:'Week 4 — Advanced Skills',
+        sub:'Four weeks of daily practice. You have done what most people only dream of. Two more days and you graduate.'},
+    30:{stars:'🎓🎤🎓',title:'You Are a Divine Linguist!',badge:'30-Day Programme Complete',
+        sub:'You did it. Every single day. Your voice has been transformed. Welcome to the Divine Linguist family — this is just the beginning.'}
+  };
+  const cel=celebrations[day];
+  if(!cel)return;
+  setTimeout(()=>{
+    el('cel-stars').textContent=cel.stars;
+    el('cel-title').textContent=cel.title;
+    el('cel-badge').textContent=cel.badge;
+    el('cel-sub').textContent=cel.sub;
+    openM('modal-celebrate');
+  },600);
+}
+
+/* ════════════════════════════════════════════════════════
+   WEEKLY CALL CARD
+   ════════════════════════════════════════════════════════ */
+function renderWeeklyCallCard(){
+  const done=(PROFILE.completedDays||[]).length;
+  const currentWeek=Math.min(Math.floor(done/7)+1,5);
+  const call=WEEKLY_CALLS[currentWeek-1];
+  const card=el('weekly-call-card');
+  if(!call||!card)return;
+  el('call-card-title').textContent=call.title;
+  el('call-card-time').textContent=call.dateTime;
+  el('call-card-btn').dataset.link=call.meetLink;
+  // Show if meet link is set (not placeholder)
+  if(call.meetLink&&call.meetLink!=='https://meet.google.com/your-link-here'){
+    card.classList.remove('hidden');
+  }
+}
+
+function joinGroupCall(){
+  const btn=el('call-card-btn');
+  const link=btn?.dataset?.link;
+  if(link)window.open(link,'_blank');
 }
 
 /* Save Google profile line */
@@ -2309,8 +3176,11 @@ function printCert(){
 async function loadAdmin(){
   try{
     el('adm-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    await Promise.all([loadAdminStudents(),loadAdminDiags(),loadAdminRefs(),loadAdminAnns()]);
+    await Promise.all([loadAdminStudents(),loadAdminTrials(),loadAdminDiags(),loadAdminRefs(),loadAdminAnns()]);
     renderAdminProgram();
+    renderAdminCalls();
+    await loadSentMsgs();
+    populateMsgStudentSelect();
     updateStats();
     hideLoader();showV('vadmin');
   }catch(e){console.error(e);hideLoader();showV('vadmin')}
@@ -2318,9 +3188,10 @@ async function loadAdmin(){
 
 async function loadAdminStudents(){
   const snap=await db.collection('users').orderBy('enrolledAt','desc').get();
-  allStudents=snap.docs.map(d=>({id:d.id,...d.data()}));
+  allStudents=snap.docs.map(d=>({id:d.id,...d.data()})).filter(s=>!s.isTrial);
   renderStudents();
   el('cnt-s').textContent=allStudents.length;
+  populateMsgStudentSelect();
 }
 
 async function loadAdminDiags(){
@@ -2370,12 +3241,12 @@ function renderStudents(filter=''){
     const done=(s.completedDays||[]).length;
     const arch=ARCHETYPES[s.archetype];
     return`<div class="srow" onclick="openStudentModal('${s.uid}')">
-      <div class="savatar">${initials(s)}</div>
+      <div class="savatar" style="${s.blocked?'opacity:.5':''}">${initials(s)}</div>
       <div class="srow-info">
-        <div class="srow-name">${s.firstName} ${s.lastName}</div>
+        <div class="srow-name">${s.firstName} ${s.lastName} ${s.blocked?'<span style="color:var(--err);font-size:.75rem">🚫 Blocked</span>':''}</div>
         <div class="srow-meta">${s.email} · ${done}/30 days · ${arch?arch.icon+' '+arch.name:'No archetype yet'}</div>
       </div>
-      <div class="badge ${done>=30?'b-ok':done>0?'b-gold':'b-muted'}">${done>=30?'Graduate':done>0?'Active':'New'}</div>
+      <div class="badge ${s.blocked?'b-err':done>=30?'b-ok':done>0?'b-gold':'b-muted'}">${s.blocked?'Blocked':done>=30?'Graduate':done>0?'Active':'New'}</div>
     </div>`}).join(''):'<div class="empty"><div class="ei">👥</div><p>No students yet.</p></div>';
 }
 
@@ -2397,10 +3268,37 @@ function openStudentModal(uid){
     <div class="pgwrap" style="margin-bottom:4px"><div class="pgfill" style="width:${pct}%"></div></div>
     <div style="font-size:.74rem;color:var(--sub);text-align:right;margin-bottom:12px">${done} of 30 days complete</div>
     ${s.goal?`<div style="background:var(--gold-bg);border-radius:var(--rs);padding:10px;margin-bottom:12px;font-size:.84rem;color:var(--text);font-style:italic">"${s.goal}"</div>`:''}
-    <div class="card">${[['Phone',s.phone||'—'],['Age',s.age||'—'],['Occupation',s.occupation||'—'],['Location',s.diagDone?(allDiags.find(d=>d.userId===s.uid)?.answers?.location||'—'):'—'],['Enrolled',fmtDate(s.enrolledAt)],['Diagnostic',s.diagDone?'✅ Submitted':'⏳ Not yet'],['Days Done',done+' of 30']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bsoft);font-size:.85rem"><span style="color:var(--sub)">${l}</span><span>${v}</span></div>`).join('')}</div>
-    <button class="btn btn-g" onclick="closeM('modal-student')" style="margin-top:10px">Close</button>
+    <div class="card">${[['Phone',s.phone||'—'],['Age',s.age||'—'],['Occupation',s.occupation||'—'],['Location',s.diagDone?(allDiags.find(d=>d.userId===s.uid)?.answers?.location||'—'):'—'],['Enrolled',fmtDate(s.enrolledAt)],['Cohort',s.cohort||'—'],['Diagnostic',s.diagDone?'✅ Submitted':'⏳ Not yet'],['Days Done',done+' of 30'],['Status',s.blocked?'🚫 Blocked':'✅ Active']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bsoft);font-size:.92rem"><span style="color:var(--sub)">${l}</span><span>${v}</span></div>`).join('')}</div>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn btn-g" onclick="closeM('modal-student')">Close</button>
+      ${s.blocked
+        ? `<button class="btn btn-ok" onclick="toggleBlockStudent('${s.uid}',false)">✅ Unblock Student</button>`
+        : `<button class="btn btn-d" onclick="toggleBlockStudent('${s.uid}',true)">🚫 Block Student</button>`}
+    </div>
   `;
   openM('modal-student');
+}
+
+async function toggleBlockStudent(uid, block){
+  const action = block ? 'block' : 'unblock';
+  const student = allStudents.find(s=>s.uid===uid);
+  const name = student ? `${student.firstName} ${student.lastName}` : 'this student';
+  if(!confirm(`Are you sure you want to ${action} ${name}?\n\n${block ? 'They will immediately lose access to the academy.' : 'They will regain full access to the academy.'}`)) return;
+  try{
+    await db.collection('users').doc(uid).update({blocked: block});
+    // Update local state
+    const s = allStudents.find(x=>x.uid===uid);
+    if(s) s.blocked = block;
+    closeM('modal-student');
+    renderStudents(el('s-search')?.value||'');
+    toast(block
+      ? `${name} has been blocked. ✅`
+      : `${name} has been unblocked and can access the academy again. ✅`,
+      block ? '' : 'ok'
+    );
+  }catch(e){
+    toast('Could not update access. Please try again.','err');
+  }
 }
 
 function renderDiags(){
@@ -2489,21 +3387,82 @@ async function openRef(id){
     <div class="handle"></div>
     <div style="margin-bottom:12px">
       <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-l)">${r.userName}</div>
-      <div style="font-size:.74rem;color:var(--muted)">Day ${r.day} · ${fmtDate(r.submittedAt)}</div>
+      <div style="font-size:.74rem;color:var(--muted)">Day ${r.day} · ${fmtDate(r.submittedAt)} · ${r.cohort||''}</div>
       ${ARCHETYPES[r.archetype]?`<div class="badge b-gold" style="margin-top:5px">${ARCHETYPES[r.archetype].icon} ${ARCHETYPES[r.archetype].name}</div>`:''}
     </div>
     ${[['What I Practised & Breakthrough',r.q1],['Connection to 30-Day Goal',r.q2],['Tomorrow\'s Intention',r.q3]].map(([l,v])=>`
-      <div style="margin-bottom:14px">
+      <div style="margin-bottom:12px">
         <div style="font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px">${l}</div>
         <div style="font-size:.87rem;color:var(--text);line-height:1.6;background:var(--navy-s);padding:10px;border-radius:var(--rs)">${v||'—'}</div>
       </div>`).join('')}
-    <button class="btn btn-g" onclick="closeM('modal-ref')" style="margin-top:6px">Close</button>
+    <hr class="hr">
+    <div style="margin-bottom:6px">
+      <div style="font-size:.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">🎤 Your Feedback to ${r.userName.split(' ')[0]}</div>
+      <textarea id="coach-fb-input" rows="4" placeholder="Write your personalised feedback here — it will appear in the student's app…" style="width:100%;background:var(--navy-input);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.88rem;padding:10px;outline:none;resize:vertical;">${r.coachFeedback||''}</textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="closeM('modal-ref')">Close</button>
+      <button class="btn btn-p" onclick="saveCoachFeedback('${id}')">✅ Send Feedback</button>
+    </div>
   `;
-  // Mark as read
   if(!r.read){
     try{await db.collection('reflections').doc(id).update({read:true});r.read=true;updateStats();}catch(e){}
   }
   openM('modal-ref');
+}
+
+function renderAdminCalls(){
+  const callsEl=el('admin-calls-list');
+  if(!callsEl)return;
+  callsEl.innerHTML=WEEKLY_CALLS.map((c,i)=>`
+    <div style="background:var(--navy-c);border:1px solid var(--bsoft);border-radius:var(--rs);padding:12px;margin-bottom:8px">
+      <div style="font-size:.75rem;color:var(--gold);margin-bottom:4px">Week ${c.week}</div>
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:6px">${c.title}</div>
+      <div style="font-size:.75rem;color:var(--sub);margin-bottom:8px">📅 ${c.dateTime}</div>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="call-link-${i}" value="${c.meetLink}" placeholder="Paste Google Meet link…"
+          style="flex:1;background:var(--navy-input);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:.82rem;padding:8px 10px;outline:none">
+        <button onclick="saveCallLink(${i})" style="background:var(--ok);color:white;border:none;border-radius:var(--rs);padding:8px 14px;font-size:.8rem;cursor:pointer;white-space:nowrap">Save</button>
+      </div>
+    </div>`).join('');
+}
+
+function saveCallLink(index){
+  const input=el(`call-link-${index}`);
+  if(!input)return;
+  const link=input.value.trim();
+  if(!link)return toast('Please paste a valid Meet link.','err');
+  WEEKLY_CALLS[index].meetLink=link;
+  // Save to Firestore so it persists
+  db.collection('settings').doc('weekly_calls').set({calls:WEEKLY_CALLS})
+    .then(()=>toast(`Week ${WEEKLY_CALLS[index].week} call link saved! ✅`,'ok'))
+    .catch(()=>toast('Saved locally — Firebase update failed.',''));
+  // Update student call card if they are viewing
+  renderWeeklyCallCard&&renderWeeklyCallCard();
+}
+
+async function loadCallLinks(){
+  try{
+    const snap=await db.collection('settings').doc('weekly_calls').get();
+    if(snap.exists){
+      const data=snap.data();
+      if(data.calls&&Array.isArray(data.calls)){
+        data.calls.forEach((c,i)=>{if(WEEKLY_CALLS[i])WEEKLY_CALLS[i].meetLink=c.meetLink||WEEKLY_CALLS[i].meetLink;});
+      }
+    }
+  }catch(e){}
+}
+
+async function saveCoachFeedback(id){
+  const feedback=el('coach-fb-input')?.value?.trim();
+  if(!feedback)return toast('Please write your feedback first.','err');
+  try{
+    await db.collection('reflections').doc(id).update({coachFeedback:feedback});
+    const r=allRefs.find(x=>x.id===id);
+    if(r)r.coachFeedback=feedback;
+    closeM('modal-ref');
+    toast(`Feedback sent to ${allRefs.find(x=>x.id===id)?.userName?.split(' ')[0]||'student'}! ✅`,'ok');
+  }catch(e){toast('Could not save feedback.','err')}
 }
 
 async function postAnn(){
