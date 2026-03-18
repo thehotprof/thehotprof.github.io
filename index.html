@@ -1876,9 +1876,11 @@ async function doLogout(){await auth.signOut();ME=null;PROFILE=null}
    GOOGLE SIGN-IN
    ════════════════════════════════════════════════════════ */
 async function doGoogleSignIn(){
-  // Check enrollment code first (on register screen) 
+  // Only check enrollment code if called from the REGISTER screen (new users)
+  // Returning users logging in should never be asked for a code
+  const isRegisterScreen = !el('vlogin') || el('vlogin').classList.contains('hidden');
   const codeInput=el('r-code');
-  if(codeInput){
+  if(isRegisterScreen && codeInput && codeInput.closest('#vreg') && !el('vreg').classList.contains('hidden')){
     const code=(codeInput.value.trim()).toUpperCase();
     if(!code)return toast('Please enter your enrollment code first.','err');
     if(code!==COHORT.enrollmentCode.toUpperCase())return toast('Invalid enrollment code. Please check with Coach Senyo.','err');
