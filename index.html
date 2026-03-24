@@ -3363,97 +3363,6 @@ function downloadDiagPDF(id){
   ${Object.entries({nickname:'Preferred Name',location:'Location',edu:'Education',lang:'Language',exp:'Speaking Experience',context:'Speaking Context',conf:'Confidence Rating',bigfear:'Biggest Fear',bodyfeel:'Physical Response',judg:'Fear of Judgment Rating',badExp:'Negative Experience',goal:'30-Day Goal',target:'Target Situation',success:'Definition of Success',admire:'Speaker Admired',voicerel:'Voice Relationship',practfreq:'Practice Frequency',belief:'Self-Belief',letter:'Message to Coach'}).map(([k,l])=>a[k]?`<div class="q"><div class="ql">${l}</div><div class="qv">${a[k]}</div></div>`:'').join('')}
   <div class="footer">Divine Linguist Academy · Coach Senyo Kwame Adzoro · @thehotprof<br>+233 248 089 238 · senyoadzoro@gmail.com</div>
   
-<!-- PWA Install Banner + Service Worker -->
-<script>
-(function(){
-  // Register service worker for offline & installability
-  if('serviceWorker' in navigator){
-    const swCode=`
-self.addEventListener('install',e=>{
-  e.waitUntil(caches.open('dla-v1').then(c=>c.addAll(['/'])));
-  self.skipWaiting();
-});
-self.addEventListener('activate',e=>{
-  e.waitUntil(clients.claim());
-});
-self.addEventListener('fetch',e=>{
-  if(e.request.method!=='GET')return;
-  e.respondWith(
-    caches.match(e.request).then(cached=>{
-      const fresh=fetch(e.request).then(r=>{
-        if(r&&r.status===200){
-          const clone=r.clone();
-          caches.open('dla-v1').then(c=>c.put(e.request,clone));
-        }
-        return r;
-      }).catch(()=>cached);
-      return cached||fresh;
-    })
-  );
-});`;
-    const blob=new Blob([swCode],{type:'text/javascript'});
-    const url=URL.createObjectURL(blob);
-    navigator.serviceWorker.register(url).catch(()=>{});
-  }
-
-  // iOS install prompt
-  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isStandalone=window.navigator.standalone;
-  const dismissed=sessionStorage.getItem('pwa-dismissed');
-  if(isIOS&&!isStandalone&&!dismissed){
-    setTimeout(()=>{
-      const banner=document.createElement('div');
-      banner.id='pwa-ios-banner';
-      banner.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#162333;border-top:1px solid rgba(201,168,76,.4);padding:14px 16px 28px;z-index:9997;display:flex;align-items:flex-start;gap:12px;animation:slideUp .3s ease';
-      banner.innerHTML=`
-        <div style="font-size:2rem;flex-shrink:0">🎤</div>
-        <div style="flex:1">
-          <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:#E8C96A;margin-bottom:4px">Add to Home Screen</div>
-          <div style="font-size:.82rem;color:#a89878;line-height:1.5">Tap the <strong style="color:#fff">Share</strong> button below, then <strong style="color:#fff">"Add to Home Screen"</strong> for quick access to the academy.</div>
-        </div>
-        <button onclick="document.getElementById('pwa-ios-banner').remove();sessionStorage.setItem('pwa-dismissed','1')"
-          style="background:none;border:none;color:#a89878;font-size:1.2rem;padding:0;flex-shrink:0;cursor:pointer">✕</button>`;
-      document.body.appendChild(banner);
-    },3000);
-  }
-
-  // Android / Desktop install prompt
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt',e=>{
-    e.preventDefault();
-    deferredPrompt=e;
-    const dismissed=sessionStorage.getItem('pwa-dismissed');
-    if(dismissed)return;
-    setTimeout(()=>{
-      const banner=document.createElement('div');
-      banner.id='pwa-android-banner';
-      banner.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#162333;border-top:1px solid rgba(201,168,76,.4);padding:14px 16px 28px;z-index:9997;display:flex;align-items:center;gap:12px;animation:slideUp .3s ease';
-      banner.innerHTML=`
-        <div style="font-size:2rem;flex-shrink:0">🎤</div>
-        <div style="flex:1">
-          <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:#E8C96A;margin-bottom:3px">Install the Academy App</div>
-          <div style="font-size:.82rem;color:#a89878">Add to your home screen for one-tap access.</div>
-        </div>
-        <button id="pwa-install-btn"
-          style="background:linear-gradient(135deg,#C9A84C,#8a6d2f);color:#0D1B2A;border:none;border-radius:8px;padding:9px 14px;font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap">
-          Install
-        </button>
-        <button onclick="document.getElementById('pwa-android-banner').remove();sessionStorage.setItem('pwa-dismissed','1')"
-          style="background:none;border:none;color:#a89878;font-size:1.2rem;padding:0 4px;cursor:pointer">✕</button>`;
-      document.body.appendChild(banner);
-      document.getElementById('pwa-install-btn').addEventListener('click',async()=>{
-        banner.remove();
-        if(deferredPrompt){
-          deferredPrompt.prompt();
-          const{outcome}=await deferredPrompt.userChoice;
-          deferredPrompt=null;
-        }
-      });
-    },3000);
-  });
-})();
-</script>
-</body></html>`);
   printWin.document.close();printWin.focus();setTimeout(()=>printWin.print(),800);
 }
 
@@ -3594,6 +3503,99 @@ async function delAnn(id){
     toast('Announcement deleted.','');
   }catch(e){toast('Delete failed.','err')}
 }
+
+</script>
+
+
+<!-- PWA Install Banner + Service Worker -->
+<script>
+(function(){
+  // Register service worker for offline & installability
+  if('serviceWorker' in navigator){
+    const swCode=`
+self.addEventListener('install',e=>{
+  e.waitUntil(caches.open('dla-v1').then(c=>c.addAll(['/'])));
+  self.skipWaiting();
+});
+self.addEventListener('activate',e=>{
+  e.waitUntil(clients.claim());
+});
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  e.respondWith(
+    caches.match(e.request).then(cached=>{
+      const fresh=fetch(e.request).then(r=>{
+        if(r&&r.status===200){
+          const clone=r.clone();
+          caches.open('dla-v1').then(c=>c.put(e.request,clone));
+        }
+        return r;
+      }).catch(()=>cached);
+      return cached||fresh;
+    })
+  );
+});`;
+    const blob=new Blob([swCode],{type:'text/javascript'});
+    const url=URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).catch(()=>{});
+  }
+
+  // iOS install prompt
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=window.navigator.standalone;
+  const dismissed=sessionStorage.getItem('pwa-dismissed');
+  if(isIOS&&!isStandalone&&!dismissed){
+    setTimeout(()=>{
+      const banner=document.createElement('div');
+      banner.id='pwa-ios-banner';
+      banner.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#162333;border-top:1px solid rgba(201,168,76,.4);padding:14px 16px 28px;z-index:9997;display:flex;align-items:flex-start;gap:12px;animation:slideUp .3s ease';
+      banner.innerHTML=`
+        <div style="font-size:2rem;flex-shrink:0">🎤</div>
+        <div style="flex:1">
+          <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:#E8C96A;margin-bottom:4px">Add to Home Screen</div>
+          <div style="font-size:.82rem;color:#a89878;line-height:1.5">Tap the <strong style="color:#fff">Share</strong> button below, then <strong style="color:#fff">"Add to Home Screen"</strong> for quick access to the academy.</div>
+        </div>
+        <button onclick="document.getElementById('pwa-ios-banner').remove();sessionStorage.setItem('pwa-dismissed','1')"
+          style="background:none;border:none;color:#a89878;font-size:1.2rem;padding:0;flex-shrink:0;cursor:pointer">✕</button>`;
+      document.body.appendChild(banner);
+    },3000);
+  }
+
+  // Android / Desktop install prompt
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    deferredPrompt=e;
+    const dismissed=sessionStorage.getItem('pwa-dismissed');
+    if(dismissed)return;
+    setTimeout(()=>{
+      const banner=document.createElement('div');
+      banner.id='pwa-android-banner';
+      banner.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#162333;border-top:1px solid rgba(201,168,76,.4);padding:14px 16px 28px;z-index:9997;display:flex;align-items:center;gap:12px;animation:slideUp .3s ease';
+      banner.innerHTML=`
+        <div style="font-size:2rem;flex-shrink:0">🎤</div>
+        <div style="flex:1">
+          <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:#E8C96A;margin-bottom:3px">Install the Academy App</div>
+          <div style="font-size:.82rem;color:#a89878">Add to your home screen for one-tap access.</div>
+        </div>
+        <button id="pwa-install-btn"
+          style="background:linear-gradient(135deg,#C9A84C,#8a6d2f);color:#0D1B2A;border:none;border-radius:8px;padding:9px 14px;font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap">
+          Install
+        </button>
+        <button onclick="document.getElementById('pwa-android-banner').remove();sessionStorage.setItem('pwa-dismissed','1')"
+          style="background:none;border:none;color:#a89878;font-size:1.2rem;padding:0 4px;cursor:pointer">✕</button>`;
+      document.body.appendChild(banner);
+      document.getElementById('pwa-install-btn').addEventListener('click',async()=>{
+        banner.remove();
+        if(deferredPrompt){
+          deferredPrompt.prompt();
+          const{outcome}=await deferredPrompt.userChoice;
+          deferredPrompt=null;
+        }
+      });
+    },3000);
+  });
+})();
 </script>
 
 </body>
